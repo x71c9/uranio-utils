@@ -1,0 +1,11 @@
+version: 3.9
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      container_name: node
+      restart: always
+      volumes:
+        - ./:/app
+        - /app/node_modules
