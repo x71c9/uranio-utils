@@ -1,11 +1,11 @@
-version: 3.9
+version: '3.3'
 services:
   server:
+    restart: always
+    container_name: urn_lib
+    network_mode: host
+    volumes:
+      - ./:/app
+      - /app/node_modules
     build:
       context: .
-      dockerfile: ./Dockerfile
-      container_name: node
-      restart: always
-      volumes:
-        - ./:/app
-        - /app/node_modules
