@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Uranio library repo",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "node -r source-map-support/register dist/index.js",
     "dev": "./node_modules/.bin/tsc-watch --onSuccess \"node -r source-map-support/register ./dist/index.js\""
@@ -19,7 +20,6 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/nbl7/urn-lib#readme",
   "devDependencies": {
-    "@types/dateformat": "^3.0.1",
     "urn-dev": "git+ssh://git@bitbucket.org/nbl7/urn-dev.git"
   },
   "dependencies": {
