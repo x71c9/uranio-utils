@@ -1,13 +1,14 @@
-import * as urn_log from './log/log';
+import * as log from './log/index';
 
-import urn_return from './return/return';
+import * as response from './response/index';
 
-import * as urn_util  from './util/index';
+import * as ureturn from './return/index';
 
-const urn_lib = {
-	log: urn_log,
-	return: urn_return,
-	util: urn_util
+import * as util  from './util/index';
+
+export default {
+	log,
+	response,
+	ureturn,
+	util
 };
-
-export default urn_lib;

@@ -1,22 +1,22 @@
-
 /*
  * Import dateformat module
  */
 import dateFormat from 'dateformat';
 
-import {jsonOneLine} from '../util/formatter';
+/*
+ * Import log types
+ */
+import {LogType, LogInjectable} from './types';
 
-import {URNLogInjectable} from '../util/log_injectable.t';
+/*
+ * Import jsonOneLine
+ */
+import {jsonOneLine} from '../util/formatter';
 
 /*
  * Import log configuration file
  */
 import log_defaults from './log.defaults';
-
-/*
- * Import URNLogType
- */
-import {URNLogType} from './log.t';
 
 /**
  * Common commands between all the types of logs
@@ -27,7 +27,7 @@ import {URNLogType} from './log.t';
  * @param start - at what line the stack should start
  * @param ...params - variables to log
  */
-function _cecho(type:URNLogType, style:string|string[], start:number, depth:number, ...params:any[])
+function _cecho(type:LogType, style:string|string[], start:number, depth:number, ...params:any[])
 		:void{
 	const stylelog = style + '%s' + terminal_styles.reset;
 	_log_stack(type, stylelog, start, depth);
@@ -45,7 +45,7 @@ function _cecho(type:URNLogType, style:string|string[], start:number, depth:numb
  * @param depth - how many lines should be log from the stack.
  * @param start - at what line the stack should start.
  */
-function _log_stack(type:URNLogType, stylelog:string, start=0, depth=-1)
+function _log_stack(type:LogType, stylelog:string, start=0, depth=-1)
 		:void{
 	const stack = new Error().stack;
 	Error.stackTraceLimit = 16;
@@ -188,7 +188,7 @@ const console_styles = {
 	bg_white: 'background-color: white;'
 };
 
-export const terminal_log_injector:URNLogInjectable = {
+export const terminal_log_injector:LogInjectable = {
 	
 	error_inject: (...p:any) => {
 		_cecho('error', terminal_styles.fgRed, 6, -1, ...p);
@@ -212,7 +212,7 @@ export const terminal_log_injector:URNLogInjectable = {
 	
 };
 
-export const browser_log_injector:URNLogInjectable = {
+export const browser_log_injector:LogInjectable = {
 	
 	error_inject: (...p:any) => {
 		_cecho('error', [console_styles.fg_red], 4, -1, ...p);

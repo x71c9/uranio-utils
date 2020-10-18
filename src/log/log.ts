@@ -10,6 +10,11 @@
 import dateFormat from 'dateformat';
 
 /*
+ * Import log types
+ */
+import {LogType} from './types';
+
+/*
  * Import jsonOneLine formatter
  */
 import {jsonOneLine} from '../util/formatter';
@@ -20,32 +25,22 @@ import {jsonOneLine} from '../util/formatter';
 import log_defaults from './log.defaults';
 
 /*
- * Import URNLogType
- */
-import {URNLogType} from './log.t';
-
-/*
- * Export imported URNLogLevel as LogLevel
- */
-export {URNLogLevel as LogLevel} from './log.t';
-
-/*
  * Export log_defaults as config
  */
-export {log_defaults as config};
+export {log_defaults as defaults};
 
 /*
- * Import URNResponseInjectable
+ * Import ReturnInjectable
  */
-import {URNResponseInjectable} from '../util/response_injectable.t';
+import {ReturnInjectable} from '../return/types';
 
 /**
  * Function that will check the type and run the corresponding injector method
  *
- * @param type - the injector method type, same as URNLogType.
+ * @param type - the injector method type, same as LogType.
  * @param ...params - parameters to log.
  */
-function _run_injector(type:URNLogType, ...params:any[]){
+function _run_injector(type:LogType, ...params:any[]){
 	if(!Array.isArray(log_defaults.injectors) || log_defaults.injectors.length == 0)
 		return;
 	for(const injector of log_defaults.injectors){
@@ -137,7 +132,7 @@ export function error(...params:any[])
 /**
  * Generate random id
  */
-export function randId():string{
+function randId():string{
 	const milliseconds = dateFormat(new Date(), 'l');
 	return (Math.floor(Math.random()*100) + '' + milliseconds).padStart(5,'0');
 }
@@ -149,7 +144,7 @@ export function randId():string{
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-export function fndebugCostructor(rand_id:string, constructor_name:string, str_args:string)
+function fndebugCostructor(rand_id:string, constructor_name:string, str_args:string)
 		:void{
 	fndebug(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
@@ -161,10 +156,10 @@ export function fndebugCostructor(rand_id:string, constructor_name:string, str_a
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-export function fndebugPrivateCostructor(rand_id:string, constructor_name:string, str_args:string)
-		:void{
-	fndebug(`[${rand_id}] private ${constructor_name}(${str_args})`);
-}
+// function fndebugPrivateCostructor(rand_id:string, constructor_name:string, str_args:string)
+//     :void{
+//   fndebug(`[${rand_id}] private ${constructor_name}(${str_args})`);
+// }
 
 /**
  * Debug a method with arguments
@@ -174,7 +169,7 @@ export function fndebugPrivateCostructor(rand_id:string, constructor_name:string
  * @param method - The name of the method being called.
  * @param str_args - A string containing the arguments.
  */
-export function fndebugMethodWithArgs(rand_id:string, target_name:string, method:string, str_args:string)
+function fndebugMethodWithArgs(rand_id:string, target_name:string, method:string, str_args:string)
 		:void{
 	fndebug(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
@@ -188,7 +183,7 @@ export function fndebugMethodWithArgs(rand_id:string, target_name:string, method
  * @param str_result - The result of the method as string.
  * @param is_promise - A boolean value, true if the method return a Promise.
  */
-export function fndebugMethodResponse(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
+function fndebugMethodResponse(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
 		:void{
 	const promise_str = (is_promise) ? ' [Promise]' : '';
 	fndebug(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
@@ -202,7 +197,7 @@ export function fndebugMethodResponse(rand_id:string, target_name:string, method
  * @param method - The name of the method being called.
  * @param error - The error to log.
  */
-export function fndebugMethodResponseError(rand_id:string, target_name:string, method:string, error:Error)
+function fndebugMethodResponseError(rand_id:string, target_name:string, method:string, error:Error)
 		:void{
 	fndebug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
 	fndebug(error);
@@ -214,7 +209,7 @@ export function fndebugMethodResponseError(rand_id:string, target_name:string, m
  * @param args - Array of paramter to format.
  * @param max_str_length - Max string length for formatted arguments.
  */
-export function formatArgs(args:any[], max_str_length:number)
+function formatArgs(args:any[], max_str_length:number)
 		:string{
 	let str_args = (args.length > 0) ? `${args}` : '';
 	try{
@@ -235,7 +230,7 @@ export function formatArgs(args:any[], max_str_length:number)
  * @param max_str_length - Max string length for formatted result.
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function formatResult(result:any, max_str_length:number)
+function formatResult(result:any, max_str_length:number)
 		:string{
 	let str_result = `${result}`;
 	try{
@@ -252,7 +247,6 @@ export function formatResult(result:any, max_str_length:number)
 
 /**
  * Class @decorator function for loggin constructor with arguments
- * The function will actually return a decorator function.
  *
  * @param log_instance - the log instance that will be used for logging
  */
@@ -330,7 +324,8 @@ function replace_method_with_logs(
  * @param target - the class itself (check Decorator documentation)
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function debug_methods(target:Function):void{
+export function debug_methods(target:Function)
+		:void{
 	//constructor methods
 	for(const property_name of Object.getOwnPropertyNames(target.prototype)) {
 		const descriptor = Object.getOwnPropertyDescriptor(target.prototype, property_name)!;
@@ -354,7 +349,7 @@ export function debug_methods(target:Function):void{
  *
  * This object can be used in "return" module.
  */
-export const response_injector:URNResponseInjectable = {
+export const response_injector:ReturnInjectable = {
 	success_handler: (p) => {
 		log(p);
 		return p;

@@ -1,29 +1,25 @@
-import {terminal_log_injector, browser_log_injector} from '../log/console_injector';
+/*
+ * Import log types
+ */
+import {LogDefaults, LogLevel} from './types';
 
-import {URNLogLevel, URNLogContext} from './log.t';
+/*
+ * Import console injectors
+ */
+import {terminal_log_injector, browser_log_injector} from '../log/console_injectors';
 
-import {URNLogInjectable} from '../util/log_injectable.t';
-
-interface LogDefaults {
-	
-	log_level: URNLogLevel;
-	
-	time_format:string;
-	
-	max_str_length:number;
-	
-	context:URNLogContext;
-	
-	injectors:URNLogInjectable[];
-	
-}
-
+/*
+ * Select default injector, check if is node or browser
+ */
 const log_injector = (typeof process === undefined) ?
 	browser_log_injector : terminal_log_injector;
 
+/*
+ * Instanciate Log default object
+ */
 const log_defaults:LogDefaults = {
 	
-	log_level: URNLogLevel.ERROR,
+	log_level: LogLevel.ERROR,
 	
 	time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
 	

@@ -1,9 +1,9 @@
 {
   "name": "urn-lib",
   "version": "0.0.1",
-  "description": "Uranio library repo",
+  "description": "Uranio library. Shared code used in Uranio repos.",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.d.ts",
   "scripts": {
     "start": "node -r source-map-support/register dist/index.js",
     "dev": "./node_modules/.bin/tsc-watch --onSuccess \"node -r source-map-support/register ./dist/index.js\""

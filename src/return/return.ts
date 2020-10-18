@@ -5,20 +5,20 @@
  */
 
 /*
- * Import URNResponse namespace with all response types and methods
+ * Import Response module
  */
-import {URNResponse} from './return.t';
+import {URNResponse, Success, Fail, UBoolean, response} from '../response/index';
 
 /*
- * Import URNResponseInjectable interface
+ * Import Return types
  */
-import {URNResponseInjectable} from '../util/response_injectable.t';
+import {ReturnInjectable} from './types';
 
 /**
  * Class URNReturn has all the methods for creating URNResponse objects.
- * Its constructor accepts an array of URNResponseInjectable objects.
+ * Its constructor accepts an array of ReturnInjectable objects.
  * This type of objects must have two functions:
- * success_handler and fail_handler.
+ * `success_handler` and `fail_handler`.
  * These methods will be injected in the response as middleware.
  *
  * Async handlers are not managed for now.
@@ -32,16 +32,14 @@ class URNReturn {
 	/**
 	 * An array of injectable objects.
 	 */
-	public inject_objects: URNResponseInjectable[];
+	public inject_objects: ReturnInjectable[];
 	
 	/**
 	 * Constructor function
 	 *
 	 * @param inject_objects - will set the array of injectable objects
 	 */
-	constructor(
-		inject_objects?:URNResponseInjectable|URNResponseInjectable[]
-	){
+	constructor(inject_objects?:ReturnInjectable|ReturnInjectable[]){
 		this.inject_objects = [];
 		if(inject_objects)
 			this.push_injects(inject_objects);
@@ -54,7 +52,8 @@ class URNReturn {
 	 * @param inject_object - the object to check and add
 	 *
 	 */
-	private _add_inject(inject_object:URNResponseInjectable){
+	private _add_inject(inject_object:ReturnInjectable)
+			:void{
 		if(typeof inject_object.fail_handler === 'function' &&
 				typeof inject_object.success_handler === 'function'){
 			this.inject_objects.push(inject_object);
@@ -67,7 +66,7 @@ class URNReturn {
 	 *
 	 * @param inject_objects - the object/s to add
 	 */
-	public push_injects(inject_objects:URNResponseInjectable|URNResponseInjectable[])
+	public push_injects(inject_objects:ReturnInjectable|ReturnInjectable[])
 			:void{
 		if(Array.isArray(inject_objects)){
 			for(const inj of inject_objects)
@@ -82,8 +81,8 @@ class URNReturn {
 	 *
 	 * @param response - the Success response that will be given to the handlers
 	 */
-	private _run_success_handlers<T>(response: URNResponse.Success<T>)
-			:URNResponse.Success<T>{
+	private _run_success_handlers<T>(response: Success<T>)
+			:Success<T>{
 		if(this.inject_objects.length > 0){
 			for(const inj_obj of this.inject_objects){
 				if(inj_obj.success_handler)
@@ -98,8 +97,8 @@ class URNReturn {
 	 *
 	 * @param response - the Fail response that will be given to the handlers
 	 */
-	private _run_fail_handlers<T>(response: URNResponse.Fail<T>)
-			:URNResponse.Fail<T>{
+	private _run_fail_handlers<T>(response: Fail<T>)
+			:Fail<T>{
 		if(this.inject_objects.length > 0){
 			for(const inj_obj of this.inject_objects){
 				if(inj_obj.fail_handler)
@@ -112,16 +111,16 @@ class URNReturn {
 	/**
 	 * Returns a response for an async function
 	 *
-	 * The return type of this function is a Response
+	 * The return type of this function is a URNResponse
 	 * with success generic type T equal to the return type of the async handler Promise
 	 *
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
 	 */
 	public async_res<R>(handler:(...args:any[]) => Promise<R>, name?:string){
-		return async (param_object?:any):Promise<URNResponse.Response<R>> => {
+		return async (param_object?:any):Promise<URNResponse<R>> => {
 			try{
-				const response:URNResponse.Success<R> = {
+				const response:Success<R> = {
 					status: 200,
 					success: true,
 					payload: await handler(param_object)
@@ -136,16 +135,16 @@ class URNReturn {
 	/**
 	 * Returns a response for a function
 	 *
-	 * The return type of this function is a Response
+	 * The return type of this function is a URNResponse
 	 * with success generic type T equal to the return type of the handler function
 	 *
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
 	 */
 	public res<R>(handler:(...args:any[]) => R, name?:string){
-		return (param_object?:any):URNResponse.Response<ReturnType<typeof handler>> => {
+		return (param_object?:any):URNResponse<ReturnType<typeof handler>> => {
 			try{
-				const response:URNResponse.Success<R> = {
+				const response:Success<R> = {
 					status: 200,
 					success: true,
 					payload: handler(param_object)
@@ -166,24 +165,25 @@ class URNReturn {
 	 * @param result - The main response
 	 * @param name [optional] - The name of the response
 	 */
-	inherit_res(result:URNResponse.Response<URNResponse.Response>, name?:string):URNResponse.Response{
-		const return_result:URNResponse.Response = {
+	inherit_res(result:URNResponse<URNResponse>, name?:string)
+			:URNResponse{
+		const return_result:URNResponse = {
 			status: 200,
 			message: '',
 			success: false,
 			payload: null
 		};
-		if(URNResponse.isFail(result)){
+		if(response.isFail(result)){
 			return_result.status = result.status;
 			return_result.message = (name) ? name + ' - ' + result.message : result.message;
 			return_result.ex = result.ex;
 			return return_result;
 		}
-		if(!URNResponse.isFail(result.payload) && !URNResponse.isSuccess(result.payload)){
+		if(!response.isFail(result.payload) && !response.isSuccess(result.payload)){
 			return_result.message = (name) ? name + ' - ' + result.message : result.message;
 			return return_result;
 		}
-		if(URNResponse.isFail(result.payload)){
+		if(response.isFail(result.payload)){
 			return_result.status = result.payload.status;
 			return_result.message = (name) ? name + ' - ' + result.payload.message : result.payload.message;
 			return_result.ex = result.payload.ex;
@@ -205,12 +205,12 @@ class URNReturn {
 	 * @param payload [optional] - A payload
 	 * @param ex [optional] - An exception
 	 */
-	public return_error(status:number, message:string, payload?:null, ex?:Error | null):URNResponse.Fail;
-	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):URNResponse.Fail<T>;
-	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):URNResponse.Fail<T> | URNResponse.Fail{
+	public return_error(status:number, message:string, payload?:null, ex?:Error | null):Fail;
+	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):Fail<T>;
+	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):Fail<T> | Fail{
 		// if there is a payload
 		if(arguments.length > 2){
-			const urn_response:URNResponse.Fail<T> = {
+			const urn_response:Fail<T> = {
 				status: status,
 				payload: payload,
 				message: message,
@@ -219,7 +219,7 @@ class URNReturn {
 			};
 			return this._run_fail_handlers(urn_response);
 		}else{
-			const urn_response:URNResponse.Fail = {
+			const urn_response:Fail = {
 				status: status,
 				message: message,
 				payload: null,
@@ -239,12 +239,12 @@ class URNReturn {
 	 * @param message [optional] - A human readable message of the response
 	 * @param payload [optional] - A payload
 	 */
-	public return_success(message:string, payload?:null):URNResponse.Success;
-	public return_success<T>(message:string, payload:T):URNResponse.Success<T>;
-	public return_success<T>(message:string, payload:T):URNResponse.Success<T> | URNResponse.Success{
+	public return_success(message:string, payload?:null):Success;
+	public return_success<T>(message:string, payload:T):Success<T>;
+	public return_success<T>(message:string, payload:T):Success<T> | Success{
 		// if there is a payload
 		if(arguments.length > 1){
-			const urn_response:URNResponse.Success<T> = {
+			const urn_response:Success<T> = {
 				status: 200,
 				success: true,
 				message: message,
@@ -252,7 +252,7 @@ class URNReturn {
 			};
 			return this._run_success_handlers(urn_response);
 		}else{
-			const urn_response:URNResponse.Success = {
+			const urn_response:Success = {
 				status: 200,
 				success: true,
 				message: message,
@@ -267,8 +267,8 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	return_true(message?:string):URNResponse.UBoolean<true>{
-		const urn_boolean:URNResponse.UBoolean<true> = {
+	return_true(message?:string):UBoolean<true>{
+		const urn_boolean:UBoolean<true> = {
 			success: true
 		};
 		if(arguments.length>0)
@@ -281,8 +281,8 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	return_false(message?:string):URNResponse.UBoolean<false>{
-		const urn_boolean:URNResponse.UBoolean<false> = {
+	return_false(message?:string):UBoolean<false>{
+		const urn_boolean:UBoolean<false> = {
 			success: false
 		};
 		if(arguments.length>0)
@@ -296,13 +296,6 @@ class URNReturn {
  * A function the will create a URNReturn instance.
  * Its parameters are the same as the constructor of the class.
  */
-function create_instance(inject?:URNResponseInjectable):URNReturn{
+export default function create_instance(inject?:ReturnInjectable):URNReturn{
 	return new URNReturn(inject);
 }
-
-/*
- * Export the function that will create the instance of the class.
- */
-export default create_instance;
-
-

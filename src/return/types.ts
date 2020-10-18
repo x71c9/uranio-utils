@@ -8,7 +8,7 @@
  * Success responses and Fail responses.
  *
  */
-export interface URNResponseInjectable{
+export interface ReturnInjectable{
 	
 	/**
 	 * Method for handling Success response.
