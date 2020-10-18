@@ -53,10 +53,10 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.warn_inject === 'function')
 					injector.warn_inject(...params);
 				break;
-			case 'log':
-				if(typeof injector.log_inject === 'function')
-					injector.log_inject(...params);
-				break;
+			// case 'log':
+			//   if(typeof injector.log_inject === 'function')
+			//     injector.log_inject(...params);
+			//   break;
 			case 'debug':
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
@@ -98,12 +98,12 @@ export function debug(...params:any[])
  *
  * @param ...params - variables to log
  */
-export function log(...params:any[])
-		:void{
-	if(log_defaults.log_level > 2){
-		_run_injector('log', ...params);
-	}
-}
+// export function log(...params:any[])
+//     :void{
+//   if(log_defaults.log_level > 2){
+//     _run_injector('log', ...params);
+//   }
+// }
 
 /**
  * Warning log
@@ -351,7 +351,7 @@ export function debug_methods(target:Function)
  */
 export const response_injector:ReturnInjectable = {
 	success_handler: (p) => {
-		log(p);
+		debug(p);
 		return p;
 	},
 	fail_handler: (p) => {

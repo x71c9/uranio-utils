@@ -7,7 +7,8 @@
 /*
  * Import Response module
  */
-import {URNResponse, Success, Fail, UBoolean, response} from '../response/index';
+import {URNResponse, Success, Fail, UBoolean, isSuccess, isFail}
+	from '../response/index';
 
 /*
  * Import Return types
@@ -61,8 +62,8 @@ class URNReturn {
 	}
 	
 	/**
-	 * Method that accept one or an array of injectable objects and add it/them to the
-	 * injcet_objects array
+	 * Method that accept one or an array of injectable objects and
+	 * add it/them to the injcet_objects array
 	 *
 	 * @param inject_objects - the object/s to add
 	 */
@@ -112,7 +113,8 @@ class URNReturn {
 	 * Returns a response for an async function
 	 *
 	 * The return type of this function is a URNResponse
-	 * with success generic type T equal to the return type of the async handler Promise
+	 * with success generic type T equal to the return type of
+	 * the async handler Promise
 	 *
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
@@ -127,7 +129,8 @@ class URNReturn {
 				};
 				return this._run_success_handlers(response);
 			}catch(ex){
-				return this.return_error(500, 'URANIO ERROR ['+name+'] - '+ex.message, null, ex);
+				return this.return_error(500,
+					'URANIO ERROR ['+name+'] - ' + ex.message, null, ex);
 			}
 		};
 	}
@@ -136,7 +139,8 @@ class URNReturn {
 	 * Returns a response for a function
 	 *
 	 * The return type of this function is a URNResponse
-	 * with success generic type T equal to the return type of the handler function
+	 * with success generic type T equal to the return type of
+	 * the handler function
 	 *
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
@@ -151,7 +155,8 @@ class URNReturn {
 				};
 				return this._run_success_handlers(response);
 			}catch(ex){
-				return this.return_error(500, 'URANIO ERROR ['+name+'] - '+ex.message, null, ex);
+				return this.return_error(500,
+					'URANIO ERROR ['+name+'] - ' + ex.message, null, ex);
 			}
 		};
 	}
@@ -173,23 +178,27 @@ class URNReturn {
 			success: false,
 			payload: null
 		};
-		if(response.isFail(result)){
+		if(isFail(result)){
 			return_result.status = result.status;
-			return_result.message = (name) ? name + ' - ' + result.message : result.message;
+			return_result.message = (name) ?
+				name + ' - ' + result.message : result.message;
 			return_result.ex = result.ex;
 			return return_result;
 		}
-		if(!response.isFail(result.payload) && !response.isSuccess(result.payload)){
-			return_result.message = (name) ? name + ' - ' + result.message : result.message;
+		if(!isFail(result.payload) && !isSuccess(result.payload)){
+			return_result.message = (name) ?
+				name + ' - ' + result.message : result.message;
 			return return_result;
 		}
-		if(response.isFail(result.payload)){
+		if(isFail(result.payload)){
 			return_result.status = result.payload.status;
-			return_result.message = (name) ? name + ' - ' + result.payload.message : result.payload.message;
+			return_result.message = (name) ?
+				name + ' - ' + result.payload.message : result.payload.message;
 			return_result.ex = result.payload.ex;
 			return return_result;
 		}
-		return_result.message = (name) ? name + ' - ' + result.payload.message : result.payload.message;
+		return_result.message = (name) ?
+			name + ' - ' + result.payload.message : result.payload.message;
 		return_result.payload = result.payload.payload;
 		return return_result;
 	}
@@ -198,7 +207,8 @@ class URNReturn {
 	 * Returns a response error object
 	 *
 	 * Method overload: different return type for different arguments
-	 * If payload in present will return a Fail with generic type the type of the payload
+	 * If payload in present will return a Fail with generic type the type of
+	 * the payload
 	 *
 	 * @param status - Status as number. It follows the HTTP status codes
 	 * @param message [optional] - A human readable message of the response
@@ -234,7 +244,8 @@ class URNReturn {
 	 * Returns a successful response object
 	 *
 	 * Method overload: different return type for different arguments
-	 * If payload in present will return a Success with generic type the type of the payload
+	 * If payload in present will return a Success with generic type the type of
+	 * the payload
 	 *
 	 * @param message [optional] - A human readable message of the response
 	 * @param payload [optional] - A payload

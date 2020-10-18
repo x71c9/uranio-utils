@@ -198,9 +198,9 @@ export const terminal_log_injector:LogInjectable = {
 		_cecho('warn', terminal_styles.fgYellow, 6, 3, ...p);
 	},
 	
-	log_inject: (...p:any) => {
-		_cecho('log', terminal_styles.fgLightBlue, 6, 2, ...p);
-	},
+	// log_inject: (...p:any) => {
+	//   _cecho('log', terminal_styles.fgLightBlue, 6, 2, ...p);
+	// },
 	
 	debug_inject: (...p:any) => {
 		_cecho('debug', terminal_styles.fgBlue, 6, 1, ...p);
@@ -222,9 +222,9 @@ export const browser_log_injector:LogInjectable = {
 		_cecho('warn', [console_styles.fg_yellow], 4, 3, ...p);
 	},
 	
-	log_inject: (...p:any) => {
-		_cecho('log', [console_styles.fg_blue], 4, 2, ...p);
-	},
+	// log_inject: (...p:any) => {
+	//   _cecho('log', [console_styles.fg_blue], 4, 2, ...p);
+	// },
 	
 	debug_inject: (...p:any) => {
 		_cecho('debug', [console_styles.fg_blue], 4, 4, ...p);
