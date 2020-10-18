@@ -1,0 +1,90 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AbstractResponse	return/return.t.ts	/^	interface AbstractResponse<T = null> {$/;"	i
+AbstractResponse	types/return/return.d.ts	/^		interface AbstractResponse<T = null> {$/;"	i
+Fail	return/return.t.ts	/^	export interface Fail<T = null> extends AbstractResponse<T> {$/;"	i
+Fail	types/return/return.d.ts	/^		export interface Fail<T = null> extends AbstractResponse<T> {$/;"	i
+Log	types/log/log.d.ts	/^declare namespace Log {$/;"	c
+LogContext	types/log/log.d.ts	/^	type LogContext = 'terminal' | 'browser';$/;"	t
+LogDefaults	log/log.defaults.ts	/^interface LogDefaults {$/;"	i
+LogInjectable	types/util/log_injectable.d.ts	/^	interface LogInjectable{$/;"	i
+LogType	types/log/log.d.ts	/^	type LogType = 'error' | 'warn' | 'log' | 'debug' | 'fndebug';$/;"	t
+Response	return/return.t.ts	/^	export type Response<T = null, K = null> = Success<T> | Fail<K>;$/;"	t
+Response	types/return/return.d.ts	/^	export type Response<T = null, K = null> = Success<T> | Fail<K>;$/;"	t
+ResponseInjectable	types/util/response_injectable.d.ts	/^	interface ResponseInjectable{$/;"	i
+ReturnType	return/return.t.ts	/^	export type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;$/;"	t
+ReturnType	types/return/return.d.ts	/^	export type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;$/;"	t
+Success	return/return.t.ts	/^	export interface Success<T = null> extends AbstractResponse<T> {$/;"	i
+Success	types/return/return.d.ts	/^		export interface Success<T = null> extends AbstractResponse<T> {$/;"	i
+UBoolean	return/return.t.ts	/^	export interface UBoolean<T extends boolean = boolean> {$/;"	i
+UBoolean	types/return/return.d.ts	/^	export interface UBoolean<T extends boolean = boolean> {$/;"	i
+URNLogContext	log/_log.t.ts	/^export type URNLogContext = 'terminal' | 'browser';$/;"	t
+URNLogInjectable	util/log_injectable.t.ts	/^export interface URNLogInjectable{$/;"	i
+URNLogType	log/_log.t.ts	/^export type URNLogType = 'error' | 'warn' | 'log' | 'debug' | 'fndebug';$/;"	t
+URNResponse	types/return/return.d.ts	/^	namespace URNResponse {$/;"	c
+URNResponseInjectable	util/response_injectable.t.ts	/^export interface URNResponseInjectable{$/;"	i
+URNReturn	return/return.ts	/^class URNReturn {$/;"	c
+Util	types/util/formatter.d.ts	/^declare namespace Util {$/;"	c
+Util	types/util/log_injectable.d.ts	/^declare namespace Util {$/;"	c
+Util	types/util/response_injectable.d.ts	/^declare namespace Util {$/;"	c
+_add_inject	return/return.ts	/^	private _add_inject(inject_object:Util.ResponseInjectable)$/;"	m
+_cecho	log/console_injector.ts	/^function _cecho(type:Log.LogType, style:string|string[], start:number, depth:number, ...params:any[])$/;"	f
+_log_stack	log/console_injector.ts	/^function _log_stack(type:Log.LogType, stylelog:string, start=0, depth=-1)$/;"	f
+_run_fail_handlers	return/return.ts	/^	private _run_fail_handlers<T>(response: URNResponse.Fail<T>)$/;"	m
+_run_injector	log/log.ts	/^function _run_injector(type:Log.LogType, ...params:any[]){$/;"	f
+_run_success_handlers	return/return.ts	/^	private _run_success_handlers<T>(response: URNResponse.Success<T>)$/;"	m
+async_res	return/return.ts	/^	public async_res<R>(handler:(...args:any[]) => Promise<R>, name?:string){$/;"	m
+browser_log_injector	log/console_injector.ts	/^export const browser_log_injector:Util.LogInjectable = {$/;"	v
+create_instance	return/return.ts	/^function create_instance(inject?:Util.ResponseInjectable):URNReturn{$/;"	f
+dateFormat	log/console_injector.ts	/^import dateFormat from 'dateformat';$/;"	I
+dateFormat	log/log.ts	/^import dateFormat from 'dateformat';$/;"	I
+debug	log/log.ts	/^export function debug(...params:any[])$/;"	f
+debug_constructor	log/log.ts	/^export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T)$/;"	f
+debug_methods	log/log.ts	/^export function debug_methods(target:Function):void{$/;"	f
+enum	log/_log.t.ts	/^export const enum URNLogLevel {NONE, ERROR, WARNING, LOG, DEBUG, FUNCTION_DEBUG}$/;"	v
+error	log/log.ts	/^export function error(...params:any[])$/;"	f
+fndebug	log/log.ts	/^export function fndebug(...params:any[])$/;"	f
+fndebugCostructor	log/log.ts	/^export function fndebugCostructor(rand_id:string, constructor_name:string, str_args:string)$/;"	f
+fndebugMethodResponse	log/log.ts	/^export function fndebugMethodResponse(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)$/;"	f
+fndebugMethodResponseError	log/log.ts	/^export function fndebugMethodResponseError(rand_id:string, target_name:string, method:string, error:Error)$/;"	f
+fndebugMethodWithArgs	log/log.ts	/^export function fndebugMethodWithArgs(rand_id:string, target_name:string, method:string, str_args:string)$/;"	f
+fndebugPrivateCostructor	log/log.ts	/^export function fndebugPrivateCostructor(rand_id:string, constructor_name:string, str_args:string)$/;"	f
+formatArgs	log/log.ts	/^export function formatArgs(args:any[], max_str_length:number)$/;"	f
+formatResult	log/log.ts	/^export function formatResult(result:any, max_str_length:number)$/;"	f
+inject_objects	return/return.ts	/^	public inject_objects: Util.ResponseInjectable[];$/;"	m
+isFail	return/return.t.ts	/^	export function isFail<T,Q>(response:Response<T,Q>): response is Fail<Q> {$/;"	f
+isFail	types/return/return.d.ts	/^	export function isFail<T,Q>(response:Response<T,Q>): response is Fail<Q>;$/;"	f
+isFalse	return/return.t.ts	/^	export function isFalse(response:UBoolean<any>): response is UBoolean<false> {$/;"	f
+isFalse	types/return/return.d.ts	/^	export function isFalse(response:UBoolean<any>): response is UBoolean<false>;$/;"	f
+isResponse	return/return.t.ts	/^	export function isResponse<T,Q>(response:Response<T,Q>): response is Response<T,Q> {$/;"	f
+isResponse	types/return/return.d.ts	/^	export function isResponse<T,Q>(response:Response<T,Q>): response is Response<T,Q>;$/;"	f
+isSuccess	return/return.t.ts	/^	export function isSuccess<T,Q>(response:Response<T,Q>): response is Success<T> {$/;"	f
+isSuccess	types/return/return.d.ts	/^	export function isSuccess<T,Q>(response:Response<T,Q>): response is Success<T>;$/;"	f
+isTrue	return/return.t.ts	/^	export function isTrue(response:UBoolean<any>): response is UBoolean<true> {$/;"	f
+isTrue	types/return/return.d.ts	/^	export function isTrue(response:UBoolean<any>): response is UBoolean<true>;$/;"	f
+jsonOneLine	types/util/formatter.d.ts	/^	function jsonOneLine(obj:any, white_space:string):string;$/;"	f
+jsonOneLine	util/formatter.ts	/^export function jsonOneLine(obj:any, white_space=' '):string{$/;"	f
+log	log/log.ts	/^export function log(...params:any[])$/;"	f
+log_defaults	log/console_injector.ts	/^import log_defaults from '.\/log.defaults';$/;"	I
+log_defaults	log/log.ts	/^import log_defaults from '.\/log.defaults';$/;"	I
+log_param	log/console_injector.ts	/^function log_param(p:any, stylelog:string)$/;"	f
+push_injects	return/return.ts	/^	public push_injects(inject_objects:Util.ResponseInjectable|Util.ResponseInjectable[])$/;"	m
+randId	log/log.ts	/^export function randId():string{$/;"	f
+replace_method_with_logs	log/log.ts	/^function replace_method_with_logs($/;"	f
+res	return/return.ts	/^	public res<R>(handler:(...args:any[]) => R, name?:string){$/;"	m
+response_injector	log/log.ts	/^export const response_injector:URNResponseInjectable = {$/;"	v
+return_error	return/return.ts	/^	public return_error(status:number, message:string, payload?:null, ex?:Error | null):URNResponse.Fail;$/;"	m
+return_error	return/return.ts	/^	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):URNResponse.Fail<T> | URNResponse.Fail{$/;"	m
+return_error	return/return.ts	/^	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):URNResponse.Fail<T>;$/;"	m
+return_success	return/return.ts	/^	public return_success(message:string, payload?:null):URNResponse.Success;$/;"	m
+return_success	return/return.ts	/^	public return_success<T>(message:string, payload:T):URNResponse.Success<T> | URNResponse.Success{$/;"	m
+return_success	return/return.ts	/^	public return_success<T>(message:string, payload:T):URNResponse.Success<T>;$/;"	m
+terminal_log_injector	log/console_injector.ts	/^export const terminal_log_injector:Util.LogInjectable = {$/;"	v
+urn_lib	index.ts	/^import urn_lib from '.\/main';$/;"	I
+urn_return	main.ts	/^import urn_return from '.\/return\/return';$/;"	I
+urnlib	types/return/return.d.ts	/^declare namespace urnlib {$/;"	c
+warn	log/log.ts	/^export function warn(...params:any[])$/;"	f
