@@ -10,6 +10,13 @@ import * as urn_return from './return/index';
 
 import * as urn_util  from './util/index';
 
+export {
+	urn_log,
+	urn_response,
+	urn_return,
+	urn_util
+};
+
 export namespace urn_lib {
 	
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
