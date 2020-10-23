@@ -7,7 +7,7 @@
 /*
  * Import Response module
  */
-import {URNResponse, Success, Fail, UBoolean, is_success, is_fail}
+import {General, Success, Fail, UBoolean, is_success, is_fail}
 	from '../response/index';
 
 /*
@@ -16,7 +16,7 @@ import {URNResponse, Success, Fail, UBoolean, is_success, is_fail}
 import {ReturnInjectable} from './types';
 
 /**
- * Class URNReturn has all the methods for creating URNResponse objects.
+ * Class URNReturn has all the methods for creating Response objects.
  * Its constructor accepts an array of ReturnInjectable objects.
  * This type of objects must have two functions:
  * `success_handler` and `fail_handler`.
@@ -112,7 +112,7 @@ class URNReturn {
 	/**
 	 * Returns a response for an async function
 	 *
-	 * The return type of this function is a URNResponse
+	 * The return type of this function is a General
 	 * with success generic type T equal to the return type of
 	 * the async handler Promise
 	 *
@@ -120,7 +120,7 @@ class URNReturn {
 	 * @param name [optional] - The name of the response
 	 */
 	public async_res<R>(handler:(...args:any[]) => Promise<R>, name?:string){
-		return async (param_object?:any):Promise<URNResponse<R>> => {
+		return async (param_object?:any):Promise<General<R>> => {
 			try{
 				const response:Success<R> = {
 					status: 200,
@@ -138,7 +138,7 @@ class URNReturn {
 	/**
 	 * Returns a response for a function
 	 *
-	 * The return type of this function is a URNResponse
+	 * The return type of this function is a General response
 	 * with success generic type T equal to the return type of
 	 * the handler function
 	 *
@@ -146,7 +146,7 @@ class URNReturn {
 	 * @param name [optional] - The name of the response
 	 */
 	public res<R>(handler:(...args:any[]) => R, name?:string){
-		return (param_object?:any):URNResponse<ReturnType<typeof handler>> => {
+		return (param_object?:any):General<ReturnType<typeof handler>> => {
 			try{
 				const response:Success<R> = {
 					status: 200,
@@ -170,9 +170,9 @@ class URNReturn {
 	 * @param result - The main response
 	 * @param name [optional] - The name of the response
 	 */
-	public inherit_res(result:URNResponse<URNResponse>, name?:string)
-			:URNResponse{
-		const return_result:URNResponse = {
+	public inherit_res(result:General<General>, name?:string)
+			:General{
+		const return_result:General = {
 			status: 200,
 			message: '',
 			success: false,
@@ -303,10 +303,16 @@ class URNReturn {
 	
 }
 
+/*
+ * Export only the type of the class URNReturn
+ */
+export type Return = InstanceType<typeof URNReturn>;
+
 /**
  * A function the will create a URNReturn instance.
  * Its parameters are the same as the constructor of the class.
  */
-export default function create_instance(inject?:ReturnInjectable):URNReturn{
+export default function create_instance(inject?:ReturnInjectable)
+		:Return{
 	return new URNReturn(inject);
 }

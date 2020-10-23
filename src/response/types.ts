@@ -96,10 +96,10 @@ export interface Fail<T = null> extends AbstractResponse<T> {
 }
 
 /*
- * URANIO middleware response conjunction with Success or ResError
+ * URANIO middleware General response, conjunction with Success and Fail
  * with two possible generic type for their payloads
  */
-export type URNResponse<T = null, K = null> = Success<T> | Fail<K>;
+export type General<T = null, K = null> = Success<T> | Fail<K>;
 
 /*
  * URANIO middleware boolean response interface
