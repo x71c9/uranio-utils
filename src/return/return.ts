@@ -306,13 +306,13 @@ class URNReturn {
 /*
  * Export only the type of the class URNReturn
  */
-export type Return = InstanceType<typeof URNReturn>;
+export type ReturnInstance = InstanceType<typeof URNReturn>;
 
 /**
  * A function the will create a URNReturn instance.
  * Its parameters are the same as the constructor of the class.
  */
 export default function create_instance(inject?:ReturnInjectable)
-		:Return{
+		:ReturnInstance{
 	return new URNReturn(inject);
 }

@@ -6,13 +6,13 @@ import {LogDefaults, LogLevel} from './types';
 /*
  * Import console injectors
  */
-import {terminal_log_injector, browser_log_injector} from '../log/console_injectors';
+// import {terminal_log_injector, browser_log_injector} from './console_injectors';
 
 /*
  * Select default injector, check if is node or browser
  */
-const log_injector = (typeof process === undefined) ?
-	browser_log_injector : terminal_log_injector;
+// const log_injector = (typeof process === undefined) ?
+// browser_log_injector : terminal_log_injector;
 
 /*
  * Instanciate Log default object
@@ -27,7 +27,7 @@ const log_defaults:LogDefaults = {
 	
 	context: 'terminal',
 	
-	injectors: [log_injector]
+	injectors: []
 	
 };
 
