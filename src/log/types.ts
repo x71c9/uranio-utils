@@ -16,7 +16,7 @@ export const enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
  * LogType type
  *
  */
-export type LogType = 'error' | 'warn' | 'debug' | 'fndebug';
+export type LogType = 'error' | 'warn' | 'debug' | 'fn_debug';
 
 /**
  * LogContext type
@@ -46,17 +46,12 @@ export interface LogInjectable{
 	/**
 	 * Method
 	 */
-	// log_inject?(...p:any):void;
-
-	/**
-	 * Method
-	 */
 	debug_inject?(...p:any):void;
 	
 	/**
 	 * Method
 	 */
-	fndebug_inject?(...p:any):void;
+	fn_debug_inject?(...p:any):void;
 	
 }
 

@@ -1,5 +1,5 @@
 /*
- * Merging all under a namespace
+ * Merging all under a namespace called urn_lib
  */
 
 import * as urn_log from './log/index';

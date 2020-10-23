@@ -9,9 +9,9 @@ import dateFormat from 'dateformat';
 import {LogType, LogInjectable} from './types';
 
 /*
- * Import jsonOneLine
+ * Import json_one_line
  */
-import {jsonOneLine} from '../util/formatter';
+import {json_one_line} from '../util/formatter';
 
 /*
  * Import log configuration file
@@ -29,10 +29,10 @@ import log_defaults from './log.defaults';
  */
 function _cecho(type:LogType, style:string|string[], start:number, depth:number, ...params:any[])
 		:void{
-	const stylelog = style + '%s' + terminal_styles.reset;
+	const stylelog = style + '%s' + _terminal_styles.reset;
 	_log_stack(type, stylelog, start, depth);
 	for(const p of params){
-		log_param(p, stylelog);
+		_log_param(p, stylelog);
 	}
 	console.log(stylelog, ' ');
 }
@@ -87,13 +87,13 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1)
  * @param p - anything to be logged.
  * @param stylelog - a formatted string for styling.
  */
-function log_param(p:any, stylelog:string)
+function _log_param(p:any, stylelog:string)
 		:void{
 	let processed_param:string[] = [];
 	if(p instanceof Error && p.stack != undefined){
 		processed_param = p.stack.split('\n');
 	}else if(typeof p == 'object'){
-		processed_param = jsonOneLine(p).split('\n');
+		processed_param = json_one_line(p).split('\n');
 	}else if(typeof p == 'string'){
 		processed_param = p.split('\n');
 	}else if(p === false){
@@ -117,7 +117,7 @@ function log_param(p:any, stylelog:string)
 /**
  * List of all the style that can be used in terminal
  */
-const terminal_styles = {
+const _terminal_styles = {
 	'reset': "\x1b[0m",
 	'bright' : "\x1b[1m",
 	'dim' : "\x1b[2m",
@@ -161,7 +161,7 @@ const terminal_styles = {
 	'Light White' : "\x1b[107m"
 };
 
-const console_styles = {
+const _console_styles = {
 	underline: 'text-decoration: underline;',
 	fg_black: 'color: black;',
 	fg_red: 'color: red;',
@@ -191,23 +191,19 @@ const console_styles = {
 export const terminal_log_injector:LogInjectable = {
 	
 	error_inject: (...p:any) => {
-		_cecho('error', terminal_styles.fgRed, 6, -1, ...p);
+		_cecho('error', _terminal_styles.fgRed, 6, -1, ...p);
 	},
 	
 	warn_inject: (...p:any) => {
-		_cecho('warn', terminal_styles.fgYellow, 6, 3, ...p);
+		_cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
 	},
-	
-	// log_inject: (...p:any) => {
-	//   _cecho('log', terminal_styles.fgLightBlue, 6, 2, ...p);
-	// },
 	
 	debug_inject: (...p:any) => {
-		_cecho('debug', terminal_styles.fgBlue, 6, 1, ...p);
+		_cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
 	},
 	
-	fndebug_inject: (...p:any) => {
-		_cecho('fndebug', terminal_styles.fgCyan, 6, 1, ...p);
+	fn_debug_inject: (...p:any) => {
+		_cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
 	}
 	
 };
@@ -215,23 +211,23 @@ export const terminal_log_injector:LogInjectable = {
 export const browser_log_injector:LogInjectable = {
 	
 	error_inject: (...p:any) => {
-		_cecho('error', [console_styles.fg_red], 4, -1, ...p);
+		_cecho('error', [_console_styles.fg_red], 4, -1, ...p);
 	},
 	
 	warn_inject: (...p:any) => {
-		_cecho('warn', [console_styles.fg_yellow], 4, 3, ...p);
+		_cecho('warn', [_console_styles.fg_yellow], 4, 3, ...p);
 	},
 	
 	// log_inject: (...p:any) => {
-	//   _cecho('log', [console_styles.fg_blue], 4, 2, ...p);
+	//   _cecho('log', [_console_styles.fg_blue], 4, 2, ...p);
 	// },
 	
 	debug_inject: (...p:any) => {
-		_cecho('debug', [console_styles.fg_blue], 4, 4, ...p);
+		_cecho('debug', [_console_styles.fg_blue], 4, 4, ...p);
 	},
 	
-	fndebug_inject: (...p:any) => {
-		_cecho('fndebug', [console_styles.fg_cyan], 6, 1, ...p);
+	fn_debug_inject: (...p:any) => {
+		_cecho('fn_debug', [_console_styles.fg_cyan], 6, 1, ...p);
 	}
 	
 };

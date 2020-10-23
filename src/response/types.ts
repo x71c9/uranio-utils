@@ -117,9 +117,3 @@ export interface UBoolean<T extends boolean = boolean> {
 	message?:string;
 }
 
-/*
- * Define ReturnType type that infer the return type of a function
- */
-// export type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
-
-

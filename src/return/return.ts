@@ -7,7 +7,7 @@
 /*
  * Import Response module
  */
-import {URNResponse, Success, Fail, UBoolean, isSuccess, isFail}
+import {URNResponse, Success, Fail, UBoolean, is_success, is_fail}
 	from '../response/index';
 
 /*
@@ -170,7 +170,7 @@ class URNReturn {
 	 * @param result - The main response
 	 * @param name [optional] - The name of the response
 	 */
-	inherit_res(result:URNResponse<URNResponse>, name?:string)
+	public inherit_res(result:URNResponse<URNResponse>, name?:string)
 			:URNResponse{
 		const return_result:URNResponse = {
 			status: 200,
@@ -178,19 +178,19 @@ class URNReturn {
 			success: false,
 			payload: null
 		};
-		if(isFail(result)){
+		if(is_fail(result)){
 			return_result.status = result.status;
 			return_result.message = (name) ?
 				name + ' - ' + result.message : result.message;
 			return_result.ex = result.ex;
 			return return_result;
 		}
-		if(!isFail(result.payload) && !isSuccess(result.payload)){
+		if(!is_fail(result.payload) && !is_success(result.payload)){
 			return_result.message = (name) ?
 				name + ' - ' + result.message : result.message;
 			return return_result;
 		}
-		if(isFail(result.payload)){
+		if(is_fail(result.payload)){
 			return_result.status = result.payload.status;
 			return_result.message = (name) ?
 				name + ' - ' + result.payload.message : result.payload.message;
@@ -278,7 +278,7 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	return_true(message?:string):UBoolean<true>{
+	public return_true(message?:string):UBoolean<true>{
 		const urn_boolean:UBoolean<true> = {
 			success: true
 		};
@@ -292,7 +292,7 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	return_false(message?:string):UBoolean<false>{
+	public return_false(message?:string):UBoolean<false>{
 		const urn_boolean:UBoolean<false> = {
 			success: false
 		};
