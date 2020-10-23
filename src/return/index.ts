@@ -6,6 +6,9 @@
 
 export * from './types';
 
-import create_instance from './return';
+import create_instance, {Return} from './return';
 
-export {create_instance as create};
+export {
+	create_instance as create,
+	Return
+};

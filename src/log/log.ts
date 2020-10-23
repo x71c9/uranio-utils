@@ -337,7 +337,7 @@ export function debug_methods(target:Function)
  *
  * This object can be used in "return" module.
  */
-export const response_injector:ReturnInjectable = {
+export const return_injector:ReturnInjectable = {
 	success_handler: (p) => {
 		debug(p);
 		return p;
