@@ -15,9 +15,9 @@ import dateFormat from 'dateformat';
 import {LogType} from './types';
 
 /*
- * Import jsonOneLine formatter
+ * Import json_one_line formatter
  */
-import {jsonOneLine} from '../util/formatter';
+import {json_one_line} from '../util/formatter';
 
 /*
  * Import log configuration file
@@ -61,9 +61,9 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
 				break;
-			case 'fndebug':
-				if(typeof injector.fndebug_inject === 'function')
-					injector.fndebug_inject(...params);
+			case 'fn_debug':
+				if(typeof injector.fn_debug_inject === 'function')
+					injector.fn_debug_inject(...params);
 				break;
 		}
 	}
@@ -74,10 +74,10 @@ function _run_injector(type:LogType, ...params:any[]){
  *
  * @param ...params - variables to log
  */
-export function fndebug(...params:any[])
+export function fn_debug(...params:any[])
 		:void{
 	if(log_defaults.log_level > 4){
-		_run_injector('fndebug', ...params);
+		_run_injector('fn_debug', ...params);
 	}
 }
 
@@ -92,18 +92,6 @@ export function debug(...params:any[])
 		_run_injector('debug', ...params);
 	}
 }
-
-/**
- * Normal log
- *
- * @param ...params - variables to log
- */
-// export function log(...params:any[])
-//     :void{
-//   if(log_defaults.log_level > 2){
-//     _run_injector('log', ...params);
-//   }
-// }
 
 /**
  * Warning log
@@ -132,7 +120,7 @@ export function error(...params:any[])
 /**
  * Generate random id
  */
-function randId():string{
+function random_id():string{
 	const milliseconds = dateFormat(new Date(), 'l');
 	return (Math.floor(Math.random()*100) + '' + milliseconds).padStart(5,'0');
 }
@@ -144,9 +132,9 @@ function randId():string{
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-function fndebugCostructor(rand_id:string, constructor_name:string, str_args:string)
+function fn_debug_constructor(rand_id:string, constructor_name:string, str_args:string)
 		:void{
-	fndebug(`[${rand_id}] new ${constructor_name}(${str_args})`);
+	fn_debug(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
 
 /**
@@ -156,9 +144,9 @@ function fndebugCostructor(rand_id:string, constructor_name:string, str_args:str
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-// function fndebugPrivateCostructor(rand_id:string, constructor_name:string, str_args:string)
+// function fn_debug_private_constructor(rand_id:string, constructor_name:string, str_args:string)
 //     :void{
-//   fndebug(`[${rand_id}] private ${constructor_name}(${str_args})`);
+//   fn_debug(`[${rand_id}] private ${constructor_name}(${str_args})`);
 // }
 
 /**
@@ -169,9 +157,9 @@ function fndebugCostructor(rand_id:string, constructor_name:string, str_args:str
  * @param method - The name of the method being called.
  * @param str_args - A string containing the arguments.
  */
-function fndebugMethodWithArgs(rand_id:string, target_name:string, method:string, str_args:string)
+function fn_debug_method_with_args(rand_id:string, target_name:string, method:string, str_args:string)
 		:void{
-	fndebug(`[${rand_id}] ${target_name}.${method}(${str_args})`);
+	fn_debug(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
 
 /**
@@ -183,10 +171,10 @@ function fndebugMethodWithArgs(rand_id:string, target_name:string, method:string
  * @param str_result - The result of the method as string.
  * @param is_promise - A boolean value, true if the method return a Promise.
  */
-function fndebugMethodResponse(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
+function fn_debug_method_response(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
 		:void{
 	const promise_str = (is_promise) ? ' [Promise]' : '';
-	fndebug(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
+	fn_debug(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
 }
 
 /**
@@ -197,10 +185,10 @@ function fndebugMethodResponse(rand_id:string, target_name:string, method:string
  * @param method - The name of the method being called.
  * @param error - The error to log.
  */
-function fndebugMethodResponseError(rand_id:string, target_name:string, method:string, error:Error)
+function fn_debug_method_response_error(rand_id:string, target_name:string, method:string, error:Error)
 		:void{
-	fndebug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
-	fndebug(error);
+	fn_debug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
+	fn_debug(error);
 }
 
 /**
@@ -209,11 +197,11 @@ function fndebugMethodResponseError(rand_id:string, target_name:string, method:s
  * @param args - Array of paramter to format.
  * @param max_str_length - Max string length for formatted arguments.
  */
-function formatArgs(args:any[], max_str_length:number)
+function format_args(args:any[], max_str_length:number)
 		:string{
 	let str_args = (args.length > 0) ? `${args}` : '';
 	try{
-		str_args = (args.length > 0) ? jsonOneLine(args) : '';
+		str_args = (args.length > 0) ? json_one_line(args) : '';
 		str_args = str_args.substr(1,str_args.length-2);
 	}catch(e){
 		str_args = `[CANNOT FORMAT ARGUMENTS][${e.message}]`;
@@ -230,12 +218,12 @@ function formatArgs(args:any[], max_str_length:number)
  * @param max_str_length - Max string length for formatted result.
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function formatResult(result:any, max_str_length:number)
+function format_result(result:any, max_str_length:number)
 		:string{
 	let str_result = `${result}`;
 	try{
 		str_result = `${result}`;
-		str_result = jsonOneLine(result);
+		str_result = json_one_line(result);
 	}catch(e){
 		str_result = `[CANNOT FORMAT RESULT][${e.message}]`;
 	}
@@ -255,7 +243,7 @@ export function debug_constructor<T extends { new (...constr_args:any[]):any }>(
 		:{new (...a:any[]):any}{
 	const ExtClass = class extends constr_func {
 		constructor(...args: any[]){
-			fndebugCostructor(randId(), constr_func.name, formatArgs(args, log_defaults.max_str_length));
+			fn_debug_constructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
 			super(...args);
 		}
 	};
@@ -285,31 +273,31 @@ function replace_method_with_logs(
 ){
 	const original_method = descriptor.value;
 	descriptor.value = function(...args:any[]) {
-		const rand_id = randId();
+		const rand_id = random_id();
 		const target_name = (appendix!='') ? appendix + ' ' + target.name : target.name;
-		fndebugMethodWithArgs(
+		fn_debug_method_with_args(
 			rand_id,
 			target_name,
 			property_name,
-			formatArgs(args, log_defaults.max_str_length)
+			format_args(args, log_defaults.max_str_length)
 		);
 		const result = original_method.apply(this, args);
-		fndebugMethodResponse(
+		fn_debug_method_response(
 			rand_id,
 			target_name,
 			property_name,
-			formatResult(result, log_defaults.max_str_length)
+			format_result(result, log_defaults.max_str_length)
 		);
 		if(result instanceof Promise){
 			result.then((data:any) => {
-				fndebugMethodResponse(
+				fn_debug_method_response(
 					rand_id,
 					target_name,
 					property_name,
-					formatResult(data, log_defaults.max_str_length),
+					format_result(data, log_defaults.max_str_length),
 					true);
 			}).catch((err:Error) => {
-				fndebugMethodResponseError(rand_id, target_name, property_name, err);
+				fn_debug_method_response_error(rand_id, target_name, property_name, err);
 			});
 		}
 		return result;
