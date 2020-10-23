@@ -34,6 +34,19 @@ export {log_defaults as defaults};
  */
 import {ReturnInjectable} from '../return/types';
 
+/*
+ * Import console injectors
+ */
+import {console_injectors} from './console_injectors';
+
+/*
+ * Set default injector
+ */
+const log_injector = (log_defaults.context == 'browser') ?
+	console_injectors.browser : console_injectors.terminal;
+
+log_defaults.injectors.push(log_injector);
+
 /**
  * Function that will check the type and run the corresponding injector method
  *
@@ -44,6 +57,8 @@ function _run_injector(type:LogType, ...params:any[]){
 	if(!Array.isArray(log_defaults.injectors) || log_defaults.injectors.length == 0)
 		return;
 	for(const injector of log_defaults.injectors){
+		if(typeof injector !== 'object')
+			return;
 		switch(type){
 			case 'error':
 				if(typeof injector.error_inject === 'function')
@@ -53,10 +68,6 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.warn_inject === 'function')
 					injector.warn_inject(...params);
 				break;
-			// case 'log':
-			//   if(typeof injector.log_inject === 'function')
-			//     injector.log_inject(...params);
-			//   break;
 			case 'debug':
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
@@ -234,29 +245,6 @@ function format_result(result:any, max_str_length:number)
 
 
 /**
- * Class @decorator function for loggin constructor with arguments
- *
- * @param log_instance - the log instance that will be used for logging
- */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T)
-		:{new (...a:any[]):any}{
-	const ExtClass = class extends constr_func {
-		constructor(...args: any[]){
-			fn_debug_constructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
-			super(...args);
-		}
-	};
-	for(const property_name of Object.getOwnPropertyNames(constr_func)) {
-		const descriptor = Object.getOwnPropertyDescriptor(constr_func, property_name)!;
-		if(property_name != 'prototype')
-			Object.defineProperty(ExtClass, property_name, descriptor);
-	}
-	return ExtClass;
-}
-
-
-/**
  * Helper function that replace method with a new function that logs before and after
  * Used in the decorator function debug_method
  *
@@ -304,32 +292,59 @@ function replace_method_with_logs(
 	};
 }
 
-/**
- * Class @decorator function for logging each method inside the class
- *
- * The function return a decorator function.
- *
- * @param target - the class itself (check Decorator documentation)
- */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function debug_methods(target:Function)
-		:void{
-	//constructor methods
-	for(const property_name of Object.getOwnPropertyNames(target.prototype)) {
-		const descriptor = Object.getOwnPropertyDescriptor(target.prototype, property_name)!;
-		if(!(descriptor.value instanceof Function) || property_name == 'constructor')
-			continue;
-		replace_method_with_logs(target, descriptor, property_name);
-		Object.defineProperty(target.prototype, property_name, descriptor);
+
+export namespace decorators {
+	
+	/**
+	 * Class @decorator function for loggin constructor with arguments
+	 *
+	 * @param log_instance - the log instance that will be used for logging
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T)
+			:{new (...a:any[]):any}{
+		const ExtClass = class extends constr_func {
+			constructor(...args: any[]){
+				fn_debug_constructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
+				super(...args);
+			}
+		};
+		for(const property_name of Object.getOwnPropertyNames(constr_func)) {
+			const descriptor = Object.getOwnPropertyDescriptor(constr_func, property_name)!;
+			if(property_name != 'prototype')
+				Object.defineProperty(ExtClass, property_name, descriptor);
+		}
+		return ExtClass;
 	}
-	//static methods
-	for(const property_name of Object.getOwnPropertyNames(target)) {
-		const descriptor = Object.getOwnPropertyDescriptor(target, property_name)!;
-		if(!(descriptor.value instanceof Function) || property_name == 'constructor')
-			continue;
-		replace_method_with_logs(target, descriptor, property_name, '[static]');
-		Object.defineProperty(target, property_name, descriptor);
+
+	/**
+	 * Class @decorator function for logging each method inside the class
+	 *
+	 * The function return a decorator function.
+	 *
+	 * @param target - the class itself (check Decorator documentation)
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	export function debug_methods(target:Function)
+			:void{
+		//constructor methods
+		for(const property_name of Object.getOwnPropertyNames(target.prototype)) {
+			const descriptor = Object.getOwnPropertyDescriptor(target.prototype, property_name)!;
+			if(!(descriptor.value instanceof Function) || property_name == 'constructor')
+				continue;
+			replace_method_with_logs(target, descriptor, property_name);
+			Object.defineProperty(target.prototype, property_name, descriptor);
+		}
+		//static methods
+		for(const property_name of Object.getOwnPropertyNames(target)) {
+			const descriptor = Object.getOwnPropertyDescriptor(target, property_name)!;
+			if(!(descriptor.value instanceof Function) || property_name == 'constructor')
+				continue;
+			replace_method_with_logs(target, descriptor, property_name, '[static]');
+			Object.defineProperty(target, property_name, descriptor);
+		}
 	}
+	
 }
 
 /**

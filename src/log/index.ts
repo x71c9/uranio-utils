@@ -6,6 +6,6 @@
 
 export * from './types';
 
-export * from './console_injectors';
+export {console_injectors} from './console_injectors';
 
 export * from './log';

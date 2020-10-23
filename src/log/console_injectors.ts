@@ -188,47 +188,50 @@ const _console_styles = {
 	bg_white: 'background-color: white;'
 };
 
-export const terminal_log_injector:LogInjectable = {
+export namespace console_injectors {
 	
-	error_inject: (...p:any) => {
-		_cecho('error', _terminal_styles.fgRed, 6, -1, ...p);
-	},
-	
-	warn_inject: (...p:any) => {
-		_cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
-	},
-	
-	debug_inject: (...p:any) => {
-		_cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
-	},
-	
-	fn_debug_inject: (...p:any) => {
-		_cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
-	}
-	
-};
+	export const terminal:LogInjectable = {
+		
+		error_inject: (...p:any) => {
+			_cecho('error', _terminal_styles.fgRed, 6, -1, ...p);
+		},
+		
+		warn_inject: (...p:any) => {
+			_cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
+		},
+		
+		debug_inject: (...p:any) => {
+			_cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
+		},
+		
+		fn_debug_inject: (...p:any) => {
+			_cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
+		}
+		
+	};
 
-export const browser_log_injector:LogInjectable = {
-	
-	error_inject: (...p:any) => {
-		_cecho('error', [_console_styles.fg_red], 4, -1, ...p);
-	},
-	
-	warn_inject: (...p:any) => {
-		_cecho('warn', [_console_styles.fg_yellow], 4, 3, ...p);
-	},
-	
-	// log_inject: (...p:any) => {
-	//   _cecho('log', [_console_styles.fg_blue], 4, 2, ...p);
-	// },
-	
-	debug_inject: (...p:any) => {
-		_cecho('debug', [_console_styles.fg_blue], 4, 4, ...p);
-	},
-	
-	fn_debug_inject: (...p:any) => {
-		_cecho('fn_debug', [_console_styles.fg_cyan], 6, 1, ...p);
-	}
-	
-};
+	export const browser:LogInjectable = {
+		
+		error_inject: (...p:any) => {
+			_cecho('error', [_console_styles.fg_red], 4, -1, ...p);
+		},
+		
+		warn_inject: (...p:any) => {
+			_cecho('warn', [_console_styles.fg_yellow], 4, 3, ...p);
+		},
+		
+		// log_inject: (...p:any) => {
+		//   _cecho('log', [_console_styles.fg_blue], 4, 2, ...p);
+		// },
+		
+		debug_inject: (...p:any) => {
+			_cecho('debug', [_console_styles.fg_blue], 4, 4, ...p);
+		},
+		
+		fn_debug_inject: (...p:any) => {
+			_cecho('fn_debug', [_console_styles.fg_cyan], 6, 1, ...p);
+		}
+		
+	};
 
+}
