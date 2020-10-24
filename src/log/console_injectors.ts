@@ -29,7 +29,8 @@ import log_defaults from './log.defaults';
  */
 function _cecho(type:LogType, style:string|string[], start:number, depth:number, ...params:any[])
 		:void{
-	const stylelog = style + '%s' + _terminal_styles.reset;
+	const styles = (Array.isArray(style)) ? style.join(' ') : style;
+	const stylelog = styles + '%s' + _terminal_styles.reset;
 	_log_stack(type, stylelog, start, depth);
 	for(const p of params){
 		_log_param(p, stylelog);

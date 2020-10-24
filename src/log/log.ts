@@ -87,7 +87,7 @@ function _run_injector(type:LogType, ...params:any[]){
  */
 export function fn_debug(...params:any[])
 		:void{
-	if(log_defaults.log_level > 4){
+	if(log_defaults.log_level > 3){
 		_run_injector('fn_debug', ...params);
 	}
 }
@@ -99,7 +99,7 @@ export function fn_debug(...params:any[])
  */
 export function debug(...params:any[])
 		:void{
-	if(log_defaults.log_level > 3){
+	if(log_defaults.log_level > 2){
 		_run_injector('debug', ...params);
 	}
 }
