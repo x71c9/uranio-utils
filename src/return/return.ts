@@ -10,6 +10,8 @@
 import {General, Success, Fail, UBoolean, is_success, is_fail}
 	from '../response/index';
 
+import * as urn_log from '../log/';
+
 /*
  * Import Return types
  */
@@ -314,5 +316,8 @@ export type ReturnInstance = InstanceType<typeof URNReturn>;
  */
 export default function create_instance(inject?:ReturnInjectable)
 		:ReturnInstance{
+	
+	urn_log.fn_debug('create for URNReturn');
+	
 	return new URNReturn(inject);
 }
