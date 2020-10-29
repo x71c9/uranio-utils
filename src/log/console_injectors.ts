@@ -62,7 +62,7 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1)
 	// skip stack line from log module and return module
 	let j = start;
 	let string = 'return.ts';
-	while(j < splitted_stack.length && string.includes('return.ts') || string.includes('log.ts')){
+	while(j < splitted_stack.length && string.includes('return.ts') || string.includes('log.ts') || string.includes('error.ts')){
 		const psc = splitted_stack[j];
 		const call_info = /\(([^)]+)\)/.exec(psc); // get info from inside ()
 		string = (call_info != null) ? call_info[1] : psc.split('at ')[1];
