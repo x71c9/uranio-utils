@@ -11,7 +11,8 @@ import * as urn_return from './return/';
 import * as urn_util  from './util/';
 
 import * as urn_error  from './error/';
-// import {URNError}  from './error/';
+
+// import * as urn_config  from './config/';
 
 export {
 	urn_log,
@@ -19,7 +20,7 @@ export {
 	urn_return,
 	urn_util,
 	urn_error,
-	// URNError
+	// urn_config
 };
 
 export namespace urn_lib {
@@ -38,4 +39,7 @@ export namespace urn_lib {
 	
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	export import error = urn_error;
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	export import config = urn_config;
 }

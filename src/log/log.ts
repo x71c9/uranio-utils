@@ -301,8 +301,8 @@ export namespace decorators {
 	 * @param log_instance - the log instance that will be used for logging
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T)
-			:{new (...a:any[]):any}{
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+	export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T){
 		const ExtClass = class extends constr_func {
 			constructor(...args: any[]){
 				fn_debug_constructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
