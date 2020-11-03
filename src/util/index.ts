@@ -6,4 +6,6 @@
 
 import * as formatter from './formatter';
 
-export {formatter};
+import * as object from './object';
+
+export {formatter, object};

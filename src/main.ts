@@ -41,5 +41,5 @@ export namespace urn_lib {
 	export import error = urn_error;
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	export import config = urn_config;
+	// export import config = urn_config;
 }
