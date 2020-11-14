@@ -196,10 +196,10 @@ function fn_debug_method_response(rand_id:string, target_name:string, method:str
  * @param method - The name of the method being called.
  * @param error - The error to log.
  */
-function fn_debug_method_response_error(rand_id:string, target_name:string, method:string, error:Error)
+function fn_debug_method_response_error(rand_id:string, target_name:string, method:string, err:Error)
 		:void{
 	fn_debug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
-	fn_debug(error);
+	error(err);
 }
 
 /**
@@ -269,26 +269,31 @@ function replace_method_with_logs(
 			property_name,
 			format_args(args, log_defaults.max_str_length)
 		);
-		const result = original_method.apply(this, args);
-		fn_debug_method_response(
-			rand_id,
-			target_name,
-			property_name,
-			format_result(result, log_defaults.max_str_length)
-		);
-		if(result instanceof Promise){
-			result.then((data:any) => {
-				fn_debug_method_response(
-					rand_id,
-					target_name,
-					property_name,
-					format_result(data, log_defaults.max_str_length),
-					true);
-			}).catch((err:Error) => {
-				fn_debug_method_response_error(rand_id, target_name, property_name, err);
-			});
+		try{
+			const result = original_method.apply(this, args);
+			fn_debug_method_response(
+				rand_id,
+				target_name,
+				property_name,
+				format_result(result, log_defaults.max_str_length)
+			);
+			if(result instanceof Promise){
+				result.then((data:any) => {
+					fn_debug_method_response(
+						rand_id,
+						target_name,
+						property_name,
+						format_result(data, log_defaults.max_str_length),
+						true);
+				}).catch((err:Error) => {
+					fn_debug_method_response_error(rand_id, target_name, property_name, err);
+				});
+			}
+			return result;
+		}catch(err){
+			fn_debug_method_response_error(rand_id, target_name, property_name, err);
+			throw err;
 		}
-		return result;
 	};
 }
 
