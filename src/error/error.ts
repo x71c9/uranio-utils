@@ -37,7 +37,7 @@ export type ErrorInstance = InstanceType<typeof URNError>;
 export default function create(message='', error?:Error)
 		:ErrorInstance{
 	
-	urn_log.fn_debug('create for URNError');
+	// urn_log.fn_debug('create for URNError');
 	
 	return new URNError(message,error);
 }
