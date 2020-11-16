@@ -337,7 +337,8 @@ export namespace decorators {
 			const descriptor = Object.getOwnPropertyDescriptor(target.prototype, property_name)!;
 			if(!(descriptor.value instanceof Function) || property_name == 'constructor')
 				continue;
-			replace_method_with_logs(target, descriptor, property_name);
+			if(typeof (descriptor as any).no_debug === undefined)
+				replace_method_with_logs(target, descriptor, property_name);
 			Object.defineProperty(target.prototype, property_name, descriptor);
 		}
 		//static methods
@@ -348,6 +349,12 @@ export namespace decorators {
 			replace_method_with_logs(target, descriptor, property_name, '[static]');
 			Object.defineProperty(target, property_name, descriptor);
 		}
+	}
+	
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+	export function no_debug(_1: any, _2: string, descriptor: PropertyDescriptor)
+			:void{
+		(descriptor as any).no_debug = true;
 	}
 	
 }
