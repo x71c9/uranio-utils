@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-export class URNException extends Error{
+class URNException extends Error{
 	
 	public date:Date;
 	
