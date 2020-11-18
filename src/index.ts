@@ -4,7 +4,7 @@ import {
 	urn_response,
 	urn_return,
 	urn_util,
-	urn_error,
+	urn_exception,
 } from './main';
 
 export {
@@ -12,7 +12,7 @@ export {
 	urn_response,
 	urn_return,
 	urn_util,
-	urn_error,
+	urn_exception
 };
 
 export default urn_lib;
