@@ -14,7 +14,12 @@ class URNException extends Error{
 	
 	constructor(public code:string, public msg='', public nested?:Error) {
 		
-		super(`[${code}] ${msg}`);
+		super();
+		
+		this.message = `[${code}] ${msg}`;
+		
+		if(nested && nested.message)
+			this.message += ` ${nested.message}`;
 		
 		const actual_prototype = new.target.prototype;
 		
