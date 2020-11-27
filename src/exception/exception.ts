@@ -4,13 +4,15 @@
  * @packageDocumentation
  */
 
-// import * as urn_log from '../log/';
+import {ExceptionType} from './types';
 
 class URNException extends Error{
 	
 	public date:Date;
 	
 	public name = 'URANIOException';
+	
+	public type:ExceptionType = ExceptionType.GENERAL;
 	
 	constructor(public code:string, public msg='', public nested?:Error) {
 		
@@ -27,9 +29,15 @@ class URNException extends Error{
 		
 		this.date = new Date();
 		
-		// urn_log.error(this.message);
-		
 	}
+	
+}
+
+class URNNotFoundException extends URNException {
+	
+	public name = 'URANIONotFoundException';
+	
+	public type:ExceptionType = ExceptionType.NOT_FOUND;
 	
 }
 
@@ -38,23 +46,39 @@ class URNException extends Error{
  */
 export type ExceptionInstance = InstanceType<typeof URNException>;
 
-// export default function create(code:string, message='', nested?:Error)
-//     :ExceptionInstance{
-//   return new URNException(code, message, nested);
-// }
+export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
 
 type CreateException = {
+	
 	create(err_code:string, exception_message:string, nested?:Error):ExceptionInstance;
+	
+	create_not_found(err_code:string, exception_message:string, nested?:Error):NotFoundExceptionInstance;
+	
 }
 
 export function init(code_prepend:string, module_name:string):CreateException{
+	
 	return {
+		
 		create: function(err_code:string, exception_message:string, nested?:Error){
 			return new URNException(
-				`${code_prepend}-${err_code}`,
+				`${code_prepend}_${err_code}`,
+				`${module_name}. ${exception_message}`,
+				nested
+			);
+		},
+		
+		create_not_found: function(err_code:string, exception_message:string, nested?:Error){
+			return new URNNotFoundException(
+				`${code_prepend}_${err_code}`,
 				`${module_name}. ${exception_message}`,
 				nested
 			);
 		}
+		
 	};
+	
 }
+
+
+
