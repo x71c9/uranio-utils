@@ -8,6 +8,6 @@ import * as formatter from './formatter';
 
 import * as object from './object';
 
-export * from './mixed';
+import * as is from './validate';
 
-export {formatter, object};
+export {formatter, object, is};

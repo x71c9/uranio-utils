@@ -12,15 +12,12 @@ import * as urn_util  from './util/';
 
 import * as urn_exception  from './exception/';
 
-// import * as urn_config  from './config/';
-
 export {
 	urn_log,
 	urn_response,
 	urn_return,
 	urn_util,
 	urn_exception,
-	// urn_config
 };
 
 export namespace urn_lib {
@@ -39,7 +36,5 @@ export namespace urn_lib {
 	
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	export import exception = urn_exception;
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	// export import config = urn_config;
+	
 }
