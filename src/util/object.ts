@@ -26,5 +26,7 @@
  * ```
  */
 export function has_key<O>(obj: O, key: keyof any): key is keyof O {
+	// if(typeof obj === 'undefined')
+	//   return false;
 	return key in obj;
 }
