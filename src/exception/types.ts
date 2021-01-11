@@ -7,5 +7,6 @@
 export const enum ExceptionType {
 	GENERAL = 'GENERAL',
 	NOT_FOUND = 'NOTFOUND',
-	INVALID = 'INVALID'
+	INVALID = 'INVALID',
+	UNAUTHORIZED = 'UNAUTHORIZED'
 }
