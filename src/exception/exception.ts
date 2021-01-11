@@ -14,11 +14,18 @@ class URNException extends Error{
 	
 	public type:ExceptionType = ExceptionType.GENERAL;
 	
-	constructor(public code:string, public msg='', public nested?:Error) {
+	constructor(
+		public module_code:string,
+		public module_name:string,
+		public error_code:string,
+		public msg:string,
+		public nested?:Error
+	) {
 		
 		super();
 		
-		this.message = `[${code}] ${msg}`;
+		this.message = `[${module_code}_${error_code}]`;
+		this.message += ` ${module_name}. ${msg}`;
 		
 		if(nested && nested.message)
 			this.message += ` ${nested.message}`;
@@ -47,63 +54,63 @@ class URNInvalidException extends URNException {
 	
 	public type:ExceptionType = ExceptionType.INVALID;
 	
-	constructor(code:string, msg='', public object?:any, public keys?:any[], nested?:Error) {
-		super(code, msg, nested);
+	constructor(
+		module_code:string,
+		module_name:string,
+		error_code:string,
+		msg:string,
+		public object?:any,
+		public keys?:any[],
+		nested?:Error
+	) {
+		super(module_code, module_name, error_code, msg, nested);
 	}
 	
 }
 
-/*
- * Export only the type of the class URNException
- */
+class URNUnauthorizedException extends URNException {
+	
+	public name = 'URANIOUnauthorizedException';
+	
+	public type:ExceptionType = ExceptionType.UNAUTHORIZED;
+	
+}
+
 export type ExceptionInstance = InstanceType<typeof URNException>;
 
 export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
 
 export type InvalidExceptionInstance = InstanceType<typeof URNInvalidException>;
 
-type CreateException = {
+export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
+
+interface CreateException {
 	
-	create(err_code:string, exception_message:string, nested?:Error):ExceptionInstance;
+	create(err_code:string, msg:string, nested?:Error):ExceptionInstance;
 	
-	create_not_found(err_code:string, exception_message:string, nested?:Error):NotFoundExceptionInstance;
+	create_not_found(err_code:string, msg:string, nested?:Error):NotFoundExceptionInstance;
 	
-	create_invalid(err_code:string, exception_message:string, object?:any, keys?:any[], nested?:Error):InvalidExceptionInstance;
+	create_invalid(err_code:string, msg:string, object?:any, keys?:any[], nested?:Error):InvalidExceptionInstance;
+	
+	create_unauthorized(err_code:string, msg:string, nested?:Error):UnauthorizedExceptionInstance;
 	
 }
 
-export function init(code_prepend:string, module_name:string):CreateException{
-	
+export function init(module_code:string, module_name:string):CreateException{
 	return {
-		
-		create: function(err_code:string, exception_message:string, nested?:Error){
-			return new URNException(
-				`${code_prepend}_${err_code}`,
-				`${module_name}. ${exception_message}`,
-				nested
-			);
+		create: function(err_code:string, msg:string, nested?:Error){
+			return new URNException(module_code, module_name, err_code, msg, nested);
 		},
-		
-		create_not_found: function(err_code:string, exception_message:string, nested?:Error){
-			return new URNNotFoundException(
-				`${code_prepend}_${err_code}`,
-				`${module_name}. ${exception_message}`,
-				nested
-			);
+		create_not_found: function(err_code:string, msg:string, nested?:Error){
+			return new URNNotFoundException(module_code, module_name, err_code, msg, nested);
 		},
-		
-		create_invalid: function(err_code:string, exception_message:string, object?:any, keys?:any[], nested?: Error){
-			return new URNInvalidException(
-				`${code_prepend}_${err_code}`,
-				`${module_name}. ${exception_message}`,
-				object,
-				keys,
-				nested
-			);
+		create_invalid: function(err_code:string, msg:string, object?:any, keys?:any[], nested?: Error){
+			return new URNInvalidException(module_code, module_name, err_code, msg, object, keys, nested);
+		},
+		create_unauthorized: function(err_code: string, msg:string, nested?:Error){
+			return new URNUnauthorizedException(module_code, module_name, err_code, msg, nested);
 		}
-		
 	};
-	
 }
 
 
