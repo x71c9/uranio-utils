@@ -32,13 +32,13 @@ class URNNotFoundException extends URNException {
         this.type = "NOTFOUND" /* NOT_FOUND */;
     }
 }
-class URNInvalidException extends URNException {
+class URNInvalidAtomException extends URNException {
     constructor(module_code, module_name, error_code, msg, object, keys, nested) {
         super(module_code, module_name, error_code, msg, nested);
         this.object = object;
         this.keys = keys;
-        this.name = 'URANIOInvalidException';
-        this.type = "INVALID" /* INVALID */;
+        this.name = 'URANIOInvalidAtomException';
+        this.type = "INVALID_ATOM" /* INVALID_ATOM */;
     }
 }
 class URNUnauthorizedException extends URNException {
@@ -56,8 +56,8 @@ function init(module_code, module_name) {
         create_not_found: function (err_code, msg, nested) {
             return new URNNotFoundException(module_code, module_name, err_code, msg, nested);
         },
-        create_invalid: function (err_code, msg, object, keys, nested) {
-            return new URNInvalidException(module_code, module_name, err_code, msg, object, keys, nested);
+        create_invalid_atom: function (err_code, msg, object, keys, nested) {
+            return new URNInvalidAtomException(module_code, module_name, err_code, msg, object, keys, nested);
         },
         create_unauthorized: function (err_code, msg, nested) {
             return new URNUnauthorizedException(module_code, module_name, err_code, msg, nested);
