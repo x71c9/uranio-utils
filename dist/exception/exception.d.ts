@@ -19,7 +19,7 @@ declare class URNNotFoundException extends URNException {
     name: string;
     type: ExceptionType;
 }
-declare class URNInvalidException extends URNException {
+declare class URNInvalidAtomException extends URNException {
     object?: any;
     keys?: any[] | undefined;
     name: string;
@@ -32,12 +32,12 @@ declare class URNUnauthorizedException extends URNException {
 }
 export declare type ExceptionInstance = InstanceType<typeof URNException>;
 export declare type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
-export declare type InvalidExceptionInstance = InstanceType<typeof URNInvalidException>;
+export declare type InvalidAtomExceptionInstance = InstanceType<typeof URNInvalidAtomException>;
 export declare type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
 interface CreateException {
     create(err_code: string, msg: string, nested?: Error): ExceptionInstance;
     create_not_found(err_code: string, msg: string, nested?: Error): NotFoundExceptionInstance;
-    create_invalid(err_code: string, msg: string, object?: any, keys?: any[], nested?: Error): InvalidExceptionInstance;
+    create_invalid_atom(err_code: string, msg: string, object?: any, keys?: any[], nested?: Error): InvalidAtomExceptionInstance;
     create_unauthorized(err_code: string, msg: string, nested?: Error): UnauthorizedExceptionInstance;
 }
 export declare function init(module_code: string, module_name: string): CreateException;
