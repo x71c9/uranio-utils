@@ -48,11 +48,11 @@ class URNNotFoundException extends URNException {
 	
 }
 
-class URNInvalidException extends URNException {
+class URNInvalidAtomException extends URNException {
 	
-	public name = 'URANIOInvalidException';
+	public name = 'URANIOInvalidAtomException';
 	
-	public type:ExceptionType = ExceptionType.INVALID;
+	public type:ExceptionType = ExceptionType.INVALID_ATOM;
 	
 	constructor(
 		module_code:string,
@@ -80,7 +80,7 @@ export type ExceptionInstance = InstanceType<typeof URNException>;
 
 export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
 
-export type InvalidExceptionInstance = InstanceType<typeof URNInvalidException>;
+export type InvalidAtomExceptionInstance = InstanceType<typeof URNInvalidAtomException>;
 
 export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
 
@@ -90,7 +90,7 @@ interface CreateException {
 	
 	create_not_found(err_code:string, msg:string, nested?:Error):NotFoundExceptionInstance;
 	
-	create_invalid(err_code:string, msg:string, object?:any, keys?:any[], nested?:Error):InvalidExceptionInstance;
+	create_invalid_atom(err_code:string, msg:string, object?:any, keys?:any[], nested?:Error):InvalidAtomExceptionInstance;
 	
 	create_unauthorized(err_code:string, msg:string, nested?:Error):UnauthorizedExceptionInstance;
 	
@@ -104,8 +104,8 @@ export function init(module_code:string, module_name:string):CreateException{
 		create_not_found: function(err_code:string, msg:string, nested?:Error){
 			return new URNNotFoundException(module_code, module_name, err_code, msg, nested);
 		},
-		create_invalid: function(err_code:string, msg:string, object?:any, keys?:any[], nested?: Error){
-			return new URNInvalidException(module_code, module_name, err_code, msg, object, keys, nested);
+		create_invalid_atom: function(err_code:string, msg:string, object?:any, keys?:any[], nested?: Error){
+			return new URNInvalidAtomException(module_code, module_name, err_code, msg, object, keys, nested);
 		},
 		create_unauthorized: function(err_code: string, msg:string, nested?:Error){
 			return new URNUnauthorizedException(module_code, module_name, err_code, msg, nested);
