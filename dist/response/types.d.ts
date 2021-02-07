@@ -27,6 +27,8 @@ export interface Fail<T = null> extends AbstractResponse<T> {
     success: false;
     payload: T;
     message?: string;
+    err_code: string;
+    err_msg: string;
     ex?: Error | null;
 }
 export declare type General<T = null, K = null> = Success<T> | Fail<K>;

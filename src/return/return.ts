@@ -132,7 +132,7 @@ class URNReturn {
 				return this._run_success_handlers(response);
 			}catch(ex){
 				return this.return_error(500,
-					'URANIO ERROR ['+name+'] - ' + ex.message, null, ex);
+					'URANIO ERROR ['+name+'] - ' + ex.message, ex.code, ex.msg, null, ex);
 			}
 		};
 	}
@@ -158,7 +158,7 @@ class URNReturn {
 				return this._run_success_handlers(response);
 			}catch(ex){
 				return this.return_error(500,
-					'URANIO ERROR ['+name+'] - ' + ex.message, null, ex);
+					'URANIO ERROR ['+name+'] - ' + ex.message, ex.code, ex.msg, null, ex);
 			}
 		};
 	}
@@ -178,6 +178,8 @@ class URNReturn {
 			status: 200,
 			message: '',
 			success: false,
+			err_code: '',
+			err_msg: '',
 			payload: null
 		};
 		if(is_fail(result)){
@@ -217,15 +219,17 @@ class URNReturn {
 	 * @param payload [optional] - A payload
 	 * @param ex [optional] - An exception
 	 */
-	public return_error(status:number, message:string, payload?:null, ex?:Error | null):Fail;
-	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):Fail<T>;
-	public return_error<T>(status:number, message:string, payload:T, ex?:Error | null):Fail<T> | Fail{
+	public return_error(status:number, message:string, err_code:string, err_msg:string, payload?:null, ex?:Error | null):Fail;
+	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null):Fail<T>;
+	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null):Fail<T> | Fail{
 		// if there is a payload
-		if(arguments.length > 2){
+		if(arguments.length > 4){
 			const urn_response:Fail<T> = {
 				status: status,
 				payload: payload,
 				message: message,
+				err_code: err_code,
+				err_msg: err_msg,
 				ex: (ex) ? ex : null,
 				success: false
 			};
@@ -235,6 +239,8 @@ class URNReturn {
 				status: status,
 				message: message,
 				payload: null,
+				err_code: err_code,
+				err_msg: err_msg,
 				ex: null,
 				success: false
 			};

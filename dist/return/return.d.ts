@@ -100,8 +100,8 @@ declare class URNReturn {
      * @param payload [optional] - A payload
      * @param ex [optional] - An exception
      */
-    return_error(status: number, message: string, payload?: null, ex?: Error | null): Fail;
-    return_error<T>(status: number, message: string, payload: T, ex?: Error | null): Fail<T>;
+    return_error(status: number, message: string, err_code: string, err_msg: string, payload?: null, ex?: Error | null): Fail;
+    return_error<T>(status: number, message: string, err_code: string, err_msg: string, payload: T, ex?: Error | null): Fail<T>;
     /**
      * Returns a successful response object
      *
