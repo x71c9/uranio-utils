@@ -226,11 +226,11 @@ class URNReturn {
 		if(arguments.length > 4){
 			const urn_response:Fail<T> = {
 				status: status,
-				payload: payload,
 				message: message,
 				err_code: err_code,
 				err_msg: err_msg,
 				ex: (ex) ? ex : null,
+				payload: payload,
 				success: false
 			};
 			return this._run_fail_handlers(urn_response);
@@ -238,10 +238,10 @@ class URNReturn {
 			const urn_response:Fail = {
 				status: status,
 				message: message,
-				payload: null,
 				err_code: err_code,
 				err_msg: err_msg,
 				ex: null,
+				payload: null,
 				success: false
 			};
 			return this._run_fail_handlers(urn_response);
