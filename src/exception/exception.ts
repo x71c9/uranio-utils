@@ -76,6 +76,14 @@ class URNUnauthorizedException extends URNException {
 	
 }
 
+class URNInvalidRequestException extends URNException {
+	
+	public name = 'URANIOInvalidRequestException';
+	
+	public type:ExceptionType = ExceptionType.INVALID_REQUEST;
+	
+}
+
 export type ExceptionInstance = InstanceType<typeof URNException>;
 
 export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
@@ -83,6 +91,8 @@ export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException
 export type InvalidAtomExceptionInstance = InstanceType<typeof URNInvalidAtomException>;
 
 export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
+
+export type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
 
 interface CreateException {
 	
@@ -93,6 +103,8 @@ interface CreateException {
 	create_invalid_atom(err_code:string, msg:string, object?:any, keys?:any[], nested?:Error):InvalidAtomExceptionInstance;
 	
 	create_unauthorized(err_code:string, msg:string, nested?:Error):UnauthorizedExceptionInstance;
+	
+	create_invalid_request(err_code:string, msg:string, nested?:Error):InvalidRequestExceptionInstance;
 	
 }
 
@@ -109,6 +121,9 @@ export function init(module_code:string, module_name:string):CreateException{
 		},
 		create_unauthorized: function(err_code: string, msg:string, nested?:Error){
 			return new URNUnauthorizedException(module_code, module_name, err_code, msg, nested);
+		},
+		create_invalid_request: function(err_code: string, msg:string, nested?:Error){
+			return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
 		}
 	};
 }
