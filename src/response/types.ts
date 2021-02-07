@@ -89,6 +89,16 @@ export interface Fail<T = null> extends AbstractResponse<T> {
 	message?: string;
 	
 	/*
+	 * Error code
+	 */
+	err_code: string;
+	
+	/*
+	 * Error message
+	 */
+	err_msg: string;
+	
+	/*
 	 * The exception if any
 	 */
 	ex?: Error|null;

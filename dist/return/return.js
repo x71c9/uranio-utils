@@ -139,7 +139,7 @@ class URNReturn {
                 return this._run_success_handlers(response);
             }
             catch (ex) {
-                return this.return_error(500, 'URANIO ERROR [' + name + '] - ' + ex.message, null, ex);
+                return this.return_error(500, 'URANIO ERROR [' + name + '] - ' + ex.message, ex.code, ex.msg, null, ex);
             }
         });
     }
@@ -164,7 +164,7 @@ class URNReturn {
                 return this._run_success_handlers(response);
             }
             catch (ex) {
-                return this.return_error(500, 'URANIO ERROR [' + name + '] - ' + ex.message, null, ex);
+                return this.return_error(500, 'URANIO ERROR [' + name + '] - ' + ex.message, ex.code, ex.msg, null, ex);
             }
         };
     }
@@ -182,6 +182,8 @@ class URNReturn {
             status: 200,
             message: '',
             success: false,
+            err_code: '',
+            err_msg: '',
             payload: null
         };
         if (index_1.is_fail(result)) {
@@ -208,13 +210,15 @@ class URNReturn {
         return_result.payload = result.payload.payload;
         return return_result;
     }
-    return_error(status, message, payload, ex) {
+    return_error(status, message, err_code, err_msg, payload, ex) {
         // if there is a payload
-        if (arguments.length > 2) {
+        if (arguments.length > 4) {
             const urn_response = {
                 status: status,
                 payload: payload,
                 message: message,
+                err_code: err_code,
+                err_msg: err_msg,
                 ex: (ex) ? ex : null,
                 success: false
             };
@@ -225,6 +229,8 @@ class URNReturn {
                 status: status,
                 message: message,
                 payload: null,
+                err_code: err_code,
+                err_msg: err_msg,
                 ex: null,
                 success: false
             };
