@@ -48,6 +48,13 @@ class URNUnauthorizedException extends URNException {
         this.type = "UNAUTHORIZED" /* UNAUTHORIZED */;
     }
 }
+class URNInvalidRequestException extends URNException {
+    constructor() {
+        super(...arguments);
+        this.name = 'URANIOInvalidRequestException';
+        this.type = "INVALID_REQUEST" /* INVALID_REQUEST */;
+    }
+}
 function init(module_code, module_name) {
     return {
         create: function (err_code, msg, nested) {
@@ -61,6 +68,9 @@ function init(module_code, module_name) {
         },
         create_unauthorized: function (err_code, msg, nested) {
             return new URNUnauthorizedException(module_code, module_name, err_code, msg, nested);
+        },
+        create_invalid_request: function (err_code, msg, nested) {
+            return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
         }
     };
 }
