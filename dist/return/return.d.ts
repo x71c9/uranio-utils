@@ -132,5 +132,5 @@ export declare type ReturnInstance = InstanceType<typeof URNReturn>;
  * A function the will create a URNReturn instance.
  * Its parameters are the same as the constructor of the class.
  */
-export default function create_instance(inject?: ReturnInjectable): ReturnInstance;
+export default function create_instance(inject?: ReturnInjectable | ReturnInjectable[]): ReturnInstance;
 export {};
