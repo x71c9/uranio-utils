@@ -320,7 +320,7 @@ export type ReturnInstance = InstanceType<typeof URNReturn>;
  * A function the will create a URNReturn instance.
  * Its parameters are the same as the constructor of the class.
  */
-export default function create_instance(inject?:ReturnInjectable)
+export default function create_instance(inject?:ReturnInjectable|ReturnInjectable[])
 		:ReturnInstance{
 	
 	urn_log.fn_debug('create for URNReturn');
