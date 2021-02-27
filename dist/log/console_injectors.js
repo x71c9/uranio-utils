@@ -44,7 +44,7 @@ function _cecho(type, style, start, depth, ...params) {
  */
 function _log_stack(type, stylelog, start = 0, depth = -1) {
     const stack = new Error().stack;
-    Error.stackTraceLimit = 16;
+    Error.stackTraceLimit = 32;
     if (stack == undefined) {
         console.error('CANNOT LOG STACK');
         return;
