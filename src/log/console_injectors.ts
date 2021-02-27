@@ -49,7 +49,7 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 function _log_stack(type:LogType, stylelog:string, start=0, depth=-1)
 		:void{
 	const stack = new Error().stack;
-	Error.stackTraceLimit = 16;
+	Error.stackTraceLimit = 32;
 	if(stack == undefined){
 		console.error('CANNOT LOG STACK');
 		return;

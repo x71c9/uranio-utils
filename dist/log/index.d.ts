@@ -4,5 +4,6 @@
  * @packageDocumentation
  */
 export * from './types';
-export { console_injectors } from './console_injectors';
 export * from './log';
+import * as util from './util';
+export { util };
