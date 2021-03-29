@@ -62,10 +62,10 @@ class URNInvalidRequestException extends URNException {
         this.type = "INVALID_REQUEST" /* INVALID_REQUEST */;
     }
 }
-class URNInvalidAuthPassowrdException extends URNInvalidRequestException {
+class URNAuthInvalidPasswordException extends URNInvalidRequestException {
     constructor() {
         super(...arguments);
-        this.name = 'URANIOInvalidAuthPasswordException';
+        this.name = 'URANIOAuthInvalidPasswordException';
         this.type = "INVALID_AUTH_PASSWORD" /* INVALID_AUTH_PASSWORD */;
     }
 }
@@ -89,8 +89,8 @@ function init(module_code, module_name) {
         create_invalid_request: function (err_code, msg, nested) {
             return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
         },
-        create_invalid_auth_password: function (err_code, msg, nested) {
-            return new URNInvalidAuthPassowrdException(module_code, module_name, err_code, msg, nested);
+        create_auth_invalid_password: function (err_code, msg, nested) {
+            return new URNAuthInvalidPasswordException(module_code, module_name, err_code, msg, nested);
         }
     };
 }

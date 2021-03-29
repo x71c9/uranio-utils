@@ -92,9 +92,9 @@ class URNInvalidRequestException extends URNException {
 	
 }
 
-class URNInvalidAuthPassowrdException extends URNInvalidRequestException {
+class URNAuthInvalidPasswordException extends URNInvalidRequestException {
 	
-	public name = 'URANIOInvalidAuthPasswordException';
+	public name = 'URANIOAuthInvalidPasswordException';
 	
 	public type:ExceptionType = ExceptionType.INVALID_AUTH_PASSWORD;
 	
@@ -112,7 +112,7 @@ export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedE
 
 export type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
 
-export type InvalidAuthPasswordExceptionInstance = InstanceType<typeof URNInvalidAuthPassowrdException>;
+export type AuthInvalidPasswordExceptionInstance = InstanceType<typeof URNAuthInvalidPasswordException>;
 
 interface CreateException {
 	
@@ -128,7 +128,7 @@ interface CreateException {
 	
 	create_invalid_request(err_code:string, msg:string, nested?:Error):InvalidRequestExceptionInstance;
 	
-	create_invalid_auth_password(err_code:string, msg:string, nested?:Error):InvalidAuthPasswordExceptionInstance;
+	create_auth_invalid_password(err_code:string, msg:string, nested?:Error):AuthInvalidPasswordExceptionInstance;
 	
 }
 
@@ -152,8 +152,8 @@ export function init(module_code:string, module_name:string):CreateException{
 		create_invalid_request: function(err_code: string, msg:string, nested?:Error){
 			return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
 		},
-		create_invalid_auth_password: function(err_code: string, msg:string, nested?:Error){
-			return new URNInvalidAuthPassowrdException(module_code, module_name, err_code, msg, nested);
+		create_auth_invalid_password: function(err_code: string, msg:string, nested?:Error){
+			return new URNAuthInvalidPasswordException(module_code, module_name, err_code, msg, nested);
 		}
 	};
 }

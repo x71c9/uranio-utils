@@ -38,7 +38,7 @@ declare class URNInvalidRequestException extends URNException {
     name: string;
     type: ExceptionType;
 }
-declare class URNInvalidAuthPassowrdException extends URNInvalidRequestException {
+declare class URNAuthInvalidPasswordException extends URNInvalidRequestException {
     name: string;
     type: ExceptionType;
 }
@@ -48,7 +48,7 @@ export declare type AuthNotFoundExceptionInstance = InstanceType<typeof URNAuthN
 export declare type InvalidAtomExceptionInstance = InstanceType<typeof URNInvalidAtomException>;
 export declare type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
 export declare type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
-export declare type InvalidAuthPasswordExceptionInstance = InstanceType<typeof URNInvalidAuthPassowrdException>;
+export declare type AuthInvalidPasswordExceptionInstance = InstanceType<typeof URNAuthInvalidPasswordException>;
 interface CreateException {
     create(err_code: string, msg: string, nested?: Error): ExceptionInstance;
     create_not_found(err_code: string, msg: string, nested?: Error): NotFoundExceptionInstance;
@@ -56,7 +56,7 @@ interface CreateException {
     create_invalid_atom(err_code: string, msg: string, object?: any, keys?: any[], nested?: Error): InvalidAtomExceptionInstance;
     create_unauthorized(err_code: string, msg: string, nested?: Error): UnauthorizedExceptionInstance;
     create_invalid_request(err_code: string, msg: string, nested?: Error): InvalidRequestExceptionInstance;
-    create_invalid_auth_password(err_code: string, msg: string, nested?: Error): InvalidAuthPasswordExceptionInstance;
+    create_auth_invalid_password(err_code: string, msg: string, nested?: Error): AuthInvalidPasswordExceptionInstance;
 }
 export declare function init(module_code: string, module_name: string): CreateException;
 export {};
