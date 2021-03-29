@@ -36,7 +36,7 @@ class URNAuthNotFoundException extends URNNotFoundException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOAuthNotFoundException';
-        this.type = "AUTHNOTFOUND" /* AUTH_NOT_FOUND */;
+        this.type = "AUTH_NOTFOUND" /* AUTH_NOT_FOUND */;
     }
 }
 class URNInvalidAtomException extends URNException {
@@ -66,7 +66,7 @@ class URNAuthInvalidPasswordException extends URNInvalidRequestException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOAuthInvalidPasswordException';
-        this.type = "INVALID_AUTH_PASSWORD" /* INVALID_AUTH_PASSWORD */;
+        this.type = "AUTH_INVALID_PASSWORD" /* AUTH_INVALID_PASSWORD */;
     }
 }
 function init(module_code, module_name) {
