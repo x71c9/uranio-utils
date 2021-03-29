@@ -48,6 +48,14 @@ class URNNotFoundException extends URNException {
 	
 }
 
+class URNAuthNotFoundException extends URNNotFoundException {
+	
+	public name = 'URANIOAuthNotFoundException';
+	
+	public type:ExceptionType = ExceptionType.AUTH_NOT_FOUND;
+	
+}
+
 class URNInvalidAtomException extends URNException {
 	
 	public name = 'URANIOInvalidAtomException';
@@ -84,9 +92,19 @@ class URNInvalidRequestException extends URNException {
 	
 }
 
+class URNInvalidAuthPassowrdException extends URNInvalidRequestException {
+	
+	public name = 'URANIOInvalidAuthPasswordException';
+	
+	public type:ExceptionType = ExceptionType.INVALID_AUTH_PASSWORD;
+	
+}
+
 export type ExceptionInstance = InstanceType<typeof URNException>;
 
 export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
+
+export type AuthNotFoundExceptionInstance = InstanceType<typeof URNAuthNotFoundException>;
 
 export type InvalidAtomExceptionInstance = InstanceType<typeof URNInvalidAtomException>;
 
@@ -94,17 +112,23 @@ export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedE
 
 export type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
 
+export type InvalidAuthPasswordExceptionInstance = InstanceType<typeof URNInvalidAuthPassowrdException>;
+
 interface CreateException {
 	
 	create(err_code:string, msg:string, nested?:Error):ExceptionInstance;
 	
 	create_not_found(err_code:string, msg:string, nested?:Error):NotFoundExceptionInstance;
 	
+	create_auth_not_found(err_code:string, msg:string, nested?:Error):AuthNotFoundExceptionInstance;
+	
 	create_invalid_atom(err_code:string, msg:string, object?:any, keys?:any[], nested?:Error):InvalidAtomExceptionInstance;
 	
 	create_unauthorized(err_code:string, msg:string, nested?:Error):UnauthorizedExceptionInstance;
 	
 	create_invalid_request(err_code:string, msg:string, nested?:Error):InvalidRequestExceptionInstance;
+	
+	create_invalid_auth_password(err_code:string, msg:string, nested?:Error):InvalidAuthPasswordExceptionInstance;
 	
 }
 
@@ -116,6 +140,9 @@ export function init(module_code:string, module_name:string):CreateException{
 		create_not_found: function(err_code:string, msg:string, nested?:Error){
 			return new URNNotFoundException(module_code, module_name, err_code, msg, nested);
 		},
+		create_auth_not_found: function(err_code:string, msg:string, nested?:Error){
+			return new URNAuthNotFoundException(module_code, module_name, err_code, msg, nested);
+		},
 		create_invalid_atom: function(err_code:string, msg:string, object?:any, keys?:any[], nested?: Error){
 			return new URNInvalidAtomException(module_code, module_name, err_code, msg, object, keys, nested);
 		},
@@ -124,6 +151,9 @@ export function init(module_code:string, module_name:string):CreateException{
 		},
 		create_invalid_request: function(err_code: string, msg:string, nested?:Error){
 			return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
+		},
+		create_invalid_auth_password: function(err_code: string, msg:string, nested?:Error){
+			return new URNInvalidAuthPassowrdException(module_code, module_name, err_code, msg, nested);
 		}
 	};
 }
