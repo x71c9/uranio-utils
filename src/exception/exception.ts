@@ -96,7 +96,7 @@ class URNAuthInvalidPasswordException extends URNInvalidRequestException {
 	
 	public name = 'URANIOAuthInvalidPasswordException';
 	
-	public type:ExceptionType = ExceptionType.INVALID_AUTH_PASSWORD;
+	public type:ExceptionType = ExceptionType.AUTH_INVALID_PASSWORD;
 	
 }
 
