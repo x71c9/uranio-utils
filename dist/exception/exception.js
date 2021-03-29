@@ -32,6 +32,13 @@ class URNNotFoundException extends URNException {
         this.type = "NOTFOUND" /* NOT_FOUND */;
     }
 }
+class URNAuthNotFoundException extends URNNotFoundException {
+    constructor() {
+        super(...arguments);
+        this.name = 'URANIOAuthNotFoundException';
+        this.type = "AUTHNOTFOUND" /* AUTH_NOT_FOUND */;
+    }
+}
 class URNInvalidAtomException extends URNException {
     constructor(module_code, module_name, error_code, msg, object, keys, nested) {
         super(module_code, module_name, error_code, msg, nested);
@@ -55,6 +62,13 @@ class URNInvalidRequestException extends URNException {
         this.type = "INVALID_REQUEST" /* INVALID_REQUEST */;
     }
 }
+class URNInvalidAuthPassowrdException extends URNInvalidRequestException {
+    constructor() {
+        super(...arguments);
+        this.name = 'URANIOInvalidAuthPasswordException';
+        this.type = "INVALID_AUTH_PASSWORD" /* INVALID_AUTH_PASSWORD */;
+    }
+}
 function init(module_code, module_name) {
     return {
         create: function (err_code, msg, nested) {
@@ -62,6 +76,9 @@ function init(module_code, module_name) {
         },
         create_not_found: function (err_code, msg, nested) {
             return new URNNotFoundException(module_code, module_name, err_code, msg, nested);
+        },
+        create_auth_not_found: function (err_code, msg, nested) {
+            return new URNAuthNotFoundException(module_code, module_name, err_code, msg, nested);
         },
         create_invalid_atom: function (err_code, msg, object, keys, nested) {
             return new URNInvalidAtomException(module_code, module_name, err_code, msg, object, keys, nested);
@@ -71,6 +88,9 @@ function init(module_code, module_name) {
         },
         create_invalid_request: function (err_code, msg, nested) {
             return new URNInvalidRequestException(module_code, module_name, err_code, msg, nested);
+        },
+        create_invalid_auth_password: function (err_code, msg, nested) {
+            return new URNInvalidAuthPassowrdException(module_code, module_name, err_code, msg, nested);
         }
     };
 }
