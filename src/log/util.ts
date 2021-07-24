@@ -6,7 +6,7 @@
 
 import dateFormat from 'dateformat';
 
-import {json_one_line} from '../util/formatter';
+import {safe_stringify_oneline} from '../util/json';
 
 import {ReturnInjectable} from '../return/types';
 
@@ -178,7 +178,7 @@ function format_args(args:any[], max_str_length:number)
 		:string{
 	let str_args = (args.length > 0) ? `${args}` : '';
 	try{
-		str_args = (args.length > 0) ? json_one_line(args) : '';
+		str_args = (args.length > 0) ? safe_stringify_oneline(args) : '';
 		str_args = str_args.substr(1,str_args.length-2);
 	}catch(e){
 		str_args = `[CANNOT FORMAT ARGUMENTS][${e.message}]`;
@@ -200,7 +200,7 @@ function format_result(result:any, max_str_length:number)
 	let str_result = `${result}`;
 	try{
 		str_result = `${result}`;
-		str_result = json_one_line(result);
+		str_result = safe_stringify_oneline(result);
 	}catch(e){
 		str_result = `[CANNOT FORMAT RESULT][${e.message}]`;
 	}

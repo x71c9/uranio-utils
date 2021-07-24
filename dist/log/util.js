@@ -10,7 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decorators = exports.return_injector = exports.console_injectors = void 0;
 const dateformat_1 = __importDefault(require("dateformat"));
-const formatter_1 = require("../util/formatter");
+const json_1 = require("../util/json");
 var console_injectors_1 = require("./console_injectors");
 Object.defineProperty(exports, "console_injectors", { enumerable: true, get: function () { return console_injectors_1.console_injectors; } });
 const log_1 = require("./log");
@@ -161,7 +161,7 @@ function fn_debug_method_response_error(rand_id, target_name, method, err) {
 function format_args(args, max_str_length) {
     let str_args = (args.length > 0) ? `${args}` : '';
     try {
-        str_args = (args.length > 0) ? formatter_1.json_one_line(args) : '';
+        str_args = (args.length > 0) ? json_1.safe_stringify_oneline(args) : '';
         str_args = str_args.substr(1, str_args.length - 2);
     }
     catch (e) {
@@ -182,7 +182,7 @@ function format_result(result, max_str_length) {
     let str_result = `${result}`;
     try {
         str_result = `${result}`;
-        str_result = formatter_1.json_one_line(result);
+        str_result = json_1.safe_stringify_oneline(result);
     }
     catch (e) {
         str_result = `[CANNOT FORMAT RESULT][${e.message}]`;

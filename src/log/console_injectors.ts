@@ -9,9 +9,9 @@ import dateFormat from 'dateformat';
 import {LogType, LogInjectable} from './types';
 
 /*
- * Import json_one_line
+ * Import safe_stringify_oneline
  */
-import {json_one_line} from '../util/formatter';
+import {safe_stringify_oneline} from '../util/json';
 
 /*
  * Import log configuration file
@@ -94,7 +94,7 @@ function _log_param(p:any, stylelog:string)
 	if(p instanceof Error && p.stack != undefined){
 		processed_param = p.stack.split('\n');
 	}else if(typeof p == 'object'){
-		processed_param = json_one_line(p).split('\n');
+		processed_param = safe_stringify_oneline(p).split('\n');
 	}else if(typeof p == 'string'){
 		processed_param = p.split('\n');
 	}else if(p === false){
