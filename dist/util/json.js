@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.safe_json_stringify = void 0;
+exports.safe_stringify = void 0;
 /**
  * Util module for JSON
  *
  */
-function safe_json_stringify(obj) {
+function safe_stringify(obj) {
     try {
         return JSON.stringify(obj);
     }
@@ -13,5 +13,5 @@ function safe_json_stringify(obj) {
         return `{error: ${ex.getMessage}}`;
     }
 }
-exports.safe_json_stringify = safe_json_stringify;
+exports.safe_stringify = safe_stringify;
 //# sourceMappingURL=json.js.map
