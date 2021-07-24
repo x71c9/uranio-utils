@@ -24,11 +24,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.is = exports.object = exports.formatter = void 0;
+exports.json = exports.is = exports.object = exports.formatter = void 0;
 const formatter = __importStar(require("./formatter"));
 exports.formatter = formatter;
 const object = __importStar(require("./object"));
 exports.object = object;
 const is = __importStar(require("./validate"));
 exports.is = is;
+const json = __importStar(require("./json"));
+exports.json = json;
 //# sourceMappingURL=index.js.map
