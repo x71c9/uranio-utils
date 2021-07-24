@@ -24,9 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.json = exports.is = exports.object = exports.formatter = void 0;
-const formatter = __importStar(require("./formatter"));
-exports.formatter = formatter;
+exports.json = exports.is = exports.object = void 0;
 const object = __importStar(require("./object"));
 exports.object = object;
 const is = __importStar(require("./validate"));

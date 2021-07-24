@@ -9,9 +9,9 @@ exports.console_injectors = void 0;
  */
 const dateformat_1 = __importDefault(require("dateformat"));
 /*
- * Import json_one_line
+ * Import safe_stringify_oneline
  */
-const formatter_1 = require("../util/formatter");
+const json_1 = require("../util/json");
 /*
  * Import log configuration file
  */
@@ -88,7 +88,7 @@ function _log_param(p, stylelog) {
         processed_param = p.stack.split('\n');
     }
     else if (typeof p == 'object') {
-        processed_param = formatter_1.json_one_line(p).split('\n');
+        processed_param = json_1.safe_stringify_oneline(p).split('\n');
     }
     else if (typeof p == 'string') {
         processed_param = p.split('\n');
