@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decorators = exports.return_injector = void 0;
+exports.decorators = exports.return_injector = exports.console_injectors = void 0;
 const dateformat_1 = __importDefault(require("dateformat"));
 const formatter_1 = require("../util/formatter");
 var console_injectors_1 = require("./console_injectors");
