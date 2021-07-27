@@ -2,6 +2,17 @@
  * Util module for JSON
  *
  */
+
+export function clean_parse(json:string):any{
+	const no_comments_json = json
+		.replace(
+			// eslint-disable-next-line no-useless-escape
+			/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/|\#.*)/g,
+			(m, g) => g ? "" : m
+		);
+	return JSON.parse(no_comments_json);
+}
+
 export function safe_stringify(obj:unknown):string {
 	try{
 		return JSON.stringify(obj);
