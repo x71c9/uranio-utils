@@ -1,10 +1,18 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.safe_stringify_oneline = exports.safe_stringify = void 0;
 /**
  * Util module for JSON
  *
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.safe_stringify_oneline = exports.safe_stringify = exports.clean_parse = void 0;
+function clean_parse(json) {
+    const no_comments_json = json
+        .replace(
+    // eslint-disable-next-line no-useless-escape
+    /\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/|\#.*)/g, (m, g) => g ? "" : m);
+    return JSON.parse(no_comments_json);
+}
+exports.clean_parse = clean_parse;
 function safe_stringify(obj) {
     try {
         return JSON.stringify(obj);
