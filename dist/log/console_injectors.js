@@ -28,9 +28,9 @@ const log_defaults_1 = __importDefault(require("./log.defaults"));
 function _cecho(type, style, start, depth, ...params) {
     const styles = (Array.isArray(style)) ? style.join(' ') : style;
     const stylelog = styles + '%s' + _terminal_styles.reset;
-    _log_stack(type, stylelog, start, depth);
+    _log_stack(type, stylelog, start, depth, (type === 'error'));
     for (const p of params) {
-        _log_param(p, stylelog);
+        _log_param(p, stylelog, (type === 'error'));
     }
     console.log(stylelog, ' ');
 }
@@ -42,7 +42,7 @@ function _cecho(type, style, start, depth, ...params) {
  * @param depth - how many lines should be log from the stack.
  * @param start - at what line the stack should start.
  */
-function _log_stack(type, stylelog, start = 0, depth = -1) {
+function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
     const stack = new Error().stack;
     Error.stackTraceLimit = 32;
     if (stack == undefined) {
@@ -69,10 +69,20 @@ function _log_stack(type, stylelog, start = 0, depth = -1) {
         string += head_string;
         string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
         if (log_defaults_1.default.context == 'browser') {
-            console.log('%c%s', stylelog, string);
+            if (is_error) {
+                console.error('%c%s', stylelog, string);
+            }
+            else {
+                console.log('%c%s', stylelog, string);
+            }
         }
         else {
-            console.log(stylelog, string);
+            if (is_error) {
+                console.error(stylelog, string);
+            }
+            else {
+                console.log(stylelog, string);
+            }
         }
     }
 }
@@ -82,7 +92,7 @@ function _log_stack(type, stylelog, start = 0, depth = -1) {
  * @param p - anything to be logged.
  * @param stylelog - a formatted string for styling.
  */
-function _log_param(p, stylelog) {
+function _log_param(p, stylelog, is_error = false) {
     let processed_param = [];
     if (p instanceof Error && p.stack != undefined) {
         processed_param = p.stack.split('\n');
@@ -107,10 +117,20 @@ function _log_param(p, stylelog) {
     }
     for (const pp of processed_param) {
         if (log_defaults_1.default.context == 'browser') {
-            console.log('%c%s', stylelog, pp);
+            if (is_error) {
+                console.error('%c%s', stylelog, pp);
+            }
+            else {
+                console.log('%c%s', stylelog, pp);
+            }
         }
         else {
-            console.log(stylelog, pp);
+            if (is_error) {
+                console.error(stylelog, pp);
+            }
+            else {
+                console.log(stylelog, pp);
+            }
         }
     }
 }
