@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.has_key = void 0;
+exports.serialize = exports.has_key = void 0;
 /**
  * Util module for Objects
  *
@@ -34,4 +34,21 @@ function has_key(obj, key) {
     return key in obj;
 }
 exports.has_key = has_key;
+function serialize(obj, prefix = '') {
+    const str = [];
+    if (typeof obj !== 'object') {
+        return '';
+    }
+    for (const p in obj) {
+        if (has_key(obj, p)) {
+            const k = prefix ? prefix + "[" + p + "]" : p;
+            const v = obj[p];
+            str.push((v !== null && typeof v === "object") ?
+                serialize(v, k) :
+                encodeURIComponent(k) + "=" + encodeURIComponent(v));
+        }
+    }
+    return str.join("&");
+}
+exports.serialize = serialize;
 //# sourceMappingURL=object.js.map
