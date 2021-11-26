@@ -30,3 +30,21 @@ export function has_key<O>(obj: O, key: keyof any): key is keyof O {
 	//   return false;
 	return key in obj;
 }
+
+export function serialize(obj:unknown, prefix=''):string{
+	const str = [];
+	if(typeof obj !== 'object'){
+		return '';
+	}
+	for (const p in obj) {
+		if (has_key(obj, p)) {
+			const k = prefix ? prefix + "[" + p + "]" : p;
+			const v = obj[p];
+			str.push((v !== null && typeof v === "object") ?
+				serialize(v, k) :
+				encodeURIComponent(k) + "=" + encodeURIComponent(v));
+		}
+	}
+	return str.join("&");
+}
+
