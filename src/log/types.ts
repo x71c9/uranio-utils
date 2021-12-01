@@ -10,7 +10,7 @@
  * Error = 1
  * ...
  */
-export const enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
+export enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
 
 /**
  * LogType type
