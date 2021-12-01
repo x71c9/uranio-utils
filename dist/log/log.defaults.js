@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
+ * Import log types
+ */
+const types_1 = require("./types");
+/*
  * Import console injectors
  */
 // import {terminal_log_injector, browser_log_injector} from './console_injectors';
@@ -13,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Instanciate Log default object
  */
 const log_defaults = {
-    log_level: 1 /* ERROR */,
+    log_level: types_1.LogLevel.ERROR,
     time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
     max_str_length: 174,
     context: 'terminal',

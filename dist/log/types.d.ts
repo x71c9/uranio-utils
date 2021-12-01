@@ -9,7 +9,7 @@
  * Error = 1
  * ...
  */
-export declare const enum LogLevel {
+export declare enum LogLevel {
     NONE = 0,
     ERROR = 1,
     WARNING = 2,
