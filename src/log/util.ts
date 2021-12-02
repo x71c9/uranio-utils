@@ -12,6 +12,8 @@ import {ReturnInjectable} from '../return/types';
 
 export {console_injectors} from './console_injectors';
 
+import {LogContext} from './types';
+
 import {fn_debug, debug, error} from './log';
 
 import log_defaults from './log.defaults';
@@ -178,13 +180,15 @@ function format_args(args:any[], max_str_length:number)
 		:string{
 	let str_args = (args.length > 0) ? `${args}` : '';
 	try{
-		str_args = (args.length > 0) ? safe_stringify_oneline(args) : '';
-		str_args = str_args.substr(1,str_args.length-2);
+		str_args = (args.length > 0) ?
+			safe_stringify_oneline(args, _white_spaces[log_defaults.context]) :
+			'';
+		str_args = str_args.substring(1,str_args.length-1);
 	}catch(e){
 		str_args = `[CANNOT FORMAT ARGUMENTS][${e.message}]`;
 	}
 	if(typeof str_args == 'string' && str_args.length > max_str_length)
-		str_args = str_args.substr(0, max_str_length) + '...';
+		str_args = str_args.substring(0, max_str_length) + '...';
 	return str_args;
 }
 
@@ -200,12 +204,12 @@ function format_result(result:any, max_str_length:number)
 	let str_result = `${result}`;
 	try{
 		str_result = `${result}`;
-		str_result = safe_stringify_oneline(result);
+		str_result = safe_stringify_oneline(result, _white_spaces[log_defaults.context]);
 	}catch(e){
 		str_result = `[CANNOT FORMAT RESULT][${e.message}]`;
 	}
 	if(typeof str_result == 'string' && str_result.length > max_str_length)
-		str_result = str_result.substr(0, max_str_length) + '...';
+		str_result = str_result.substring(0, max_str_length) + '...';
 	return str_result;
 }
 
@@ -263,4 +267,7 @@ function replace_method_with_logs(
 	};
 }
 
-
+const _white_spaces = {
+	[LogContext.BROWSER]: '',
+	[LogContext.TERMINAL]: ' '
+}
