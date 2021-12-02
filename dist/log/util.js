@@ -22,11 +22,11 @@ const log_defaults_1 = __importDefault(require("./log.defaults"));
  */
 exports.return_injector = {
     success_handler: (p) => {
-        log_1.debug(p);
+        (0, log_1.debug)(p);
         return p;
     },
     fail_handler: (p) => {
-        log_1.error(p);
+        (0, log_1.error)(p);
         return p;
     }
 };
@@ -92,7 +92,7 @@ var decorators;
  * Generate random id
  */
 function random_id() {
-    const milliseconds = dateformat_1.default(new Date(), 'l');
+    const milliseconds = (0, dateformat_1.default)(new Date(), 'l');
     return (Math.floor(Math.random() * 100) + '' + milliseconds).padStart(5, '0');
 }
 /**
@@ -103,7 +103,7 @@ function random_id() {
  * @param str_args - A string containing the arguments.
  */
 function fn_debug_constructor(rand_id, constructor_name, str_args) {
-    log_1.fn_debug(`[${rand_id}] new ${constructor_name}(${str_args})`);
+    (0, log_1.fn_debug)(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
 /**
  * Debug private constructor with arguments
@@ -125,7 +125,7 @@ function fn_debug_constructor(rand_id, constructor_name, str_args) {
  * @param str_args - A string containing the arguments.
  */
 function fn_debug_method_with_args(rand_id, target_name, method, str_args) {
-    log_1.fn_debug(`[${rand_id}] ${target_name}.${method}(${str_args})`);
+    (0, log_1.fn_debug)(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
 /**
  * Debug a response of a method
@@ -138,7 +138,7 @@ function fn_debug_method_with_args(rand_id, target_name, method, str_args) {
  */
 function fn_debug_method_response(rand_id, target_name, method, str_result, is_promise = false) {
     const promise_str = (is_promise) ? ' [Promise]' : '';
-    log_1.fn_debug(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
+    (0, log_1.fn_debug)(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
 }
 /**
  * Debug a response method error
@@ -149,8 +149,8 @@ function fn_debug_method_response(rand_id, target_name, method, str_result, is_p
  * @param error - The error to log.
  */
 function fn_debug_method_response_error(rand_id, target_name, method, err) {
-    log_1.fn_debug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
-    log_1.error(err);
+    (0, log_1.fn_debug)(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
+    (0, log_1.error)(err);
 }
 /**
  * Format arguments
@@ -161,7 +161,7 @@ function fn_debug_method_response_error(rand_id, target_name, method, err) {
 function format_args(args, max_str_length) {
     let str_args = (args.length > 0) ? `${args}` : '';
     try {
-        str_args = (args.length > 0) ? json_1.safe_stringify_oneline(args) : '';
+        str_args = (args.length > 0) ? (0, json_1.safe_stringify_oneline)(args) : '';
         str_args = str_args.substr(1, str_args.length - 2);
     }
     catch (e) {
@@ -182,7 +182,7 @@ function format_result(result, max_str_length) {
     let str_result = `${result}`;
     try {
         str_result = `${result}`;
-        str_result = json_1.safe_stringify_oneline(result);
+        str_result = (0, json_1.safe_stringify_oneline)(result);
     }
     catch (e) {
         str_result = `[CANNOT FORMAT RESULT][${e.message}]`;

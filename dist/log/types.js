@@ -5,7 +5,7 @@
  * @packageDocumentation
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LogLevel = void 0;
+exports.LogContext = exports.LogLevel = void 0;
 /**
  * LogLevel enum type
  * None = 0
@@ -20,4 +20,13 @@ var LogLevel;
     LogLevel[LogLevel["DEBUG"] = 3] = "DEBUG";
     LogLevel[LogLevel["FUNCTION_DEBUG"] = 4] = "FUNCTION_DEBUG";
 })(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
+/**
+ * LogContext enum type
+ *
+ */
+var LogContext;
+(function (LogContext) {
+    LogContext["TERMINAL"] = "TERMINAL";
+    LogContext["BROWSER"] = "BROWSER";
+})(LogContext = exports.LogContext || (exports.LogContext = {}));
 //# sourceMappingURL=types.js.map

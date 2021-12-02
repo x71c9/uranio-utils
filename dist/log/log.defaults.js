@@ -20,7 +20,8 @@ const log_defaults = {
     log_level: types_1.LogLevel.ERROR,
     time_format: "yyyy-mm-dd'T'HH:MM:ss:l",
     max_str_length: 174,
-    context: 'terminal',
+    context: types_1.LogContext.TERMINAL,
+    prefix: '',
     injectors: []
 };
 exports.default = log_defaults;

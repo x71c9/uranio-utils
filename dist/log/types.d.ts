@@ -17,6 +17,14 @@ export declare enum LogLevel {
     FUNCTION_DEBUG = 4
 }
 /**
+ * LogContext enum type
+ *
+ */
+export declare enum LogContext {
+    TERMINAL = "TERMINAL",
+    BROWSER = "BROWSER"
+}
+/**
  * LogType type
  *
  */
@@ -25,7 +33,6 @@ export declare type LogType = 'error' | 'warn' | 'debug' | 'fn_debug';
  * LogContext type
  *
  */
-export declare type LogContext = 'terminal' | 'browser';
 /**
  * Export interface for log injectable object.
  *
@@ -60,5 +67,6 @@ export interface LogDefaults {
     time_format: string;
     max_str_length: number;
     context: LogContext;
+    prefix: string;
     injectors: LogInjectable[];
 }

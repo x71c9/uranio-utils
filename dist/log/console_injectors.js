@@ -9,6 +9,10 @@ exports.console_injectors = void 0;
  */
 const dateformat_1 = __importDefault(require("dateformat"));
 /*
+ * Import log types
+ */
+const types_1 = require("./types");
+/*
  * Import safe_stringify_oneline
  */
 const json_1 = require("../util/json");
@@ -16,6 +20,40 @@ const json_1 = require("../util/json");
  * Import log configuration file
  */
 const log_defaults_1 = __importDefault(require("./log.defaults"));
+/*
+ * Console injectors methods
+ */
+var console_injectors;
+(function (console_injectors) {
+    console_injectors.terminal = {
+        error_inject: (...p) => {
+            _cecho('error', _terminal_styles.fgRed, 6, -1, ...p);
+        },
+        warn_inject: (...p) => {
+            _cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
+        },
+        debug_inject: (...p) => {
+            _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
+        },
+        fn_debug_inject: (...p) => {
+            _cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
+        }
+    };
+    console_injectors.browser = {
+        error_inject: (...p) => {
+            _cecho('error', error_console_style, 0, 0, ...p);
+        },
+        warn_inject: (...p) => {
+            _cecho('warn', warn_console_style, 0, 0, ...p);
+        },
+        debug_inject: (...p) => {
+            _cecho('debug', debug_console_style, 0, 0, ...p);
+        },
+        fn_debug_inject: (...p) => {
+            _cecho('fn_debug', fn_debug_console_style, 0, 0, ...p);
+        }
+    };
+})(console_injectors = exports.console_injectors || (exports.console_injectors = {}));
 /**
  * Common commands between all the types of logs
  *
@@ -30,17 +68,20 @@ function _cecho(type, style, start, depth, ...params) {
     const stylelog = styles + '%s' + _terminal_styles.reset;
     _log_stack(type, stylelog, start, depth, (type === 'error'));
     for (const p of params) {
-        _log_param(p, stylelog, (type === 'error'));
+        _log_param(log_defaults_1.default.prefix + p, stylelog, type);
     }
-    console.log(stylelog, ' ');
+    if (log_defaults_1.default.context !== types_1.LogContext.BROWSER) {
+        console.log(stylelog, ' ');
+    }
 }
 /**
  * Log stack
  *
  * @param type - the type of log [error|warn|log|...]. See URNLogType.
  * @param stylelog - formatted string for styling.
- * @param depth - how many lines should be log from the stack.
  * @param start - at what line the stack should start.
+ * @param depth - how many lines should be log from the stack.
+ * @param is_error - if true will console.error
  */
 function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
     const stack = new Error().stack;
@@ -49,14 +90,18 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         console.error('CANNOT LOG STACK');
         return;
     }
-    const now = dateformat_1.default(new Date(), log_defaults_1.default.time_format);
+    const now = (0, dateformat_1.default)(new Date(), log_defaults_1.default.time_format);
     const head_string = now + ' <' + type + '> ';
     const splitted_stack = stack.split('\n');
-    const till = (depth == -1) ? splitted_stack.length - start : depth;
+    const till = (depth === -1) ? splitted_stack.length - start : depth;
     // skip stack line from log module and return module
     let j = start;
     let string = 'return.ts';
-    while (j < splitted_stack.length && typeof string === 'string' && string.includes('return.ts') || string.includes('log.ts') || string.includes('error.ts')) {
+    while (j < splitted_stack.length
+        && typeof string === 'string'
+        && (string.includes('return.ts')
+            || string.includes('log.ts')
+            || string.includes('error.ts'))) {
         const psc = splitted_stack[j];
         const call_info = /\(([^)]+)\)/.exec(psc); // get info from inside ()
         string = (call_info != null) ? call_info[1] : psc.split('at ')[1];
@@ -68,7 +113,7 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         let string = '';
         string += head_string;
         string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
-        if (log_defaults_1.default.context == 'browser') {
+        if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             if (is_error) {
                 console.error('%c%s', stylelog, string);
             }
@@ -91,14 +136,15 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
  *
  * @param p - anything to be logged.
  * @param stylelog - a formatted string for styling.
+ * @param is_error - if true will console.error
  */
-function _log_param(p, stylelog, is_error = false) {
+function _log_param(p, stylelog, type) {
     let processed_param = [];
     if (p instanceof Error && p.stack != undefined) {
         processed_param = p.stack.split('\n');
     }
     else if (typeof p == 'object') {
-        processed_param = json_1.safe_stringify_oneline(p).split('\n');
+        processed_param = (0, json_1.safe_stringify_oneline)(p).split('\n');
     }
     else if (typeof p == 'string') {
         processed_param = p.split('\n');
@@ -116,16 +162,23 @@ function _log_param(p, stylelog, is_error = false) {
         processed_param = ['null'];
     }
     for (const pp of processed_param) {
-        if (log_defaults_1.default.context == 'browser') {
-            if (is_error) {
-                console.error('%c%s', stylelog, pp);
-            }
-            else {
-                console.log('%c%s', stylelog, pp);
+        if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
+            switch (type) {
+                case 'error': {
+                    console.error('%c%s', stylelog, pp);
+                    break;
+                }
+                case 'warn': {
+                    console.warn('%c%s', stylelog, pp);
+                    break;
+                }
+                default: {
+                    console.log('%c%s', stylelog, pp);
+                }
             }
         }
         else {
-            if (is_error) {
+            if (type === 'error') {
                 console.error(stylelog, pp);
             }
             else {
@@ -204,40 +257,29 @@ const _console_styles = {
     bg_blue: 'background-color: blue;',
     bg_magenta: 'background-color: magenta;',
     bg_cyan: 'background-color: cyan;',
-    bg_white: 'background-color: white;'
+    bg_white: 'background-color: white;',
+    padding: 'padding: 4px;',
+    fg_urn_blue: 'color: #0029FF;',
+    bg_urn_blue: 'background-color: #ECF4FF;',
+    fg_urn_purple: 'color: #4200FF;',
+    bg_urn_purple: 'background-color: #F4ECFF;',
 };
-var console_injectors;
-(function (console_injectors) {
-    console_injectors.terminal = {
-        error_inject: (...p) => {
-            _cecho('error', _terminal_styles.fgRed, 6, -1, ...p);
-        },
-        warn_inject: (...p) => {
-            _cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
-        },
-        debug_inject: (...p) => {
-            _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
-        },
-        fn_debug_inject: (...p) => {
-            _cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
-        }
-    };
-    console_injectors.browser = {
-        error_inject: (...p) => {
-            _cecho('error', [_console_styles.fg_red], 4, -1, ...p);
-        },
-        warn_inject: (...p) => {
-            _cecho('warn', [_console_styles.fg_yellow], 4, 3, ...p);
-        },
-        // log_inject: (...p:any) => {
-        //   _cecho('log', [_console_styles.fg_blue], 4, 2, ...p);
-        // },
-        debug_inject: (...p) => {
-            _cecho('debug', [_console_styles.fg_blue], 4, 4, ...p);
-        },
-        fn_debug_inject: (...p) => {
-            _cecho('fn_debug', [_console_styles.fg_cyan], 6, 1, ...p);
-        }
-    };
-})(console_injectors = exports.console_injectors || (exports.console_injectors = {}));
+const fn_debug_console_style = [
+    _console_styles.padding,
+    _console_styles.fg_urn_blue,
+    _console_styles.bg_urn_blue
+];
+const debug_console_style = [
+    _console_styles.padding,
+    _console_styles.fg_urn_purple,
+    _console_styles.bg_urn_purple
+];
+const warn_console_style = [
+    _console_styles.padding,
+    _console_styles.fg_black
+];
+const error_console_style = [
+    _console_styles.padding,
+    _console_styles.fg_black
+];
 //# sourceMappingURL=console_injectors.js.map

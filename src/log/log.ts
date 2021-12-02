@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {LogType} from './types';
+import {LogType, LogLevel, LogContext, LogInjectable} from './types';
 
 import log_defaults from './log.defaults';
 
@@ -12,13 +12,33 @@ export {log_defaults as defaults};
 
 import {console_injectors} from './console_injectors';
 
-/*
- * Set default injector
- */
-const log_injector = (log_defaults.context == 'browser') ?
-	console_injectors.browser : console_injectors.terminal;
 
-log_defaults.injectors.push(log_injector);
+/**
+ * Log init
+ *
+ * @param type - the injector method type, same as LogType.
+ * @param context - the injector context type, same as LogContext.
+ * @param injectors - this will override the default injector [the console injector]
+ */
+export function init(level?: LogLevel, context?: LogContext, prefix?:string, injectors?: LogInjectable[])
+		:void{
+	if(level){
+		log_defaults.log_level = level;
+	}
+	if(context){
+		log_defaults.context = context;
+	}
+	if(prefix){
+		log_defaults.prefix = prefix;
+	}
+	if(Array.isArray(injectors) && injectors.length > 0){
+		log_defaults.injectors = injectors;
+	}else{
+		const log_injector = (log_defaults.context === LogContext.BROWSER) ?
+			console_injectors.browser : console_injectors.terminal;
+		log_defaults.injectors = [log_injector];
+	}
+}
 
 /**
  * Function that will check the type and run the corresponding injector method
@@ -29,6 +49,7 @@ log_defaults.injectors.push(log_injector);
 function _run_injector(type:LogType, ...params:any[]){
 	if(!Array.isArray(log_defaults.injectors) || log_defaults.injectors.length == 0)
 		return;
+	
 	for(const injector of log_defaults.injectors){
 		if(typeof injector !== 'object')
 			return;

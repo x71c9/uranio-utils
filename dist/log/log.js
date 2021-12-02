@@ -8,16 +8,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.error = exports.warn = exports.debug = exports.fn_debug = exports.defaults = void 0;
+exports.error = exports.warn = exports.debug = exports.fn_debug = exports.init = exports.defaults = void 0;
+const types_1 = require("./types");
 const log_defaults_1 = __importDefault(require("./log.defaults"));
 exports.defaults = log_defaults_1.default;
 const console_injectors_1 = require("./console_injectors");
-/*
- * Set default injector
+/**
+ * Log init
+ *
+ * @param type - the injector method type, same as LogType.
+ * @param context - the injector context type, same as LogContext.
+ * @param injectors - this will override the default injector [the console injector]
  */
-const log_injector = (log_defaults_1.default.context == 'browser') ?
-    console_injectors_1.console_injectors.browser : console_injectors_1.console_injectors.terminal;
-log_defaults_1.default.injectors.push(log_injector);
+function init(level, context, prefix, injectors) {
+    if (level) {
+        log_defaults_1.default.log_level = level;
+    }
+    if (context) {
+        log_defaults_1.default.context = context;
+    }
+    if (prefix) {
+        log_defaults_1.default.prefix = prefix;
+    }
+    if (Array.isArray(injectors) && injectors.length > 0) {
+        log_defaults_1.default.injectors = injectors;
+    }
+    else {
+        const log_injector = (log_defaults_1.default.context === types_1.LogContext.BROWSER) ?
+            console_injectors_1.console_injectors.browser : console_injectors_1.console_injectors.terminal;
+        log_defaults_1.default.injectors = [log_injector];
+    }
+}
+exports.init = init;
 /**
  * Function that will check the type and run the corresponding injector method
  *
