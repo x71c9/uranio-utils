@@ -1,7 +1,7 @@
 /*
  * Import log types
  */
-import {LogDefaults, LogLevel} from './types';
+import {LogDefaults, LogLevel, LogContext} from './types';
 
 /*
  * Import console injectors
@@ -25,7 +25,9 @@ const log_defaults:LogDefaults = {
 	
 	max_str_length: 174,
 	
-	context: 'terminal',
+	context: LogContext.TERMINAL,
+	
+	prefix: '',
 	
 	injectors: []
 	

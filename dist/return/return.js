@@ -186,19 +186,19 @@ class URNReturn {
             err_msg: '',
             payload: null
         };
-        if (index_1.is_fail(result)) {
+        if ((0, index_1.is_fail)(result)) {
             return_result.status = result.status;
             return_result.message = (name) ?
                 name + ' - ' + result.message : result.message;
             return_result.ex = result.ex;
             return return_result;
         }
-        if (!index_1.is_fail(result.payload) && !index_1.is_success(result.payload)) {
+        if (!(0, index_1.is_fail)(result.payload) && !(0, index_1.is_success)(result.payload)) {
             return_result.message = (name) ?
                 name + ' - ' + result.message : result.message;
             return return_result;
         }
-        if (index_1.is_fail(result.payload)) {
+        if ((0, index_1.is_fail)(result.payload)) {
             return_result.status = result.payload.status;
             return_result.message = (name) ?
                 name + ' - ' + result.payload.message : result.payload.message;
