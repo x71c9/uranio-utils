@@ -68,7 +68,8 @@ function _cecho(type, style, start, depth, ...params) {
     const stylelog = styles + '%s' + _terminal_styles.reset;
     _log_stack(type, stylelog, start, depth, (type === 'error'));
     for (const p of params) {
-        _log_param(log_defaults_1.default.prefix + p, stylelog, type);
+        const string_p = (typeof p !== 'string') ? p : `${log_defaults_1.default.prefix} ${p}`;
+        _log_param(string_p, stylelog, type);
     }
     if (log_defaults_1.default.context !== types_1.LogContext.BROWSER) {
         console.log(stylelog, ' ');
@@ -140,14 +141,24 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
  */
 function _log_param(p, stylelog, type) {
     let processed_param = [];
-    if (p instanceof Error && p.stack != undefined) {
+    if (p instanceof Error && p.stack !== undefined) {
         processed_param = p.stack.split('\n');
     }
-    else if (typeof p == 'object') {
-        processed_param = (0, json_1.safe_stringify_oneline)(p).split('\n');
+    else if (typeof p === 'object') {
+        if (log_defaults_1.default.context === types_1.LogContext.TERMINAL) {
+            processed_param = (0, json_1.safe_stringify_oneline)(p).split('\n');
+        }
+        else {
+            processed_param = [p];
+        }
     }
-    else if (typeof p == 'string') {
-        processed_param = p.split('\n');
+    else if (typeof p === 'string') {
+        if (log_defaults_1.default.context === types_1.LogContext.TERMINAL) {
+            processed_param = p.split('\n');
+        }
+        else {
+            processed_param = [p];
+        }
     }
     else if (p === false) {
         processed_param = ['false'];
@@ -165,15 +176,30 @@ function _log_param(p, stylelog, type) {
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             switch (type) {
                 case 'error': {
-                    console.error('%c%s', stylelog, pp);
+                    if (typeof pp === 'object') {
+                        console.error('%c%s', stylelog, `${log_defaults_1.default.prefix} ERROR`, pp);
+                    }
+                    else {
+                        console.error('%c%s', stylelog, pp);
+                    }
                     break;
                 }
                 case 'warn': {
-                    console.warn('%c%s', stylelog, pp);
+                    if (typeof pp === 'object') {
+                        console.warn('%c%s', stylelog, `${log_defaults_1.default.prefix} WARNING`, pp);
+                    }
+                    else {
+                        console.warn('%c%s', stylelog, pp);
+                    }
                     break;
                 }
                 default: {
-                    console.log('%c%s', stylelog, pp);
+                    if (typeof pp === 'object') {
+                        console.log(`%c${log_defaults_1.default.prefix}`, stylelog, pp);
+                    }
+                    else {
+                        console.log('%c%s', stylelog, pp);
+                    }
                 }
             }
         }
