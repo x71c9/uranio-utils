@@ -291,21 +291,21 @@ const _console_styles = {
     bg_urn_purple: 'background-color: #F4ECFF;',
 };
 const fn_debug_console_style = [
-    _console_styles.padding,
+    // _console_styles.padding,
     _console_styles.fg_urn_blue,
     _console_styles.bg_urn_blue
 ];
 const debug_console_style = [
-    _console_styles.padding,
+    // _console_styles.padding,
     _console_styles.fg_urn_purple,
     _console_styles.bg_urn_purple
 ];
 const warn_console_style = [
-    _console_styles.padding,
+    // _console_styles.padding,
     _console_styles.fg_black
 ];
 const error_console_style = [
-    _console_styles.padding,
+    // _console_styles.padding,
     _console_styles.fg_black
 ];
 //# sourceMappingURL=console_injectors.js.map
