@@ -6,6 +6,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
+const types_1 = require("./types");
 class URNException extends Error {
     constructor(module_code, module_name, error_code, msg, nested) {
         super();
@@ -15,7 +16,7 @@ class URNException extends Error {
         this.msg = msg;
         this.nested = nested;
         this.name = 'URANIOException';
-        this.type = "GENERAL" /* GENERAL */;
+        this.type = types_1.ExceptionType.GENERAL;
         this.message = `[${module_code}_${error_code}]`;
         this.message += ` ${module_name}. ${msg}`;
         if (nested && nested.message)
@@ -29,14 +30,14 @@ class URNNotFoundException extends URNException {
     constructor() {
         super(...arguments);
         this.name = 'URANIONotFoundException';
-        this.type = "NOTFOUND" /* NOT_FOUND */;
+        this.type = types_1.ExceptionType.NOT_FOUND;
     }
 }
 class URNAuthNotFoundException extends URNNotFoundException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOAuthNotFoundException';
-        this.type = "AUTH_NOTFOUND" /* AUTH_NOT_FOUND */;
+        this.type = types_1.ExceptionType.AUTH_NOT_FOUND;
     }
 }
 class URNInvalidAtomException extends URNException {
@@ -45,28 +46,28 @@ class URNInvalidAtomException extends URNException {
         this.object = object;
         this.keys = keys;
         this.name = 'URANIOInvalidAtomException';
-        this.type = "INVALID_ATOM" /* INVALID_ATOM */;
+        this.type = types_1.ExceptionType.INVALID_ATOM;
     }
 }
 class URNUnauthorizedException extends URNException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOUnauthorizedException';
-        this.type = "UNAUTHORIZED" /* UNAUTHORIZED */;
+        this.type = types_1.ExceptionType.UNAUTHORIZED;
     }
 }
 class URNInvalidRequestException extends URNException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOInvalidRequestException';
-        this.type = "INVALID_REQUEST" /* INVALID_REQUEST */;
+        this.type = types_1.ExceptionType.INVALID_REQUEST;
     }
 }
 class URNAuthInvalidPasswordException extends URNInvalidRequestException {
     constructor() {
         super(...arguments);
         this.name = 'URANIOAuthInvalidPasswordException';
-        this.type = "AUTH_INVALID_PASSWORD" /* AUTH_INVALID_PASSWORD */;
+        this.type = types_1.ExceptionType.AUTH_INVALID_PASSWORD;
     }
 }
 function init(module_code, module_name) {

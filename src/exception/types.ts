@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-export const enum ExceptionType {
+export enum ExceptionType {
 	GENERAL = 'GENERAL',
 	NOT_FOUND = 'NOTFOUND',
 	AUTH_NOT_FOUND = 'AUTH_NOTFOUND',
