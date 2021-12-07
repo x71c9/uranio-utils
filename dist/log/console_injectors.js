@@ -142,7 +142,12 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
 function _log_param(p, stylelog, type) {
     let processed_param = [];
     if (p instanceof Error && p.stack !== undefined) {
-        processed_param = p.stack.split('\n');
+        if (log_defaults_1.default.context === types_1.LogContext.TERMINAL) {
+            processed_param = p.stack.split('\n');
+        }
+        else {
+            processed_param = [p];
+        }
     }
     else if (typeof p === 'object') {
         if (log_defaults_1.default.context === types_1.LogContext.TERMINAL) {
@@ -176,7 +181,10 @@ function _log_param(p, stylelog, type) {
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             switch (type) {
                 case 'error': {
-                    if (typeof pp === 'object') {
+                    if (pp instanceof Error) {
+                        console.error('%c%s', stylelog, `${log_defaults_1.default.prefix} ERROR`, pp);
+                    }
+                    else if (typeof pp === 'object') {
                         console.error('%c%s', stylelog, `${log_defaults_1.default.prefix} ERROR`, pp);
                     }
                     else {
