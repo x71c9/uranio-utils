@@ -162,7 +162,11 @@ function _log_param(p:any, stylelog:string, type:LogType)
 		:void{
 	let processed_param:string[] = [];
 	if(p instanceof Error && p.stack !== undefined){
-		processed_param = p.stack.split('\n');
+		if(log_defaults.context === LogContext.TERMINAL){
+			processed_param = p.stack.split('\n');
+		}else{
+			processed_param = [p as any];
+		}
 	}else if(typeof p === 'object'){
 		if(log_defaults.context === LogContext.TERMINAL){
 			processed_param = safe_stringify_oneline(p).split('\n');
@@ -188,7 +192,9 @@ function _log_param(p:any, stylelog:string, type:LogType)
 		if(log_defaults.context === LogContext.BROWSER){
 			switch(type){
 				case 'error':{
-					if(typeof pp === 'object'){
+					if(pp as any instanceof Error){
+						console.error('%c%s', stylelog, `${log_defaults.prefix} ERROR`, pp);
+					}else if(typeof pp === 'object'){
 						console.error('%c%s', stylelog, `${log_defaults.prefix} ERROR`, pp);
 					}else{
 						console.error('%c%s', stylelog, pp);
