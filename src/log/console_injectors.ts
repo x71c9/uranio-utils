@@ -81,8 +81,15 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 	const stylelog = styles + '%s' + _terminal_styles.reset;
 	_log_stack(type, stylelog, start, depth, (type === 'error'));
 	for(const p of params){
-		const string_p = (typeof p !== 'string') ? p : `${log_defaults.prefix} ${p}`;
-		_log_param(string_p, stylelog, type);
+		if(typeof p !== 'string'){
+			_log_param(p, stylelog, type);
+		}else{
+			if(typeof log_defaults.prefix === 'string' && log_defaults.prefix !== ''){
+				_log_param(`${log_defaults.prefix} ${p}`, stylelog, type);
+			}else{
+				_log_param(p, stylelog, type);
+			}
+		}
 	}
 	if(log_defaults.context !== LogContext.BROWSER){
 		console.log(stylelog, ' ');
