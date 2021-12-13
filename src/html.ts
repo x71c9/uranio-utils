@@ -1,8 +1,8 @@
 import {urn_log} from './index';
-urn_log.init(urn_log.LogLevel.FUNCTION_DEBUG, urn_log.LogContext.BROWSER, '[URANIO] ');
+urn_log.init(urn_log.LogLevel.FUNCTION_DEBUG, urn_log.LogContext.BROWSER, '');
 
-urn_log.fn_debug('FN DEBUG');
-urn_log.fn_debug('Lorem ipsum (something) else: {}');
+// urn_log.fn_debug('FN DEBUG');
+// urn_log.fn_debug('Lorem ipsum (something) else: {}');
 urn_log.debug('DEBUG');
 urn_log.debug('Lorem ipsum (something) else: {}');
 urn_log.warn('WARN');
