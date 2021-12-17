@@ -70,6 +70,20 @@ class URNAuthInvalidPasswordException extends URNInvalidRequestException {
         this.type = types_1.ExceptionType.AUTH_INVALID_PASSWORD;
     }
 }
+class URNNotInitializedException extends URNException {
+    constructor() {
+        super(...arguments);
+        this.name = 'URANIONotInitializedException';
+        this.type = types_1.ExceptionType.NOT_INITIALIZED;
+    }
+}
+class URNInvalidBookException extends URNException {
+    constructor() {
+        super(...arguments);
+        this.name = 'URANIOInvalidBookException';
+        this.type = types_1.ExceptionType.INVALID_BOOK;
+    }
+}
 function init(module_code, module_name) {
     return {
         create: function (err_code, msg, nested) {
@@ -92,6 +106,12 @@ function init(module_code, module_name) {
         },
         create_auth_invalid_password: function (err_code, msg, nested) {
             return new URNAuthInvalidPasswordException(module_code, module_name, err_code, msg, nested);
+        },
+        create_not_initialized: function (err_code, msg, nested) {
+            return new URNNotInitializedException(module_code, module_name, err_code, msg, nested);
+        },
+        create_invalid_book: function (err_code, msg, nested) {
+            return new URNInvalidBookException(module_code, module_name, err_code, msg, nested);
         }
     };
 }

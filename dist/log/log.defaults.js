@@ -22,7 +22,8 @@ const log_defaults = {
     max_str_length: 174,
     context: types_1.LogContext.TERMINAL,
     prefix: '',
-    injectors: []
+    injectors: [],
+    prefix_type: false
 };
 exports.default = log_defaults;
 //# sourceMappingURL=log.defaults.js.map

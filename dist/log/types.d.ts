@@ -69,4 +69,5 @@ export interface LogDefaults {
     context: LogContext;
     prefix: string;
     injectors: LogInjectable[];
+    prefix_type: boolean;
 }

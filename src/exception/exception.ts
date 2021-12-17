@@ -100,6 +100,22 @@ class URNAuthInvalidPasswordException extends URNInvalidRequestException {
 	
 }
 
+class URNNotInitializedException extends URNException {
+	
+	public name = 'URANIONotInitializedException';
+	
+	public type:ExceptionType = ExceptionType.NOT_INITIALIZED;
+	
+}
+
+class URNInvalidBookException extends URNException {
+	
+	public name = 'URANIOInvalidBookException';
+	
+	public type:ExceptionType = ExceptionType.INVALID_BOOK;
+	
+}
+
 export type ExceptionInstance = InstanceType<typeof URNException>;
 
 export type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
@@ -113,6 +129,10 @@ export type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedE
 export type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
 
 export type AuthInvalidPasswordExceptionInstance = InstanceType<typeof URNAuthInvalidPasswordException>;
+
+export type NotInitializedExceptionInstance = InstanceType<typeof URNNotInitializedException>;
+
+export type InvalidBookExceptionInstance = InstanceType<typeof URNInvalidBookException>;
 
 interface CreateException {
 	
@@ -129,6 +149,10 @@ interface CreateException {
 	create_invalid_request(err_code:string, msg:string, nested?:Error):InvalidRequestExceptionInstance;
 	
 	create_auth_invalid_password(err_code:string, msg:string, nested?:Error):AuthInvalidPasswordExceptionInstance;
+	
+	create_not_initialized(err_code:string, msg:string, nested?:Error):NotInitializedExceptionInstance;
+	
+	create_invalid_book(err_code:string, msg:string, nested?:Error):InvalidBookExceptionInstance;
 	
 }
 
@@ -154,6 +178,12 @@ export function init(module_code:string, module_name:string):CreateException{
 		},
 		create_auth_invalid_password: function(err_code: string, msg:string, nested?:Error){
 			return new URNAuthInvalidPasswordException(module_code, module_name, err_code, msg, nested);
+		},
+		create_not_initialized: function(err_code: string, msg:string, nested?:Error){
+			return new URNNotInitializedException(module_code, module_name, err_code, msg, nested);
+		},
+		create_invalid_book: function(err_code: string, msg:string, nested?:Error){
+			return new URNInvalidBookException(module_code, module_name, err_code, msg, nested);
 		}
 	};
 }

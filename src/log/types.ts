@@ -67,17 +67,19 @@ export interface LogInjectable{
  */
 export interface LogDefaults {
 	
-	log_level: LogLevel;
+	log_level: LogLevel
 	
-	time_format:string;
+	time_format:string
 	
-	max_str_length:number;
+	max_str_length:number
 	
-	context:LogContext;
+	context:LogContext
 	
 	prefix:string
 	
-	injectors:LogInjectable[];
+	injectors:LogInjectable[]
+	
+	prefix_type:boolean
 	
 }
 
