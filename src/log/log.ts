@@ -38,6 +38,12 @@ export function init(level?: LogLevel, context?: LogContext, prefix?:string, inj
 			console_injectors.browser : console_injectors.terminal;
 		log_defaults.injectors = [log_injector];
 	}
+	for(const cmd of process.argv){
+		const splitted = cmd.split('=');
+		if(splitted[0] === 'urn_log_prefix_type'){
+			log_defaults.prefix_type = (!!splitted[1]);
+		}
+	}
 }
 
 /**

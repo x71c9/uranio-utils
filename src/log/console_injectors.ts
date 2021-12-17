@@ -18,7 +18,6 @@ import {safe_stringify_oneline} from '../util/json';
  */
 import log_defaults from './log.defaults';
 
-
 /*
  * Console injectors methods
  */
@@ -81,14 +80,14 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 	const stylelog = styles + '%s' + _terminal_styles.reset;
 	_log_stack(type, stylelog, start, depth, (type === 'error'));
 	for(const p of params){
-		if(typeof p !== 'string'){
+		if(typeof p === 'object'){
 			_log_param(p, stylelog, type);
 		}else{
+			let processed_param = p;
 			if(typeof log_defaults.prefix === 'string' && log_defaults.prefix !== ''){
-				_log_param(`${log_defaults.prefix} ${p}`, stylelog, type);
-			}else{
-				_log_param(p, stylelog, type);
+				processed_param = `${log_defaults.prefix} ${p}`;
 			}
+			_log_param(processed_param, stylelog, type);
 		}
 	}
 	if(log_defaults.context !== LogContext.BROWSER){
@@ -142,6 +141,9 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1, is_error=f
 		let string = '';
 		string += head_string;
 		string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
+		if(log_defaults.prefix_type === true){
+			string = `[${type}]${string}`;
+		}
 		if(log_defaults.context === LogContext.BROWSER){
 			if(is_error){
 				console.error('%c%s', stylelog, string);
@@ -186,6 +188,8 @@ function _log_param(p:any, stylelog:string, type:LogType)
 		}else{
 			processed_param = [p];
 		}
+	}else if(typeof p === 'number'){
+		processed_param = [p.toString()];
 	}else if(p === false){
 		processed_param = ['false'];
 	}else if(p === 0){
@@ -195,7 +199,7 @@ function _log_param(p:any, stylelog:string, type:LogType)
 	}else if(p === null){
 		processed_param = ['null'];
 	}
-	for(const pp of processed_param){
+	for(let pp of processed_param){
 		if(log_defaults.context === LogContext.BROWSER){
 			switch(type){
 				case 'error':{
@@ -225,6 +229,9 @@ function _log_param(p:any, stylelog:string, type:LogType)
 				}
 			}
 		}else{
+			if(log_defaults.prefix_type === true){
+				pp = `[${type}]${pp}`;
+			}
 			if(type === 'error'){
 				console.error(stylelog, pp);
 			}else{

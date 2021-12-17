@@ -15,5 +15,7 @@ var ExceptionType;
     ExceptionType["UNAUTHORIZED"] = "UNAUTHORIZED";
     ExceptionType["INVALID_REQUEST"] = "INVALID_REQUEST";
     ExceptionType["AUTH_INVALID_PASSWORD"] = "AUTH_INVALID_PASSWORD";
+    ExceptionType["NOT_INITIALIZED"] = "NOT_INITIALIZED";
+    ExceptionType["INVALID_BOOK"] = "INVALID_BOOK";
 })(ExceptionType = exports.ExceptionType || (exports.ExceptionType = {}));
 //# sourceMappingURL=types.js.map

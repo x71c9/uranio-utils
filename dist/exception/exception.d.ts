@@ -42,6 +42,14 @@ declare class URNAuthInvalidPasswordException extends URNInvalidRequestException
     name: string;
     type: ExceptionType;
 }
+declare class URNNotInitializedException extends URNException {
+    name: string;
+    type: ExceptionType;
+}
+declare class URNInvalidBookException extends URNException {
+    name: string;
+    type: ExceptionType;
+}
 export declare type ExceptionInstance = InstanceType<typeof URNException>;
 export declare type NotFoundExceptionInstance = InstanceType<typeof URNNotFoundException>;
 export declare type AuthNotFoundExceptionInstance = InstanceType<typeof URNAuthNotFoundException>;
@@ -49,6 +57,8 @@ export declare type InvalidAtomExceptionInstance = InstanceType<typeof URNInvali
 export declare type UnauthorizedExceptionInstance = InstanceType<typeof URNUnauthorizedException>;
 export declare type InvalidRequestExceptionInstance = InstanceType<typeof URNInvalidRequestException>;
 export declare type AuthInvalidPasswordExceptionInstance = InstanceType<typeof URNAuthInvalidPasswordException>;
+export declare type NotInitializedExceptionInstance = InstanceType<typeof URNNotInitializedException>;
+export declare type InvalidBookExceptionInstance = InstanceType<typeof URNInvalidBookException>;
 interface CreateException {
     create(err_code: string, msg: string, nested?: Error): ExceptionInstance;
     create_not_found(err_code: string, msg: string, nested?: Error): NotFoundExceptionInstance;
@@ -57,6 +67,8 @@ interface CreateException {
     create_unauthorized(err_code: string, msg: string, nested?: Error): UnauthorizedExceptionInstance;
     create_invalid_request(err_code: string, msg: string, nested?: Error): InvalidRequestExceptionInstance;
     create_auth_invalid_password(err_code: string, msg: string, nested?: Error): AuthInvalidPasswordExceptionInstance;
+    create_not_initialized(err_code: string, msg: string, nested?: Error): NotInitializedExceptionInstance;
+    create_invalid_book(err_code: string, msg: string, nested?: Error): InvalidBookExceptionInstance;
 }
 export declare function init(module_code: string, module_name: string): CreateException;
 export {};

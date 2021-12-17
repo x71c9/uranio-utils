@@ -29,7 +29,9 @@ const log_defaults:LogDefaults = {
 	
 	prefix: '',
 	
-	injectors: []
+	injectors: [],
+	
+	prefix_type: false
 	
 };
 

@@ -38,6 +38,12 @@ function init(level, context, prefix, injectors) {
             console_injectors_1.console_injectors.browser : console_injectors_1.console_injectors.terminal;
         log_defaults_1.default.injectors = [log_injector];
     }
+    for (const cmd of process.argv) {
+        const splitted = cmd.split('=');
+        if (splitted[0] === 'urn_log_prefix_type') {
+            log_defaults_1.default.prefix_type = (!!splitted[1]);
+        }
+    }
 }
 exports.init = init;
 /**

@@ -68,8 +68,16 @@ function _cecho(type, style, start, depth, ...params) {
     const stylelog = styles + '%s' + _terminal_styles.reset;
     _log_stack(type, stylelog, start, depth, (type === 'error'));
     for (const p of params) {
-        const string_p = (typeof p !== 'string') ? p : `${log_defaults_1.default.prefix} ${p}`;
-        _log_param(string_p, stylelog, type);
+        if (typeof p === 'object') {
+            _log_param(p, stylelog, type);
+        }
+        else {
+            let processed_param = p;
+            if (typeof log_defaults_1.default.prefix === 'string' && log_defaults_1.default.prefix !== '') {
+                processed_param = `${log_defaults_1.default.prefix} ${p}`;
+            }
+            _log_param(processed_param, stylelog, type);
+        }
     }
     if (log_defaults_1.default.context !== types_1.LogContext.BROWSER) {
         console.log(stylelog, ' ');
@@ -114,6 +122,9 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         let string = '';
         string += head_string;
         string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
+        if (log_defaults_1.default.prefix_type === true) {
+            string = `[${type}]${string}`;
+        }
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             if (is_error) {
                 console.error('%c%s', stylelog, string);
@@ -165,6 +176,9 @@ function _log_param(p, stylelog, type) {
             processed_param = [p];
         }
     }
+    else if (typeof p === 'number') {
+        processed_param = [p.toString()];
+    }
     else if (p === false) {
         processed_param = ['false'];
     }
@@ -177,7 +191,7 @@ function _log_param(p, stylelog, type) {
     else if (p === null) {
         processed_param = ['null'];
     }
-    for (const pp of processed_param) {
+    for (let pp of processed_param) {
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             switch (type) {
                 case 'error': {
@@ -212,6 +226,9 @@ function _log_param(p, stylelog, type) {
             }
         }
         else {
+            if (log_defaults_1.default.prefix_type === true) {
+                pp = `[${type}]${pp}`;
+            }
             if (type === 'error') {
                 console.error(stylelog, pp);
             }
