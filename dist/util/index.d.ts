@@ -6,4 +6,5 @@
 import * as object from './object';
 import * as is from './validate';
 import * as json from './json';
-export { object, is, json };
+import * as number from './number';
+export { object, is, json, number };
