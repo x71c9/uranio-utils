@@ -1,5 +1,5 @@
 {
-  "name": "urn-lib",
+  "name": "uranio-lib",
   "version": "0.0.1",
   "description": "Uranio library. Shared code used in Uranio repos.",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nbl7/urn-lib.git"
+    "url": "git+ssh://git@github.com:nbl7/urn-lib.git"
   },
   "keywords": [
     "uranio",
@@ -20,10 +20,10 @@
   ],
   "author": "Andrea Reni <mail@nbl7.net>",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/nbl7/urn-lib#readme",
+  "homepage": "https://github.com/nbl7/urn-lib#readme",
   "devDependencies": {
     "ts-loader": "^9.2.6",
-    "urn-dev": "git+ssh://git@bitbucket.org/nbl7/urn-dev.git",
+    "urn-dev": "git+ssh://git@github.com:nbl7/urn-dev.git",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0"
