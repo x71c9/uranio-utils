@@ -1,5 +1,5 @@
 {
-  "name": "uranio-lib",
+  "name": "urn-lib",
   "version": "0.0.1",
   "description": "Uranio library. Shared code used in Uranio repos.",
   "main": "dist/index.js",
