@@ -123,7 +123,7 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         string += head_string;
         string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
         if (log_defaults_1.default.prefix_type === true) {
-            string = `[${type}]${string}`;
+            string = `[--${type}--]${string}`;
         }
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             if (is_error) {
