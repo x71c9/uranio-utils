@@ -20,7 +20,7 @@ const console_injectors_1 = require("./console_injectors");
  * @param context - the injector context type, same as LogContext.
  * @param injectors - this will override the default injector [the console injector]
  */
-function init(level, context, prefix, injectors) {
+function init(level, context, prefix, prefix_type, injectors) {
     if (level) {
         log_defaults_1.default.log_level = level;
     }
@@ -29,6 +29,9 @@ function init(level, context, prefix, injectors) {
     }
     if (prefix) {
         log_defaults_1.default.prefix = prefix;
+    }
+    if (prefix_type === true) {
+        log_defaults_1.default.prefix_type = true;
     }
     if (Array.isArray(injectors) && injectors.length > 0) {
         log_defaults_1.default.injectors = injectors;

@@ -13,7 +13,7 @@ export { log_defaults as defaults };
  * @param context - the injector context type, same as LogContext.
  * @param injectors - this will override the default injector [the console injector]
  */
-export declare function init(level?: LogLevel, context?: LogContext, prefix?: string, injectors?: LogInjectable[]): void;
+export declare function init(level?: LogLevel, context?: LogContext, prefix?: string, prefix_type?: boolean, injectors?: LogInjectable[]): void;
 /**
  * Debug functions log
  *

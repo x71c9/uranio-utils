@@ -20,7 +20,7 @@ import {console_injectors} from './console_injectors';
  * @param context - the injector context type, same as LogContext.
  * @param injectors - this will override the default injector [the console injector]
  */
-export function init(level?: LogLevel, context?: LogContext, prefix?:string, injectors?: LogInjectable[])
+export function init(level?: LogLevel, context?: LogContext, prefix?:string, prefix_type?:boolean, injectors?: LogInjectable[])
 		:void{
 	if(level){
 		log_defaults.log_level = level;
@@ -30,6 +30,9 @@ export function init(level?: LogLevel, context?: LogContext, prefix?:string, inj
 	}
 	if(prefix){
 		log_defaults.prefix = prefix;
+	}
+	if(prefix_type === true){
+		log_defaults.prefix_type = true;
 	}
 	if(Array.isArray(injectors) && injectors.length > 0){
 		log_defaults.injectors = injectors;
