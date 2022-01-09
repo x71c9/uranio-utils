@@ -227,7 +227,7 @@ function _log_param(p, stylelog, type) {
         }
         else {
             if (log_defaults_1.default.prefix_type === true) {
-                pp = `[${type}]${pp}`;
+                pp = `[--${type}--]${pp}`;
             }
             if (type === 'error') {
                 console.error(stylelog, pp);

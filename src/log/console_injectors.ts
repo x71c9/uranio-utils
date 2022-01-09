@@ -230,7 +230,7 @@ function _log_param(p:any, stylelog:string, type:LogType)
 			}
 		}else{
 			if(log_defaults.prefix_type === true){
-				pp = `[${type}]${pp}`;
+				pp = `[--${type}--]${pp}`;
 			}
 			if(type === 'error'){
 				console.error(stylelog, pp);
