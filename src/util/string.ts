@@ -1,0 +1,9 @@
+/**
+ * Util module for String
+ *
+ */
+
+export function ucfirst(str:string):string{
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
