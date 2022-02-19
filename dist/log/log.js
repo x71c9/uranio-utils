@@ -39,6 +39,9 @@ function init(log_config) {
         if (log_config.debug_info === false) {
             log_defaults_1.default.debug_info = false;
         }
+        if (log_config.color === false) {
+            log_defaults_1.default.color = false;
+        }
     }
     if (typeof log_config === 'object'
         && log_config

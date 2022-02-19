@@ -33,7 +33,9 @@ const log_defaults:LogConfig = {
 	
 	prefix_type: false,
 	
-	debug_info: true
+	debug_info: true,
+	
+	color: true
 	
 };
 

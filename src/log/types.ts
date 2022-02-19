@@ -97,6 +97,8 @@ export type LogConfig = {
 	
 	debug_info: boolean
 	
+	color: boolean
+	
 	injectors: LogInjectable[]
 	
 }

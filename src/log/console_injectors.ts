@@ -77,7 +77,7 @@ export namespace console_injectors {
 function _cecho(type:LogType, style:string|string[], start:number, depth:number, ...params:any[])
 		:void{
 	const styles = (Array.isArray(style)) ? style.join(' ') : style;
-	const stylelog = styles + '%s' + _terminal_styles.reset;
+	const stylelog = (log_defaults.color === true) ? styles + '%s' + _terminal_styles.reset : '';
 	if(log_defaults.debug_info === true){
 		_log_stack(type, stylelog, start, depth, (type === 'error'));
 	}
@@ -235,9 +235,17 @@ function _log_param(p:any, stylelog:string, type:LogType)
 				pp = `[--${type}--]${pp}`;
 			}
 			if(type === 'error'){
-				console.error(stylelog, pp);
+				if(stylelog !== ''){
+					console.error(stylelog, pp);
+				}else{
+					console.error(pp);
+				}
 			}else{
-				console.log(stylelog, pp);
+				if(stylelog !== ''){
+					console.log(stylelog, pp);
+				}else{
+					console.log(pp);
+				}
 			}
 		}
 	}

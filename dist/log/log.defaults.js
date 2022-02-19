@@ -24,7 +24,8 @@ const log_defaults = {
     prefix: '',
     injectors: [],
     prefix_type: false,
-    debug_info: true
+    debug_info: true,
+    color: true
 };
 exports.default = log_defaults;
 //# sourceMappingURL=log.defaults.js.map

@@ -51,6 +51,9 @@ export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 		if(log_config.debug_info === false){
 			log_defaults.debug_info = false;
 		}
+		if(log_config.color === false){
+			log_defaults.color = false;
+		}
 		
 	}
 	if(

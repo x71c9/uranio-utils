@@ -72,5 +72,6 @@ export declare type LogConfig = {
     prefix: string;
     prefix_type: boolean;
     debug_info: boolean;
+    color: boolean;
     injectors: LogInjectable[];
 };
