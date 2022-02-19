@@ -24,8 +24,6 @@ export function init(log_config?: LogLevel):void
 export function init(log_config?: Partial<LogConfig>):void
 export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 	
-	console.log('INITLIB', log_config);
-	
 	if(typeof log_config === 'number'){
 		
 		log_defaults.log_level = log_config;
