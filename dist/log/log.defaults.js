@@ -23,7 +23,8 @@ const log_defaults = {
     context: types_1.LogContext.TERMINAL,
     prefix: '',
     injectors: [],
-    prefix_type: false
+    prefix_type: false,
+    debug_info: true
 };
 exports.default = log_defaults;
 //# sourceMappingURL=log.defaults.js.map

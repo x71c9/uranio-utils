@@ -78,7 +78,9 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 		:void{
 	const styles = (Array.isArray(style)) ? style.join(' ') : style;
 	const stylelog = styles + '%s' + _terminal_styles.reset;
-	_log_stack(type, stylelog, start, depth, (type === 'error'));
+	if(log_defaults.debug_info === true){
+		_log_stack(type, stylelog, start, depth, (type === 'error'));
+	}
 	for(const p of params){
 		if(typeof p === 'object'){
 			_log_param(p, stylelog, type);
@@ -90,7 +92,7 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 			_log_param(processed_param, stylelog, type);
 		}
 	}
-	if(log_defaults.context !== LogContext.BROWSER){
+	if(log_defaults.context !== LogContext.BROWSER && log_defaults.debug_info === true){
 		console.log(stylelog, ' ');
 	}
 }

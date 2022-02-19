@@ -1,5 +1,9 @@
 import {urn_log} from './index';
-urn_log.init(urn_log.LogLevel.FUNCTION_DEBUG, urn_log.LogContext.BROWSER, '');
+urn_log.init({
+	level: urn_log.LogLevel.FUNCTION_DEBUG,
+	context: urn_log.LogContext.BROWSER,
+	prefix: ''
+});
 
 // urn_log.fn_debug('FN DEBUG');
 // urn_log.fn_debug('Lorem ipsum (something) else: {}');

@@ -6,8 +6,6 @@
 
 /**
  * LogLevel enum type
- * None = 0
- * Error = 1
  * ...
  */
 export enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
@@ -16,7 +14,10 @@ export enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
  * LogContext enum type
  *
  */
-export enum LogContext {TERMINAL = 'TERMINAL', BROWSER = 'BROWSER'}
+export enum LogContext {
+	TERMINAL = 'TERMINAL',
+	BROWSER = 'BROWSER'
+}
 
 /**
  * LogType type
@@ -81,5 +82,29 @@ export interface LogDefaults {
 	
 	prefix_type:boolean
 	
+	debug_info:boolean
+	
 }
+
+/**
+ * LogConfig type
+ *
+ */
+export type LogConfig = {
+	
+	level?: LogLevel
+	
+	context?: LogContext
+	
+	prefix?: string
+	
+	prefix_type?: boolean
+	
+	debug_info?: boolean
+	
+	injectors?: LogInjectable[]
+	
+}
+
+
 

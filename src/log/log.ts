@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import {LogType, LogLevel, LogContext, LogInjectable} from './types';
+import {LogType, LogLevel, LogContext, LogConfig} from './types';
 
 import log_defaults from './log.defaults';
 
@@ -20,22 +20,40 @@ import {console_injectors} from './console_injectors';
  * @param context - the injector context type, same as LogContext.
  * @param injectors - this will override the default injector [the console injector]
  */
-export function init(level?: LogLevel, context?: LogContext, prefix?:string, prefix_type?:boolean, injectors?: LogInjectable[])
-		:void{
-	if(level){
-		log_defaults.log_level = level;
+export function init(log_config?: LogLevel):void
+export function init(log_config?: LogConfig):void
+export function init(log_config?: LogConfig | LogLevel):void{
+	
+	if(typeof log_config === 'number'){
+		
+		log_defaults.log_level = log_config;
+		
+	}else if(log_config){
+		
+		if(log_config.level){
+			log_defaults.log_level = log_config.level;
+		}
+		if(log_config.context){
+			log_defaults.context = log_config.context;
+		}
+		if(log_config.prefix){
+			log_defaults.prefix = log_config.prefix;
+		}
+		if(log_config.prefix_type === true){
+			log_defaults.prefix_type = true;
+		}
+		if(log_config.debug_info === false){
+			log_defaults.debug_info = false;
+		}
+		
 	}
-	if(context){
-		log_defaults.context = context;
-	}
-	if(prefix){
-		log_defaults.prefix = prefix;
-	}
-	if(prefix_type === true){
-		log_defaults.prefix_type = true;
-	}
-	if(Array.isArray(injectors) && injectors.length > 0){
-		log_defaults.injectors = injectors;
+	if(
+		typeof log_config === 'object'
+		&& log_config
+		&& Array.isArray(log_config.injectors)
+		&& log_config.injectors.length > 0
+	){
+		log_defaults.injectors = log_config.injectors;
 	}else{
 		const log_injector = (log_defaults.context === LogContext.BROWSER) ?
 			console_injectors.browser : console_injectors.terminal;
@@ -47,6 +65,7 @@ export function init(level?: LogLevel, context?: LogContext, prefix?:string, pre
 			log_defaults.prefix_type = (!!splitted[1]);
 		}
 	}
+	
 }
 
 /**

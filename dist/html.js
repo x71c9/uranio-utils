@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("./index");
-index_1.urn_log.init(index_1.urn_log.LogLevel.FUNCTION_DEBUG, index_1.urn_log.LogContext.BROWSER, '');
+index_1.urn_log.init({
+    level: index_1.urn_log.LogLevel.FUNCTION_DEBUG,
+    context: index_1.urn_log.LogContext.BROWSER,
+    prefix: ''
+});
 // urn_log.fn_debug('FN DEBUG');
 // urn_log.fn_debug('Lorem ipsum (something) else: {}');
 index_1.urn_log.debug('DEBUG');

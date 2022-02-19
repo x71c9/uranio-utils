@@ -13,28 +13,32 @@ const types_1 = require("./types");
 const log_defaults_1 = __importDefault(require("./log.defaults"));
 exports.defaults = log_defaults_1.default;
 const console_injectors_1 = require("./console_injectors");
-/**
- * Log init
- *
- * @param type - the injector method type, same as LogType.
- * @param context - the injector context type, same as LogContext.
- * @param injectors - this will override the default injector [the console injector]
- */
-function init(level, context, prefix, prefix_type, injectors) {
-    if (level) {
-        log_defaults_1.default.log_level = level;
+function init(log_config) {
+    if (typeof log_config === 'number') {
+        log_defaults_1.default.log_level = log_config;
     }
-    if (context) {
-        log_defaults_1.default.context = context;
+    else if (log_config) {
+        if (log_config.level) {
+            log_defaults_1.default.log_level = log_config.level;
+        }
+        if (log_config.context) {
+            log_defaults_1.default.context = log_config.context;
+        }
+        if (log_config.prefix) {
+            log_defaults_1.default.prefix = log_config.prefix;
+        }
+        if (log_config.prefix_type === true) {
+            log_defaults_1.default.prefix_type = true;
+        }
+        if (log_config.debug_info === false) {
+            log_defaults_1.default.debug_info = false;
+        }
     }
-    if (prefix) {
-        log_defaults_1.default.prefix = prefix;
-    }
-    if (prefix_type === true) {
-        log_defaults_1.default.prefix_type = true;
-    }
-    if (Array.isArray(injectors) && injectors.length > 0) {
-        log_defaults_1.default.injectors = injectors;
+    if (typeof log_config === 'object'
+        && log_config
+        && Array.isArray(log_config.injectors)
+        && log_config.injectors.length > 0) {
+        log_defaults_1.default.injectors = log_config.injectors;
     }
     else {
         const log_injector = (log_defaults_1.default.context === types_1.LogContext.BROWSER) ?

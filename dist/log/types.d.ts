@@ -5,8 +5,6 @@
  */
 /**
  * LogLevel enum type
- * None = 0
- * Error = 1
  * ...
  */
 export declare enum LogLevel {
@@ -70,4 +68,17 @@ export interface LogDefaults {
     prefix: string;
     injectors: LogInjectable[];
     prefix_type: boolean;
+    debug_info: boolean;
 }
+/**
+ * LogConfig type
+ *
+ */
+export declare type LogConfig = {
+    level?: LogLevel;
+    context?: LogContext;
+    prefix?: string;
+    prefix_type?: boolean;
+    debug_info?: boolean;
+    injectors?: LogInjectable[];
+};

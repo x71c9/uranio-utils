@@ -8,8 +8,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LogContext = exports.LogLevel = void 0;
 /**
  * LogLevel enum type
- * None = 0
- * Error = 1
  * ...
  */
 var LogLevel;

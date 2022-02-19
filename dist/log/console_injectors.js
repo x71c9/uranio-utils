@@ -66,7 +66,9 @@ var console_injectors;
 function _cecho(type, style, start, depth, ...params) {
     const styles = (Array.isArray(style)) ? style.join(' ') : style;
     const stylelog = styles + '%s' + _terminal_styles.reset;
-    _log_stack(type, stylelog, start, depth, (type === 'error'));
+    if (log_defaults_1.default.debug_info === true) {
+        _log_stack(type, stylelog, start, depth, (type === 'error'));
+    }
     for (const p of params) {
         if (typeof p === 'object') {
             _log_param(p, stylelog, type);
@@ -79,7 +81,7 @@ function _cecho(type, style, start, depth, ...params) {
             _log_param(processed_param, stylelog, type);
         }
     }
-    if (log_defaults_1.default.context !== types_1.LogContext.BROWSER) {
+    if (log_defaults_1.default.context !== types_1.LogContext.BROWSER && log_defaults_1.default.debug_info === true) {
         console.log(stylelog, ' ');
     }
 }
