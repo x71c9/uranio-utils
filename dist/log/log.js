@@ -18,13 +18,19 @@ function init(log_config) {
         log_defaults_1.default.log_level = log_config;
     }
     else if (log_config) {
-        if (log_config.level) {
-            log_defaults_1.default.log_level = log_config.level;
+        if (typeof log_config.log_level === 'number' && log_config.log_level >= 0) {
+            log_defaults_1.default.log_level = log_config.log_level;
         }
-        if (log_config.context) {
+        if (typeof log_config.time_format === 'string' && log_config.time_format !== '') {
+            log_defaults_1.default.time_format = log_config.time_format;
+        }
+        if (typeof log_config.max_str_length === 'number' && log_config.max_str_length > 0) {
+            log_defaults_1.default.max_str_length = log_config.max_str_length;
+        }
+        if (typeof log_config.context === 'string' && log_config.context !== '') {
             log_defaults_1.default.context = log_config.context;
         }
-        if (log_config.prefix) {
+        if (typeof log_config.prefix === 'string' && log_config.prefix !== '') {
             log_defaults_1.default.prefix = log_config.prefix;
         }
         if (log_config.prefix_type === true) {

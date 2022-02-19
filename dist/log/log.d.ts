@@ -14,7 +14,7 @@ export { log_defaults as defaults };
  * @param injectors - this will override the default injector [the console injector]
  */
 export declare function init(log_config?: LogLevel): void;
-export declare function init(log_config?: LogConfig): void;
+export declare function init(log_config?: Partial<LogConfig>): void;
 /**
  * Debug functions log
  *

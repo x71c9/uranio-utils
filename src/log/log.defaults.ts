@@ -1,7 +1,7 @@
 /*
  * Import log types
  */
-import {LogDefaults, LogLevel, LogContext} from './types';
+import {LogConfig, LogLevel, LogContext} from './types';
 
 /*
  * Import console injectors
@@ -17,7 +17,7 @@ import {LogDefaults, LogLevel, LogContext} from './types';
 /*
  * Instanciate Log default object
  */
-const log_defaults:LogDefaults = {
+const log_defaults:LogConfig = {
 	
 	log_level: LogLevel.ERROR,
 	

@@ -60,25 +60,17 @@ export interface LogInjectable {
  * Interface for LogDefaults object
  *
  */
-export interface LogDefaults {
-    log_level: LogLevel;
-    time_format: string;
-    max_str_length: number;
-    context: LogContext;
-    prefix: string;
-    injectors: LogInjectable[];
-    prefix_type: boolean;
-    debug_info: boolean;
-}
 /**
  * LogConfig type
  *
  */
 export declare type LogConfig = {
-    level?: LogLevel;
-    context?: LogContext;
-    prefix?: string;
-    prefix_type?: boolean;
-    debug_info?: boolean;
-    injectors?: LogInjectable[];
+    log_level: LogLevel;
+    time_format: string;
+    max_str_length: number;
+    context: LogContext;
+    prefix: string;
+    prefix_type: boolean;
+    debug_info: boolean;
+    injectors: LogInjectable[];
 };

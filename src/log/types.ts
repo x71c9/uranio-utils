@@ -66,25 +66,16 @@ export interface LogInjectable{
  * Interface for LogDefaults object
  *
  */
-export interface LogDefaults {
-	
-	log_level: LogLevel
-	
-	time_format:string
-	
-	max_str_length:number
-	
-	context:LogContext
-	
-	prefix:string
-	
-	injectors:LogInjectable[]
-	
-	prefix_type:boolean
-	
-	debug_info:boolean
-	
-}
+// export interface LogDefaults {
+//   log_level: LogLevel
+//   time_format:string
+//   max_str_length:number
+//   context:LogContext
+//   prefix:string
+//   prefix_type:boolean
+//   debug_info:boolean
+//   injectors:LogInjectable[]
+// }
 
 /**
  * LogConfig type
@@ -92,17 +83,21 @@ export interface LogDefaults {
  */
 export type LogConfig = {
 	
-	level?: LogLevel
+	log_level: LogLevel
 	
-	context?: LogContext
+	time_format:string
 	
-	prefix?: string
+	max_str_length:number
 	
-	prefix_type?: boolean
+	context: LogContext
 	
-	debug_info?: boolean
+	prefix: string
 	
-	injectors?: LogInjectable[]
+	prefix_type: boolean
+	
+	debug_info: boolean
+	
+	injectors: LogInjectable[]
 	
 }
 

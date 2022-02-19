@@ -1,6 +1,6 @@
 import {urn_log} from './index';
 urn_log.init({
-	level: urn_log.LogLevel.FUNCTION_DEBUG,
+	log_level: urn_log.LogLevel.FUNCTION_DEBUG,
 	context: urn_log.LogContext.BROWSER,
 	prefix: ''
 });

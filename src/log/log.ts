@@ -21,8 +21,8 @@ import {console_injectors} from './console_injectors';
  * @param injectors - this will override the default injector [the console injector]
  */
 export function init(log_config?: LogLevel):void
-export function init(log_config?: LogConfig):void
-export function init(log_config?: LogConfig | LogLevel):void{
+export function init(log_config?: Partial<LogConfig>):void
+export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 	
 	if(typeof log_config === 'number'){
 		
@@ -30,13 +30,19 @@ export function init(log_config?: LogConfig | LogLevel):void{
 		
 	}else if(log_config){
 		
-		if(log_config.level){
-			log_defaults.log_level = log_config.level;
+		if(typeof log_config.log_level === 'number' && log_config.log_level >= 0){
+			log_defaults.log_level = log_config.log_level;
 		}
-		if(log_config.context){
+		if(typeof log_config.time_format === 'string' && log_config.time_format !== ''){
+			log_defaults.time_format = log_config.time_format;
+		}
+		if(typeof log_config.max_str_length === 'number' && log_config.max_str_length > 0){
+			log_defaults.max_str_length = log_config.max_str_length;
+		}
+		if(typeof log_config.context === 'string' && log_config.context as unknown !== ''){
 			log_defaults.context = log_config.context;
 		}
-		if(log_config.prefix){
+		if(typeof log_config.prefix === 'string' && log_config.prefix !== ''){
 			log_defaults.prefix = log_config.prefix;
 		}
 		if(log_config.prefix_type === true){
