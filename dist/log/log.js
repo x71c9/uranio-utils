@@ -14,6 +14,7 @@ const log_defaults_1 = __importDefault(require("./log.defaults"));
 exports.defaults = log_defaults_1.default;
 const console_injectors_1 = require("./console_injectors");
 function init(log_config) {
+    console.log('INITLIB', log_config);
     if (typeof log_config === 'number') {
         log_defaults_1.default.log_level = log_config;
     }
