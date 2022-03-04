@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node -r source-map-support/register dist/index.js",
     "build": "tsc -b",
-    "dev": "./node_modules/.bin/tsc-watch --onSuccess \"node -r source-map-support/register ./dist/dev.js\"",
+    "dev": "yarn tsc-watch --onSuccess \"node -r source-map-support/register ./dist/dev.js\"",
     "dev:browser": "npx webpack serve --open"
   },
   "repository": {
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/nbl7/uranio-lib#readme",
   "devDependencies": {
     "ts-loader": "^9.2.6",
+    "tsc-watch": "^4.6.0",
     "uranio-dev": "git+ssh://git@github.com:nbl7/uranio-dev.git",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
