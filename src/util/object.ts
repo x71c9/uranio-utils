@@ -2,6 +2,7 @@
  * Util module for Objects
  *
  */
+import * as json from './json';
 /*
  * Returns a list of keys to use in loops so Typescript do not complain about keys
  *
@@ -46,5 +47,12 @@ export function serialize(obj:unknown, prefix=''):string{
 		}
 	}
 	return str.join("&");
+}
+
+export function deep_clone<T>(obj:T):T{
+	if(!obj || typeof obj !== 'object'){
+		return obj;
+	}
+	return json.clean_parse(json.safe_stringify(obj));
 }
 
