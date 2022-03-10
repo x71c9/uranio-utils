@@ -1,9 +1,10 @@
 /**
- * Export module for log
+ * Export module for Context
  *
  * @packageDocumentation
  */
 
 // export * from './types';
 
-// export * from './config';
+export * from './context';
+

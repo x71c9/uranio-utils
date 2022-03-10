@@ -5,6 +5,7 @@ import {
 	urn_return,
 	urn_util,
 	urn_exception,
+	urn_context
 } from './main';
 
 export {
@@ -12,7 +13,8 @@ export {
 	urn_response,
 	urn_return,
 	urn_util,
-	urn_exception
+	urn_exception,
+	urn_context,
 };
 
 export default urn_lib;
