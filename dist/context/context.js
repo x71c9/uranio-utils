@@ -28,19 +28,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init = void 0;
+exports.create = void 0;
 const util = __importStar(require("../util/index"));
 const exception = __importStar(require("../exception/index"));
+const log = __importStar(require("../log/index"));
 const urn_exc = exception.init(`CONTEXT_MODULE`, `Context module`);
 class Context {
-    // public is_init:boolean
-    constructor(_default, _is_production) {
+    constructor(_default, _is_production, name) {
         this._is_production = _is_production;
+        this.name = name;
         this.context = _default;
-        // this.is_init = false;
     }
     set(_overwrite) {
-        Object.assign(this.context, _overwrite);
+        for (const [okey, ovalue] of Object.entries(_overwrite)) {
+            if (typeof ovalue === typeof this.context[okey]) {
+                this.context[okey] = ovalue;
+            }
+        }
         return this.context;
     }
     get(key) {
@@ -53,10 +57,58 @@ class Context {
         }
         return this.context[key];
     }
+    get_all() {
+        return this.context;
+    }
+    set_env() {
+        const env = this._get_env_vars();
+        // console.log(this.name, env);
+        this.set(env);
+    }
+    _get_env_vars() {
+        const env = {};
+        for (const [conf_key, conf_value] of Object.entries(this.context)) {
+            const env_var_name = `URN_${conf_key.toUpperCase()}`;
+            if (env_var_name === `URN_LOG_LEVEL` || env_var_name === `URN_DEV_LOG_LEVEL`) {
+                const string_log_level = process.env[env_var_name];
+                if (typeof string_log_level === 'string' && string_log_level.length > 1) {
+                    process.env[env_var_name] = log.LogLevel[string_log_level];
+                }
+            }
+            switch (typeof conf_value) {
+                case 'number': {
+                    if (typeof process.env[env_var_name] === 'number'
+                        || typeof process.env[env_var_name] === 'string'
+                            && process.env[env_var_name] !== '') {
+                        env[conf_key] = Number(process.env[env_var_name]);
+                    }
+                    break;
+                }
+                case 'boolean': {
+                    if (typeof process.env[env_var_name] === 'boolean'
+                        || typeof process.env[env_var_name] === 'string'
+                            && process.env[env_var_name] !== '') {
+                        env[conf_key] =
+                            (process.env[env_var_name] === 'true')
+                                || (process.env[env_var_name] === true);
+                    }
+                    break;
+                }
+                case 'string': {
+                    if (typeof process.env[env_var_name] === 'string'
+                        && process.env[env_var_name] !== '') {
+                        env[conf_key] = process.env[env_var_name];
+                    }
+                    break;
+                }
+            }
+        }
+        return env;
+    }
 }
-function init(_default, _is_production) {
-    const ctx = new Context(_default, _is_production);
+function create(_default, _is_production, name) {
+    const ctx = new Context(_default, _is_production, name);
     return ctx;
 }
-exports.init = init;
+exports.create = create;
 //# sourceMappingURL=context.js.map

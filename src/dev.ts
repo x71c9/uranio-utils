@@ -45,21 +45,21 @@ const def:Def = {
 	}
 };
 
-const over:Partial<Def> = {
-	dev_log_prefix: 'C',
-	service_obj: {
-		p1: '',
-		p2: {
-			p3: '222'
-		}
-	}
-};
+// const over:Partial<Def> = {
+//   dev_log_prefix: 'C',
+//   service_obj: {
+//     p1: '',
+//     p2: {
+//       p3: '222'
+//     }
+//   }
+// };
 
 const over2:Partial<Def> = {
 	dev_log_prefix: 'C2222222'
 };
 
-const ctx = urn_context.init(def, over, false);
+const ctx = urn_context.create(def, false);
 
 ctx.set(over2);
 

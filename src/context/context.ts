@@ -8,10 +8,9 @@ import * as util from '../util/index';
 
 import * as exception from '../exception/index';
 
-const urn_exc = exception.init(
-	`CONTEXT_MODULE`,
-	`Context module`
-);
+import * as log from '../log/index';
+
+const urn_exc = exception.init(`CONTEXT_MODULE`, `Context module`);
 
 type ContextDefault = {
 	[k:string]: any
@@ -21,15 +20,16 @@ class Context<T extends ContextDefault> {
 	
 	public context:T
 	
-	// public is_init:boolean
-	
-	constructor(_default:T, public _is_production:boolean){
+	constructor(_default:T, public _is_production:boolean, public name?:string){
 		this.context = _default;
-		// this.is_init = false;
 	}
 	
 	public set(_overwrite:Partial<T>):T{
-		Object.assign(this.context, _overwrite);
+		for(const [okey, ovalue] of Object.entries(_overwrite)){
+			if(typeof ovalue === typeof this.context[okey]){
+				this.context[okey as keyof T] = ovalue;
+			}
+		}
 		return this.context;
 	}
 	
@@ -49,12 +49,70 @@ class Context<T extends ContextDefault> {
 		return this.context[key];
 	}
 	
+	public get_all():T{
+		return this.context;
+	}
+	
+	public set_env(){
+		const env = this._get_env_vars();
+		// console.log(this.name, env);
+		this.set(env);
+	}
+	
+	private _get_env_vars():T{
+		const env:T = {} as T;
+		for(const [conf_key, conf_value] of Object.entries(this.context)){
+			const env_var_name = `URN_${conf_key.toUpperCase()}`;
+			if(env_var_name === `URN_LOG_LEVEL` || env_var_name === `URN_DEV_LOG_LEVEL`){
+				const string_log_level = process.env[env_var_name] as unknown;
+				if(typeof string_log_level === 'string' && string_log_level.length > 1){
+					process.env[env_var_name] = log.LogLevel[string_log_level as unknown as log.LogLevel];
+				}
+			}
+			switch(typeof conf_value){
+				case 'number':{
+					if(
+						typeof process.env[env_var_name] === 'number'
+						|| typeof process.env[env_var_name] === 'string'
+						&& process.env[env_var_name] !== ''
+					){
+						(env as any)[conf_key] = Number(process.env[env_var_name]);
+					}
+					break;
+				}
+				case 'boolean':{
+					if(
+						typeof process.env[env_var_name] === 'boolean'
+						|| typeof process.env[env_var_name] === 'string'
+						&& process.env[env_var_name] !== ''
+					){
+						(env as any)[conf_key] =
+							(process.env[env_var_name] === 'true')
+							|| (process.env[env_var_name] as any === true);
+					}
+					break;
+				}
+				case 'string':{
+					if(
+						typeof process.env[env_var_name] === 'string'
+						&& process.env[env_var_name] !== ''
+					){
+						(env as any)[conf_key] = process.env[env_var_name];
+					}
+					break;
+				}
+			}
+		}
+		return env;
+	}
+	
 	// public set_init(init:boolean){
 	//   this.is_init = init;
 	// }
 }
 
-export function init<T>(_default:T, _is_production:boolean):Context<T>{
-	const ctx = new Context(_default, _is_production);
+export function create<T>(_default:T, _is_production:boolean, name?:string):Context<T>{
+	const ctx = new Context(_default, _is_production, name);
 	return ctx;
 }
+

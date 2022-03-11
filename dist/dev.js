@@ -29,19 +29,19 @@ const def = {
         }
     }
 };
-const over = {
-    dev_log_prefix: 'C',
-    service_obj: {
-        p1: '',
-        p2: {
-            p3: '222'
-        }
-    }
-};
+// const over:Partial<Def> = {
+//   dev_log_prefix: 'C',
+//   service_obj: {
+//     p1: '',
+//     p2: {
+//       p3: '222'
+//     }
+//   }
+// };
 const over2 = {
     dev_log_prefix: 'C2222222'
 };
-const ctx = index_1.urn_context.init(def, over, false);
+const ctx = index_1.urn_context.create(def, false);
 ctx.set(over2);
 const o = ctx.get('log_prefix');
 console.log(o);
