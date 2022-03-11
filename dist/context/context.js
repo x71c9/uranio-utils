@@ -44,6 +44,10 @@ class Context {
             if (typeof ovalue === typeof this.context[okey]) {
                 this.context[okey] = ovalue;
             }
+            const noclientkey = okey.replace(`client_`, '');
+            if (typeof ovalue === typeof this.context[noclientkey]) {
+                this.context[okey] = ovalue;
+            }
         }
         return this.context;
     }

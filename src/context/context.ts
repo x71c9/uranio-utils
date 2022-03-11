@@ -29,6 +29,10 @@ class Context<T extends ContextDefault> {
 			if(typeof ovalue === typeof this.context[okey]){
 				this.context[okey as keyof T] = ovalue;
 			}
+			const noclientkey = okey.replace(`client_`,'');
+			if(typeof ovalue === typeof this.context[noclientkey]){
+				this.context[okey as keyof T] = ovalue;
+			}
 		}
 		return this.context;
 	}
