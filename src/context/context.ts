@@ -29,10 +29,15 @@ class Context<T extends ContextDefault> {
 			if(typeof ovalue === typeof this.context[okey]){
 				this.context[okey as keyof T] = ovalue;
 			}
-			const noclientkey = okey.replace(`client_`,'');
-			if(typeof ovalue === typeof this.context[noclientkey]){
-				this.context[okey as keyof T] = ovalue;
-			}
+			// const noclientkey = okey.replace(`client_`,'');
+			// if(typeof ovalue === typeof this.context[noclientkey]){
+			//   this.context[okey as keyof T] = ovalue;
+			// }
+			// // server context must contain also client_ starting key
+			// // so that util generate client config can work.
+			// if(okey.indexOf('client_') === 0){
+			//   this.context[okey as keyof T] = ovalue;
+			// }
 		}
 		return this.context;
 	}
