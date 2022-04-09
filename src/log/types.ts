@@ -85,9 +85,9 @@ export type LogConfig = {
 	
 	log_level: LogLevel
 	
-	time_format:string
+	time_format: string
 	
-	max_str_length:number
+	max_str_length: number
 	
 	context: LogContext
 	
