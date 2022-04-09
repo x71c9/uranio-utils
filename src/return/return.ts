@@ -121,7 +121,7 @@ class URNReturn {
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
 	 */
-	public async_res<R>(handler:(...args:any[]) => Promise<R>, name?:string){
+	public async_res<R>(handler:(...args:any[]) => Promise<R>, name?:string, meta?:any){
 		return async (param_object?:any):Promise<General<R>> => {
 			try{
 				const response:Success<R> = {
@@ -129,6 +129,9 @@ class URNReturn {
 					success: true,
 					payload: await handler(param_object)
 				};
+				if(typeof meta !== 'undefined'){
+					response.meta = meta;
+				}
 				return this._run_success_handlers(response);
 			}catch(ex){
 				return this.return_error(500,
@@ -147,7 +150,7 @@ class URNReturn {
 	 * @param handler [optional] - The function to call
 	 * @param name [optional] - The name of the response
 	 */
-	public res<R>(handler:(...args:any[]) => R, name?:string){
+	public res<R>(handler:(...args:any[]) => R, name?:string, meta?:any){
 		return (param_object?:any):General<ReturnType<typeof handler>> => {
 			try{
 				const response:Success<R> = {
@@ -155,6 +158,9 @@ class URNReturn {
 					success: true,
 					payload: handler(param_object)
 				};
+				if(typeof meta !== 'undefined'){
+					response.meta = meta;
+				}
 				return this._run_success_handlers(response);
 			}catch(ex){
 				return this.return_error(500,
@@ -172,7 +178,7 @@ class URNReturn {
 	 * @param result - The main response
 	 * @param name [optional] - The name of the response
 	 */
-	public inherit_res(result:General<General>, name?:string)
+	public inherit_res(result:General<General>, name?:string, meta?:any)
 			:General{
 		const return_result:General = {
 			status: 200,
@@ -182,6 +188,9 @@ class URNReturn {
 			err_msg: '',
 			payload: null
 		};
+		if(typeof meta !== 'undefined'){
+			return_result.meta = meta;
+		}
 		if(is_fail(result)){
 			return_result.status = result.status;
 			return_result.message = (name) ?
@@ -204,6 +213,9 @@ class URNReturn {
 		return_result.message = (name) ?
 			name + ' - ' + result.payload.message : result.payload.message;
 		return_result.payload = result.payload.payload;
+		if(typeof result.meta !== 'undefined'){
+			return_result.meta = result.meta;
+		}
 		return return_result;
 	}
 	
@@ -219,9 +231,9 @@ class URNReturn {
 	 * @param payload [optional] - A payload
 	 * @param ex [optional] - An exception
 	 */
-	public return_error(status:number, message:string, err_code:string, err_msg:string, payload?:null, ex?:Error | null):Fail;
-	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null):Fail<T>;
-	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null):Fail<T> | Fail{
+	public return_error(status:number, message:string, err_code:string, err_msg:string, payload?:null, ex?:Error | null, meta?:any):Fail;
+	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null, meta?:any):Fail<T>;
+	public return_error<T>(status:number, message:string, err_code:string, err_msg:string, payload:T, ex?:Error | null, meta?:any):Fail<T> | Fail{
 		// if there is a payload
 		if(arguments.length > 4){
 			const urn_response:Fail<T> = {
@@ -233,6 +245,9 @@ class URNReturn {
 				payload: payload,
 				success: false
 			};
+			if(typeof meta !== 'undefined'){
+				urn_response.meta = meta;
+			}
 			return this._run_fail_handlers(urn_response);
 		}else{
 			const urn_response:Fail = {
@@ -244,6 +259,9 @@ class URNReturn {
 				payload: null,
 				success: false
 			};
+			if(typeof meta !== 'undefined'){
+				urn_response.meta = meta;
+			}
 			return this._run_fail_handlers(urn_response);
 		}
 	}
@@ -258,9 +276,9 @@ class URNReturn {
 	 * @param message [optional] - A human readable message of the response
 	 * @param payload [optional] - A payload
 	 */
-	public return_success(message:string, payload?:null):Success;
-	public return_success<T>(message:string, payload:T):Success<T>;
-	public return_success<T>(message:string, payload:T):Success<T> | Success{
+	public return_success(message:string, payload?:null, meta?:any):Success;
+	public return_success<T>(message:string, payload:T, meta?:any):Success<T>;
+	public return_success<T>(message:string, payload:T, meta?:any):Success<T> | Success{
 		// if there is a payload
 		if(arguments.length > 1){
 			const urn_response:Success<T> = {
@@ -269,6 +287,9 @@ class URNReturn {
 				message: message,
 				payload: payload
 			};
+			if(typeof meta !== 'undefined'){
+				urn_response.meta = meta;
+			}
 			return this._run_success_handlers(urn_response);
 		}else{
 			const urn_response:Success = {
@@ -277,6 +298,9 @@ class URNReturn {
 				message: message,
 				payload: null
 			};
+			if(typeof meta !== 'undefined'){
+				urn_response.meta = meta;
+			}
 			return this._run_success_handlers(urn_response);
 		}
 	}
@@ -286,10 +310,13 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	public return_true(message?:string):UBoolean<true>{
+	public return_true(message?:string, meta?:any):UBoolean<true>{
 		const urn_boolean:UBoolean<true> = {
 			success: true
 		};
+		if(typeof meta !== 'undefined'){
+			urn_boolean.meta = meta;
+		}
 		if(arguments.length>0)
 			urn_boolean.message = message;
 		return urn_boolean;
@@ -300,10 +327,13 @@ class URNReturn {
 	 *
 	 * @param message [optional] - A message to append
 	 */
-	public return_false(message?:string):UBoolean<false>{
+	public return_false(message?:string, meta?:any):UBoolean<false>{
 		const urn_boolean:UBoolean<false> = {
 			success: false
 		};
+		if(typeof meta !== 'undefined'){
+			urn_boolean.meta = meta;
+		}
 		if(arguments.length>0)
 			urn_boolean.message = message;
 		return urn_boolean;

@@ -132,7 +132,7 @@ class URNReturn {
      * @param handler [optional] - The function to call
      * @param name [optional] - The name of the response
      */
-    async_res(handler, name) {
+    async_res(handler, name, meta) {
         return (param_object) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = {
@@ -140,6 +140,9 @@ class URNReturn {
                     success: true,
                     payload: yield handler(param_object)
                 };
+                if (typeof meta !== 'undefined') {
+                    response.meta = meta;
+                }
                 return this._run_success_handlers(response);
             }
             catch (ex) {
@@ -157,7 +160,7 @@ class URNReturn {
      * @param handler [optional] - The function to call
      * @param name [optional] - The name of the response
      */
-    res(handler, name) {
+    res(handler, name, meta) {
         return (param_object) => {
             try {
                 const response = {
@@ -165,6 +168,9 @@ class URNReturn {
                     success: true,
                     payload: handler(param_object)
                 };
+                if (typeof meta !== 'undefined') {
+                    response.meta = meta;
+                }
                 return this._run_success_handlers(response);
             }
             catch (ex) {
@@ -181,7 +187,7 @@ class URNReturn {
      * @param result - The main response
      * @param name [optional] - The name of the response
      */
-    inherit_res(result, name) {
+    inherit_res(result, name, meta) {
         const return_result = {
             status: 200,
             message: '',
@@ -190,6 +196,9 @@ class URNReturn {
             err_msg: '',
             payload: null
         };
+        if (typeof meta !== 'undefined') {
+            return_result.meta = meta;
+        }
         if ((0, index_1.is_fail)(result)) {
             return_result.status = result.status;
             return_result.message = (name) ?
@@ -212,9 +221,12 @@ class URNReturn {
         return_result.message = (name) ?
             name + ' - ' + result.payload.message : result.payload.message;
         return_result.payload = result.payload.payload;
+        if (typeof result.meta !== 'undefined') {
+            return_result.meta = result.meta;
+        }
         return return_result;
     }
-    return_error(status, message, err_code, err_msg, payload, ex) {
+    return_error(status, message, err_code, err_msg, payload, ex, meta) {
         // if there is a payload
         if (arguments.length > 4) {
             const urn_response = {
@@ -226,6 +238,9 @@ class URNReturn {
                 payload: payload,
                 success: false
             };
+            if (typeof meta !== 'undefined') {
+                urn_response.meta = meta;
+            }
             return this._run_fail_handlers(urn_response);
         }
         else {
@@ -238,10 +253,13 @@ class URNReturn {
                 payload: null,
                 success: false
             };
+            if (typeof meta !== 'undefined') {
+                urn_response.meta = meta;
+            }
             return this._run_fail_handlers(urn_response);
         }
     }
-    return_success(message, payload) {
+    return_success(message, payload, meta) {
         // if there is a payload
         if (arguments.length > 1) {
             const urn_response = {
@@ -250,6 +268,9 @@ class URNReturn {
                 message: message,
                 payload: payload
             };
+            if (typeof meta !== 'undefined') {
+                urn_response.meta = meta;
+            }
             return this._run_success_handlers(urn_response);
         }
         else {
@@ -259,6 +280,9 @@ class URNReturn {
                 message: message,
                 payload: null
             };
+            if (typeof meta !== 'undefined') {
+                urn_response.meta = meta;
+            }
             return this._run_success_handlers(urn_response);
         }
     }
@@ -267,10 +291,13 @@ class URNReturn {
      *
      * @param message [optional] - A message to append
      */
-    return_true(message) {
+    return_true(message, meta) {
         const urn_boolean = {
             success: true
         };
+        if (typeof meta !== 'undefined') {
+            urn_boolean.meta = meta;
+        }
         if (arguments.length > 0)
             urn_boolean.message = message;
         return urn_boolean;
@@ -280,10 +307,13 @@ class URNReturn {
      *
      * @param message [optional] - A message to append
      */
-    return_false(message) {
+    return_false(message, meta) {
         const urn_boolean = {
             success: false
         };
+        if (typeof meta !== 'undefined') {
+            urn_boolean.meta = meta;
+        }
         if (arguments.length > 0)
             urn_boolean.message = message;
         return urn_boolean;

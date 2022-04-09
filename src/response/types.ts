@@ -7,7 +7,7 @@
 /*
  * URNResponse "abstract" interface
  */
-interface AbstractResponse<T = null> {
+interface AbstractResponse<T = null, M = any> {
 	
 	/*
 	 * Status as number. It follows the HTTP status codes
@@ -25,6 +25,11 @@ interface AbstractResponse<T = null> {
 	payload:T;
 	
 	/*
+	 * The response metadata
+	 */
+	meta?:M;
+	
+	/*
 	 * A human readable message of the response
 	 */
 	message?:string;
@@ -39,7 +44,7 @@ interface AbstractResponse<T = null> {
 /**
  * URNResponse interface for success
  */
-export interface Success<T = null> extends AbstractResponse<T> {
+export interface Success<T = null, M = any> extends AbstractResponse<T,M> {
 	
 	/*
 	 * Status must be 200
@@ -57,6 +62,11 @@ export interface Success<T = null> extends AbstractResponse<T> {
 	payload: T;
 	
 	/*
+	 * The response metadata
+	 */
+	meta?:M;
+	
+	/*
 	 * Message of the response
 	 */
 	message?: string;
@@ -66,7 +76,7 @@ export interface Success<T = null> extends AbstractResponse<T> {
 /**
  * URNResponse interface for failure
  */
-export interface Fail<T = null> extends AbstractResponse<T> {
+export interface Fail<T = null, M = any> extends AbstractResponse<T, M> {
 	
 	/*
 	 * Status must be 200
@@ -82,6 +92,11 @@ export interface Fail<T = null> extends AbstractResponse<T> {
 	 * Payload of the response
 	 */
 	payload: T;
+	
+	/*
+	 * The response metadata
+	 */
+	meta?:M;
 	
 	/*
 	 * Message of the response
@@ -109,18 +124,23 @@ export interface Fail<T = null> extends AbstractResponse<T> {
  * URANIO middleware General response, conjunction with Success and Fail
  * with two possible generic type for their payloads
  */
-export type General<T = null, K = null> = Success<T> | Fail<K>;
+export type General<T = null, K = null, M = any> = Success<T,M> | Fail<K,M>;
 
 /*
  * URANIO middleware boolean response interface
  */
-export interface UBoolean<T extends boolean = boolean> {
+export interface UBoolean<T extends boolean = boolean, M = any> {
 	
 	/*
 	 * Boolean response
 	 */
 	success:T;
-
+	
+	/*
+	 * The response metadata
+	 */
+	meta?:M;
+	
 	/*
 	 * Boolean response message
 	 */

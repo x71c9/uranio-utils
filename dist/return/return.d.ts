@@ -66,7 +66,7 @@ declare class URNReturn {
      * @param handler [optional] - The function to call
      * @param name [optional] - The name of the response
      */
-    async_res<R>(handler: (...args: any[]) => Promise<R>, name?: string): (param_object?: any) => Promise<General<R>>;
+    async_res<R>(handler: (...args: any[]) => Promise<R>, name?: string, meta?: any): (param_object?: any) => Promise<General<R>>;
     /**
      * Returns a response for a function
      *
@@ -77,7 +77,7 @@ declare class URNReturn {
      * @param handler [optional] - The function to call
      * @param name [optional] - The name of the response
      */
-    res<R>(handler: (...args: any[]) => R, name?: string): (param_object?: any) => General<ReturnType<typeof handler>>;
+    res<R>(handler: (...args: any[]) => R, name?: string, meta?: any): (param_object?: any) => General<ReturnType<typeof handler>>;
     /**
      * Returns a response object by looking into its payload.
      * If there is an error will not look into its playload.
@@ -87,7 +87,7 @@ declare class URNReturn {
      * @param result - The main response
      * @param name [optional] - The name of the response
      */
-    inherit_res(result: General<General>, name?: string): General;
+    inherit_res(result: General<General>, name?: string, meta?: any): General;
     /**
      * Returns a response error object
      *
@@ -100,8 +100,8 @@ declare class URNReturn {
      * @param payload [optional] - A payload
      * @param ex [optional] - An exception
      */
-    return_error(status: number, message: string, err_code: string, err_msg: string, payload?: null, ex?: Error | null): Fail;
-    return_error<T>(status: number, message: string, err_code: string, err_msg: string, payload: T, ex?: Error | null): Fail<T>;
+    return_error(status: number, message: string, err_code: string, err_msg: string, payload?: null, ex?: Error | null, meta?: any): Fail;
+    return_error<T>(status: number, message: string, err_code: string, err_msg: string, payload: T, ex?: Error | null, meta?: any): Fail<T>;
     /**
      * Returns a successful response object
      *
@@ -112,20 +112,20 @@ declare class URNReturn {
      * @param message [optional] - A human readable message of the response
      * @param payload [optional] - A payload
      */
-    return_success(message: string, payload?: null): Success;
-    return_success<T>(message: string, payload: T): Success<T>;
+    return_success(message: string, payload?: null, meta?: any): Success;
+    return_success<T>(message: string, payload: T, meta?: any): Success<T>;
     /**
      * Returns a successful boolean response with optional message
      *
      * @param message [optional] - A message to append
      */
-    return_true(message?: string): UBoolean<true>;
+    return_true(message?: string, meta?: any): UBoolean<true>;
     /**
      * Retunrs a not successful boolean response with optional message
      *
      * @param message [optional] - A message to append
      */
-    return_false(message?: string): UBoolean<false>;
+    return_false(message?: string, meta?: any): UBoolean<false>;
 }
 export declare type ReturnInstance = InstanceType<typeof URNReturn>;
 /**
