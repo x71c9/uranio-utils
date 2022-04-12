@@ -14,4 +14,6 @@ import * as number from './number';
 
 import * as string from './string';
 
-export {object, is, json, number, string};
+import * as url from './url';
+
+export {object, is, json, number, string, url};

@@ -28,7 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.string = exports.number = exports.json = exports.is = exports.object = void 0;
+exports.url = exports.string = exports.number = exports.json = exports.is = exports.object = void 0;
 const object = __importStar(require("./object"));
 exports.object = object;
 const is = __importStar(require("./validate"));
@@ -39,4 +39,6 @@ const number = __importStar(require("./number"));
 exports.number = number;
 const string = __importStar(require("./string"));
 exports.string = string;
+const url = __importStar(require("./url"));
+exports.url = url;
 //# sourceMappingURL=index.js.map
