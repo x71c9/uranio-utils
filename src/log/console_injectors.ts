@@ -167,7 +167,6 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1, is_error=f
  *
  * @param p - anything to be logged.
  * @param stylelog - a formatted string for styling.
- * @param is_error - if true will console.error
  */
 function _log_param(p:any, stylelog:string, type:LogType)
 		:void{

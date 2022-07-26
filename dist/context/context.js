@@ -2,6 +2,9 @@
 /**
  * Context module
  *
+ * The Context calss is an abstraction for handling configuration object and
+ * environmental variables.
+ *
  * @packageDocumentation
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {

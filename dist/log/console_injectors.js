@@ -150,7 +150,6 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
  *
  * @param p - anything to be logged.
  * @param stylelog - a formatted string for styling.
- * @param is_error - if true will console.error
  */
 function _log_param(p, stylelog, type) {
     let processed_param = [];

@@ -1,6 +1,9 @@
 /**
  * Context module
  *
+ * The Context calss is an abstraction for handling configuration object and
+ * environmental variables.
+ *
  * @packageDocumentation
  */
 declare type ContextDefault = {
