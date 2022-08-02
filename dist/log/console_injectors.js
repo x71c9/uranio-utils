@@ -7,8 +7,8 @@ exports.console_injectors = void 0;
 /**
  * Console Injector module.
  *
- * This module define the function that log inside the console, both in
- * browser and terminal.
+ * This module define the function that log inside the console, both in the
+ * browser and the terminal.
  *
  * @packageDocumentation
  *
@@ -61,8 +61,10 @@ var console_injectors;
  * @param ...params - variables to log
  */
 function _cecho(type, style, start, depth, ...params) {
+    const env_no_colors = (process.env.NO_COLOR == 'true') ? true : false;
     const styles = (Array.isArray(style)) ? style.join(' ') : style;
-    const stylelog = (log_defaults_1.default.color === true) ? styles + '%s' + _terminal_styles.reset : '';
+    const stylelog = (log_defaults_1.default.color === true && env_no_colors === false) ?
+        styles + '%s' + _terminal_styles.reset : '';
     if (log_defaults_1.default.debug_info === true) {
         _log_stack(type, stylelog, start, depth, (type === 'error'));
     }
@@ -98,8 +100,9 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         console.error('CANNOT LOG STACK');
         return;
     }
+    const prefix = (log_defaults_1.default.prefix !== '') ? log_defaults_1.default.prefix + ' ' : '';
     const now = (0, dateformat_1.default)(new Date(), log_defaults_1.default.time_format);
-    const head_string = now + ' <' + type + '> ';
+    const head_string = prefix + now + ' <' + type + '> ';
     const splitted_stack = stack.split('\n');
     const till = (depth === -1) ? splitted_stack.length - start : depth;
     // skip stack line from log module and return module
@@ -134,10 +137,20 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         }
         else {
             if (is_error) {
-                console.error(stylelog, string);
+                if (stylelog) {
+                    console.error(stylelog, string);
+                }
+                else {
+                    console.log(string);
+                }
             }
             else {
-                console.log(stylelog, string);
+                if (stylelog) {
+                    console.log(stylelog, string);
+                }
+                else {
+                    console.log(string);
+                }
             }
         }
     }

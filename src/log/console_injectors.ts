@@ -1,8 +1,8 @@
 /**
  * Console Injector module.
  *
- * This module define the function that log inside the console, both in
- * browser and terminal.
+ * This module define the function that log inside the console, both in the
+ * browser and the terminal.
  *
  * @packageDocumentation
  *
@@ -73,8 +73,10 @@ export namespace console_injectors {
  */
 function _cecho(type:LogType, style:string|string[], start:number, depth:number, ...params:any[])
 		:void{
+	const env_no_colors = (process.env.NO_COLOR == 'true') ? true : false;
 	const styles = (Array.isArray(style)) ? style.join(' ') : style;
-	const stylelog = (log_defaults.color === true) ? styles + '%s' + _terminal_styles.reset : '';
+	const stylelog = (log_defaults.color === true && env_no_colors === false) ?
+		styles + '%s' + _terminal_styles.reset : '';
 	if(log_defaults.debug_info === true){
 		_log_stack(type, stylelog, start, depth, (type === 'error'));
 	}
@@ -111,8 +113,9 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1, is_error=f
 		console.error('CANNOT LOG STACK');
 		return;
 	}
+	const prefix = (log_defaults.prefix !== '') ? log_defaults.prefix + ' ' : '';
 	const now = dateFormat(new Date(), log_defaults.time_format);
-	const head_string = now + ' <' + type + '> ';
+	const head_string = prefix + now + ' <' + type + '> ';
 	const splitted_stack = stack.split('\n');
 	const till = (depth === -1) ? splitted_stack.length - start : depth;
 	
@@ -151,9 +154,17 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1, is_error=f
 			}
 		}else{
 			if(is_error){
-				console.error(stylelog, string);
+				if(stylelog){
+					console.error(stylelog, string);
+				}else{
+					console.log(string);
+				}
 			}else{
-				console.log(stylelog, string);
+				if(stylelog){
+					console.log(stylelog, string);
+				}else{
+					console.log(string);
+				}
 			}
 		}
 	}
