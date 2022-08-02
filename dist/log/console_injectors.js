@@ -69,16 +69,15 @@ function _cecho(type, style, start, depth, ...params) {
         _log_stack(type, stylelog, start, depth, (type === 'error'));
     }
     for (const p of params) {
-        if (typeof p === 'object') {
-            _log_param(p, stylelog, type);
-        }
-        else {
-            let processed_param = p;
-            if (typeof log_defaults_1.default.prefix === 'string' && log_defaults_1.default.prefix !== '') {
-                processed_param = `${log_defaults_1.default.prefix} ${p}`;
-            }
-            _log_param(processed_param, stylelog, type);
-        }
+        // if(typeof p === 'object'){
+        _log_param(p, stylelog, type);
+        // }else{
+        // 	let processed_param = p;
+        // 	if(typeof log_defaults.prefix === 'string' && log_defaults.prefix !== ''){
+        // 		processed_param = `${log_defaults.prefix} ${p}`;
+        // 	}
+        // 	_log_param(processed_param, stylelog, type);
+        // }
     }
     if (log_defaults_1.default.context !== types_1.LogContext.BROWSER && log_defaults_1.default.debug_info === true) {
         console.log(stylelog, ' ');
@@ -237,6 +236,9 @@ function _log_param(p, stylelog, type) {
             }
         }
         else {
+            if (log_defaults_1.default.prefix !== '') {
+                pp = `${log_defaults_1.default.prefix} ${pp}`;
+            }
             if (log_defaults_1.default.prefix_type === true) {
                 pp = `[${type}${'_'.repeat(8 - type.length)}]${pp}`;
             }
