@@ -1,21 +1,18 @@
-/*
- * Import dateformat module
+/**
+ * Console Injector module.
+ *
+ * This module define the function that log inside the console, both in
+ * browser and terminal.
+ *
+ * @packageDocumentation
+ *
  */
 import dateFormat from 'dateformat';
 
-/*
- * Import log types
- */
 import {LogType, LogInjectable, LogContext} from './types';
 
-/*
- * Import safe_stringify_oneline
- */
 import {safe_stringify_oneline} from '../util/json';
 
-/*
- * Import log configuration file
- */
 import log_defaults from './log.defaults';
 
 /*
@@ -38,7 +35,7 @@ export namespace console_injectors {
 		},
 		
 		fn_debug_inject: (...p:any) => {
-			_cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
+			_cecho('fn_debug', _terminal_styles.dim, 6, 1, ...p);
 		}
 		
 	};
@@ -276,7 +273,7 @@ const _terminal_styles = {
 	'fgLightGreen' : "\x1b[92m",
 	'fglightYellow' : "\x1b[93m",
 	'fgLightBlue' : "\x1b[94m",
-	'fgLoghtMagenta' : "\x1b[95m",
+	'fgLightMagenta' : "\x1b[95m",
 	'fgLightCyan' : "\x1b[96m",
 	'fgLightWhite' : "\x1b[97m",
 	'bgBlack' : "\x1b[40m",

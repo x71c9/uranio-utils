@@ -1,12 +1,8 @@
-import {urn_util} from './index';
-
-const a = urn_util.url.encode_params({sort: {_date: 1, _id: -1}, else: ['3',4]});
-
-console.log(a);
-
-const b = urn_util.url.decode_params('sort[_date]=1&sort[_id]=-1&else[]=3&else[]=4');
-
-console.log(b);
+// import {urn_util} from './index';
+// const a = urn_util.url.encode_params({sort: {_date: 1, _id: -1}, else: ['3',4]});
+// console.log(a);
+// const b = urn_util.url.decode_params('sort[_date]=1&sort[_id]=-1&else[]=3&else[]=4');
+// console.log(b);
 
 // import {urn_log} from './index';
 

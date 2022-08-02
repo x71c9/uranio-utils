@@ -4,21 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.console_injectors = void 0;
-/*
- * Import dateformat module
+/**
+ * Console Injector module.
+ *
+ * This module define the function that log inside the console, both in
+ * browser and terminal.
+ *
+ * @packageDocumentation
+ *
  */
 const dateformat_1 = __importDefault(require("dateformat"));
-/*
- * Import log types
- */
 const types_1 = require("./types");
-/*
- * Import safe_stringify_oneline
- */
 const json_1 = require("../util/json");
-/*
- * Import log configuration file
- */
 const log_defaults_1 = __importDefault(require("./log.defaults"));
 /*
  * Console injectors methods
@@ -36,7 +33,7 @@ var console_injectors;
             _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
         },
         fn_debug_inject: (...p) => {
-            _cecho('fn_debug', _terminal_styles.fgCyan, 6, 1, ...p);
+            _cecho('fn_debug', _terminal_styles.dim, 6, 1, ...p);
         }
     };
     console_injectors.browser = {
@@ -274,7 +271,7 @@ const _terminal_styles = {
     'fgLightGreen': "\x1b[92m",
     'fglightYellow': "\x1b[93m",
     'fgLightBlue': "\x1b[94m",
-    'fgLoghtMagenta': "\x1b[95m",
+    'fgLightMagenta': "\x1b[95m",
     'fgLightCyan': "\x1b[96m",
     'fgLightWhite': "\x1b[97m",
     'bgBlack': "\x1b[40m",
