@@ -40,7 +40,6 @@ export namespace decorators {
 	/**
 	 * Class @decorator function for loggin constructor with arguments
 	 *
-	 * @param log_instance - the log instance that will be used for logging
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -162,7 +161,7 @@ function fn_debug_method_response(rand_id:string, target_name:string, method:str
  * @param rand_id - A random ID that will be use to associate a constructor been called and its response.
  * @param target_name - The name of the class being called.
  * @param method - The name of the method being called.
- * @param error - The error to log.
+ * @param err - The error to log.
  */
 function fn_debug_method_response_error(rand_id:string, target_name:string, method:string, err:Error)
 		:void{

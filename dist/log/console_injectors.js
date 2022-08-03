@@ -63,8 +63,8 @@ var console_injectors;
 function _cecho(type, style, start, depth, ...params) {
     const env_no_colors = (process.env.NO_COLOR == 'true') ? true : false;
     const styles = (Array.isArray(style)) ? style.join(' ') : style;
-    const stylelog = (log_defaults_1.default.color === true && env_no_colors === false) ?
-        styles + '%s' + _terminal_styles.reset : '';
+    const stylelog = (log_defaults_1.default.color === false || env_no_colors === false) ?
+        '' : styles + '%s' + _terminal_styles.reset;
     if (log_defaults_1.default.debug_info === true) {
         _log_stack(type, stylelog, start, depth, (type === 'error'));
     }

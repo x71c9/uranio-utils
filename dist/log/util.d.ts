@@ -15,7 +15,6 @@ export declare namespace decorators {
     /**
      * Class @decorator function for loggin constructor with arguments
      *
-     * @param log_instance - the log instance that will be used for logging
      */
     function debug_constructor<T extends {
         new (...constr_args: any[]): any;

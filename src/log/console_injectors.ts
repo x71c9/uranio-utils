@@ -75,8 +75,8 @@ function _cecho(type:LogType, style:string|string[], start:number, depth:number,
 		:void{
 	const env_no_colors = (process.env.NO_COLOR == 'true') ? true : false;
 	const styles = (Array.isArray(style)) ? style.join(' ') : style;
-	const stylelog = (log_defaults.color === true && env_no_colors === false) ?
-		styles + '%s' + _terminal_styles.reset : '';
+	const stylelog = (log_defaults.color === false || env_no_colors === false) ?
+		'' : styles + '%s' + _terminal_styles.reset;
 	if(log_defaults.debug_info === true){
 		_log_stack(type, stylelog, start, depth, (type === 'error'));
 	}
