@@ -101,9 +101,9 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
 				break;
-			case 'fn_debug':
-				if(typeof injector.fn_debug_inject === 'function')
-					injector.fn_debug_inject(...params);
+			case 'trace':
+				if(typeof injector.trace_inject === 'function')
+					injector.trace_inject(...params);
 				break;
 		}
 	}
@@ -114,10 +114,10 @@ function _run_injector(type:LogType, ...params:any[]){
  *
  * @param ...params - variables to log
  */
-export function fn_debug(...params:any[])
+export function trace(...params:any[])
 		:void{
 	if(log_defaults.log_level > 3){
-		_run_injector('fn_debug', ...params);
+		_run_injector('trace', ...params);
 	}
 }
 

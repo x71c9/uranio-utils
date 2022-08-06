@@ -34,8 +34,8 @@ export namespace console_injectors {
 			_cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
 		},
 		
-		fn_debug_inject: (...p:any) => {
-			_cecho('fn_debug', _terminal_styles.dim, 6, 1, ...p);
+		trace_inject: (...p:any) => {
+			_cecho('trace', _terminal_styles.dim, 6, 1, ...p);
 		}
 		
 	};
@@ -54,8 +54,8 @@ export namespace console_injectors {
 			_cecho('debug', debug_console_style, 0, 0, ...p);
 		},
 		
-		fn_debug_inject: (...p:any) => {
-			_cecho('fn_debug', fn_debug_console_style, 0, 0, ...p);
+		trace_inject: (...p:any) => {
+			_cecho('trace', trace_console_style, 0, 0, ...p);
 		}
 		
 	};
@@ -340,7 +340,7 @@ const _console_styles = {
 	bg_urn_purple: 'background-color: #F4ECFF;',
 };
 
-const fn_debug_console_style:string[] = [
+const trace_console_style:string[] = [
 	// _console_styles.padding,
 	_console_styles.fg_urn_blue,
 	_console_styles.bg_urn_blue

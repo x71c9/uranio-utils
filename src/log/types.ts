@@ -23,7 +23,7 @@ export enum LogContext {
  * LogType type
  *
  */
-export type LogType = 'error' | 'warn' | 'debug' | 'fn_debug';
+export type LogType = 'error' | 'warn' | 'debug' | 'trace';
 
 /**
  * LogContext type
@@ -58,7 +58,7 @@ export interface LogInjectable{
 	/**
 	 * Method
 	 */
-	fn_debug_inject?(...p:any):void;
+	trace_inject?(...p:any):void;
 	
 }
 

@@ -14,8 +14,8 @@
 // });
 // urn_log.warn(`Hello`);
 // urn_log.warn(`Hello`);
-// urn_log.fn_debug(`Hello`);
-// urn_log.fn_debug(`Hello`);
+// urn_log.trace(`Hello`);
+// urn_log.trace(`Hello`);
 // urn_log.error(`Hello`);
 // urn_log.error(`Hello`);
 // urn_log.debug(`Hello`);

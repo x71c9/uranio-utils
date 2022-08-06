@@ -32,8 +32,8 @@ var console_injectors;
         debug_inject: (...p) => {
             _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
         },
-        fn_debug_inject: (...p) => {
-            _cecho('fn_debug', _terminal_styles.dim, 6, 1, ...p);
+        trace_inject: (...p) => {
+            _cecho('trace', _terminal_styles.dim, 6, 1, ...p);
         }
     };
     console_injectors.browser = {
@@ -46,8 +46,8 @@ var console_injectors;
         debug_inject: (...p) => {
             _cecho('debug', debug_console_style, 0, 0, ...p);
         },
-        fn_debug_inject: (...p) => {
-            _cecho('fn_debug', fn_debug_console_style, 0, 0, ...p);
+        trace_inject: (...p) => {
+            _cecho('trace', trace_console_style, 0, 0, ...p);
         }
     };
 })(console_injectors = exports.console_injectors || (exports.console_injectors = {}));
@@ -338,7 +338,7 @@ const _console_styles = {
     fg_urn_purple: 'color: #4200FF;',
     bg_urn_purple: 'background-color: #F4ECFF;',
 };
-const fn_debug_console_style = [
+const trace_console_style = [
     // _console_styles.padding,
     _console_styles.fg_urn_blue,
     _console_styles.bg_urn_blue

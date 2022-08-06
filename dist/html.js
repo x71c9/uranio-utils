@@ -6,8 +6,8 @@ index_1.urn_log.init({
     context: index_1.urn_log.LogContext.BROWSER,
     prefix: ''
 });
-// urn_log.fn_debug('FN DEBUG');
-// urn_log.fn_debug('Lorem ipsum (something) else: {}');
+// urn_log.trace('FN DEBUG');
+// urn_log.trace('Lorem ipsum (something) else: {}');
 index_1.urn_log.debug('DEBUG');
 index_1.urn_log.debug('Lorem ipsum (something) else: {}');
 index_1.urn_log.warn('WARN');

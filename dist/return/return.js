@@ -324,7 +324,7 @@ class URNReturn {
  * Its parameters are the same as the constructor of the class.
  */
 function create_instance(inject) {
-    urn_log.fn_debug('create for URNReturn');
+    urn_log.trace('create for URNReturn');
     return new URNReturn(inject);
 }
 exports.default = create_instance;

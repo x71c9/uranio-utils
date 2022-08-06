@@ -353,7 +353,7 @@ export type ReturnInstance = InstanceType<typeof URNReturn>;
 export default function create_instance(inject?:ReturnInjectable|ReturnInjectable[])
 		:ReturnInstance{
 	
-	urn_log.fn_debug('create for URNReturn');
+	urn_log.trace('create for URNReturn');
 	
 	return new URNReturn(inject);
 }

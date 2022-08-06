@@ -17,7 +17,7 @@ export declare function init(log_config?: Partial<LogConfig>): void;
  *
  * @param ...params - variables to log
  */
-export declare function fn_debug(...params: any[]): void;
+export declare function trace(...params: any[]): void;
 /**
  * Debug log
  *

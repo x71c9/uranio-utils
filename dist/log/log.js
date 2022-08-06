@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.error = exports.warn = exports.debug = exports.fn_debug = exports.init = exports.defaults = void 0;
+exports.error = exports.warn = exports.debug = exports.trace = exports.init = exports.defaults = void 0;
 const types_1 = require("./types");
 const log_defaults_1 = __importDefault(require("./log.defaults"));
 exports.defaults = log_defaults_1.default;
@@ -87,9 +87,9 @@ function _run_injector(type, ...params) {
                 if (typeof injector.debug_inject === 'function')
                     injector.debug_inject(...params);
                 break;
-            case 'fn_debug':
-                if (typeof injector.fn_debug_inject === 'function')
-                    injector.fn_debug_inject(...params);
+            case 'trace':
+                if (typeof injector.trace_inject === 'function')
+                    injector.trace_inject(...params);
                 break;
         }
     }
@@ -99,12 +99,12 @@ function _run_injector(type, ...params) {
  *
  * @param ...params - variables to log
  */
-function fn_debug(...params) {
+function trace(...params) {
     if (log_defaults_1.default.log_level > 3) {
-        _run_injector('fn_debug', ...params);
+        _run_injector('trace', ...params);
     }
 }
-exports.fn_debug = fn_debug;
+exports.trace = trace;
 /**
  * Debug log
  *

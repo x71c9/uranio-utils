@@ -5,8 +5,8 @@ urn_log.init({
 	prefix: ''
 });
 
-// urn_log.fn_debug('FN DEBUG');
-// urn_log.fn_debug('Lorem ipsum (something) else: {}');
+// urn_log.trace('FN DEBUG');
+// urn_log.trace('Lorem ipsum (something) else: {}');
 urn_log.debug('DEBUG');
 urn_log.debug('Lorem ipsum (something) else: {}');
 urn_log.warn('WARN');

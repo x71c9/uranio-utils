@@ -14,7 +14,7 @@ export {console_injectors} from './console_injectors';
 
 import {LogContext} from './types';
 
-import {fn_debug, debug, error} from './log';
+import {trace, debug, error} from './log';
 
 import log_defaults from './log.defaults';
 
@@ -46,7 +46,7 @@ export namespace decorators {
 	export function debug_constructor<T extends { new (...constr_args:any[]):any }>(constr_func: T){
 		const ExtClass = class extends constr_func {
 			constructor(...args: any[]){
-				fn_debug_constructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
+				trace_contructor(random_id(), constr_func.name, format_args(args, log_defaults.max_str_length));
 				super(...args);
 			}
 		};
@@ -110,9 +110,9 @@ function random_id():string{
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-function fn_debug_constructor(rand_id:string, constructor_name:string, str_args:string)
+function trace_contructor(rand_id:string, constructor_name:string, str_args:string)
 		:void{
-	fn_debug(`[${rand_id}] new ${constructor_name}(${str_args})`);
+	trace(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
 
 /**
@@ -122,9 +122,9 @@ function fn_debug_constructor(rand_id:string, constructor_name:string, str_args:
  * @param constructor_name - The constructor name.
  * @param str_args - A string containing the arguments.
  */
-// function fn_debug_private_constructor(rand_id:string, constructor_name:string, str_args:string)
+// function trace_private_constructor(rand_id:string, constructor_name:string, str_args:string)
 //     :void{
-//   fn_debug(`[${rand_id}] private ${constructor_name}(${str_args})`);
+//   trace(`[${rand_id}] private ${constructor_name}(${str_args})`);
 // }
 
 /**
@@ -135,9 +135,9 @@ function fn_debug_constructor(rand_id:string, constructor_name:string, str_args:
  * @param method - The name of the method being called.
  * @param str_args - A string containing the arguments.
  */
-function fn_debug_method_with_args(rand_id:string, target_name:string, method:string, str_args:string)
+function trace_method_with_args(rand_id:string, target_name:string, method:string, str_args:string)
 		:void{
-	fn_debug(`[${rand_id}] ${target_name}.${method}(${str_args})`);
+	trace(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
 
 /**
@@ -149,10 +149,10 @@ function fn_debug_method_with_args(rand_id:string, target_name:string, method:st
  * @param str_result - The result of the method as string.
  * @param is_promise - A boolean value, true if the method return a Promise.
  */
-function fn_debug_method_response(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
+function trace_method_response(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
 		:void{
 	const promise_str = (is_promise) ? ' [Promise]' : '';
-	fn_debug(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
+	trace(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
 }
 
 /**
@@ -163,9 +163,9 @@ function fn_debug_method_response(rand_id:string, target_name:string, method:str
  * @param method - The name of the method being called.
  * @param err - The error to log.
  */
-function fn_debug_method_response_error(rand_id:string, target_name:string, method:string, err:Error)
+function trace_method_response_error(rand_id:string, target_name:string, method:string, err:Error)
 		:void{
-	fn_debug(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
+	trace(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
 	error(err);
 }
 
@@ -232,7 +232,7 @@ function replace_method_with_logs(
 	descriptor.value = function(...args:any[]) {
 		const rand_id = random_id();
 		const target_name = (appendix!='') ? appendix + ' ' + target.name : target.name;
-		fn_debug_method_with_args(
+		trace_method_with_args(
 			rand_id,
 			target_name,
 			property_name,
@@ -240,7 +240,7 @@ function replace_method_with_logs(
 		);
 		try{
 			const result = original_method.apply(this, args);
-			fn_debug_method_response(
+			trace_method_response(
 				rand_id,
 				target_name,
 				property_name,
@@ -248,19 +248,19 @@ function replace_method_with_logs(
 			);
 			if(result instanceof Promise){
 				result.then((data:any) => {
-					fn_debug_method_response(
+					trace_method_response(
 						rand_id,
 						target_name,
 						property_name,
 						format_result(data, log_defaults.max_str_length),
 						true);
 				}).catch((err:Error) => {
-					fn_debug_method_response_error(rand_id, target_name, property_name, err);
+					trace_method_response_error(rand_id, target_name, property_name, err);
 				});
 			}
 			return result;
 		}catch(err){
-			fn_debug_method_response_error(rand_id, target_name, property_name, err);
+			trace_method_response_error(rand_id, target_name, property_name, err);
 			throw err;
 		}
 	};
