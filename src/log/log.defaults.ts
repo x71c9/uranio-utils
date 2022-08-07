@@ -31,7 +31,7 @@ const log_defaults:LogConfig = {
 	
 	injectors: [],
 	
-	prefix_type: false,
+	prefix_loglevel: false,
 	
 	debug_info: true,
 	

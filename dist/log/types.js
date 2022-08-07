@@ -16,7 +16,7 @@ var LogLevel;
     LogLevel[LogLevel["ERROR"] = 1] = "ERROR";
     LogLevel[LogLevel["WARNING"] = 2] = "WARNING";
     LogLevel[LogLevel["DEBUG"] = 3] = "DEBUG";
-    LogLevel[LogLevel["FUNCTION_DEBUG"] = 4] = "FUNCTION_DEBUG";
+    LogLevel[LogLevel["TRACE"] = 4] = "TRACE";
 })(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
 /**
  * LogContext enum type

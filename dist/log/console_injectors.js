@@ -63,7 +63,7 @@ var console_injectors;
 function _cecho(type, style, start, depth, ...params) {
     const env_no_colors = (process.env.NO_COLOR == 'true') ? true : false;
     const styles = (Array.isArray(style)) ? style.join(' ') : style;
-    const stylelog = (log_defaults_1.default.color === false || env_no_colors === false) ?
+    const stylelog = (log_defaults_1.default.color === false || env_no_colors === true) ?
         '' : styles + '%s' + _terminal_styles.reset;
     if (log_defaults_1.default.debug_info === true) {
         _log_stack(type, stylelog, start, depth, (type === 'error'));
@@ -123,8 +123,8 @@ function _log_stack(type, stylelog, start = 0, depth = -1, is_error = false) {
         let string = '';
         string += head_string;
         string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
-        if (log_defaults_1.default.prefix_type === true) {
-            string = `[${type}${'_'.repeat(8 - type.length)}]${string}`;
+        if (log_defaults_1.default.prefix_loglevel === true) {
+            string = `[${type}${'_'.repeat(5 - type.length)}]${string}`;
         }
         if (log_defaults_1.default.context === types_1.LogContext.BROWSER) {
             if (is_error) {
@@ -239,8 +239,8 @@ function _log_param(p, stylelog, type) {
             if (log_defaults_1.default.prefix !== '') {
                 pp = `${log_defaults_1.default.prefix} ${pp}`;
             }
-            if (log_defaults_1.default.prefix_type === true) {
-                pp = `[${type}${'_'.repeat(8 - type.length)}]${pp}`;
+            if (log_defaults_1.default.prefix_loglevel === true) {
+                pp = `[${type}${'_'.repeat(5 - type.length)}]${pp}`;
             }
             if (type === 'error') {
                 if (stylelog !== '') {

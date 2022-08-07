@@ -9,6 +9,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.error = exports.warn = exports.debug = exports.trace = exports.init = exports.defaults = void 0;
+const minimist_1 = __importDefault(require("minimist"));
 const types_1 = require("./types");
 const log_defaults_1 = __importDefault(require("./log.defaults"));
 exports.defaults = log_defaults_1.default;
@@ -33,8 +34,8 @@ function init(log_config) {
         if (typeof log_config.prefix === 'string' && log_config.prefix !== '') {
             log_defaults_1.default.prefix = log_config.prefix;
         }
-        if (log_config.prefix_type === true) {
-            log_defaults_1.default.prefix_type = true;
+        if (log_config.prefix_loglevel === true) {
+            log_defaults_1.default.prefix_loglevel = true;
         }
         if (log_config.debug_info === false) {
             log_defaults_1.default.debug_info = false;
@@ -54,12 +55,17 @@ function init(log_config) {
             console_injectors_1.console_injectors.browser : console_injectors_1.console_injectors.terminal;
         log_defaults_1.default.injectors = [log_injector];
     }
-    for (const cmd of process.argv.slice(2)) {
-        const splitted = cmd.split('=');
-        if (splitted[0] === 'urn_log_prefix_type') {
-            log_defaults_1.default.prefix_type = (!!splitted[1]);
-        }
+    const args = (0, minimist_1.default)(process.argv.slice(2));
+    if (args.prefix_loglevel == true) {
+        log_defaults_1.default.prefix_loglevel = true;
+        log_defaults_1.default.log_level = types_1.LogLevel.TRACE;
     }
+    // for(const cmd of process.argv.slice(2)){
+    // 	const splitted = cmd.split('=');
+    // 	if(splitted[0] === 'urn_prefix_loglevel'){
+    // 		log_defaults.prefix_loglevel = (!!splitted[1]);
+    // 	}
+    // }
 }
 exports.init = init;
 /**

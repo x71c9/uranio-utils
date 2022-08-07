@@ -4,15 +4,19 @@
 // const b = urn_util.url.decode_params('sort[_date]=1&sort[_id]=-1&else[]=3&else[]=4');
 // console.log(b);
 
-// import {urn_log} from './index';
+import {urn_log} from './index';
 
-// // urn_log.init(urn_log.LogLevel.FUNCTION_DEBUG);
-// urn_log.init({
-//   log_level: urn_log.LogLevel.FUNCTION_DEBUG,
-//   debug_info: false,
-//   prefix_type: true,
-//   color: true
-// });
+// urn_log.init(urn_log.LogLevel.TRACE);
+urn_log.init({
+  log_level: urn_log.LogLevel.TRACE,
+  debug_info: true,
+  // prefix_loglevel: false,
+  color: true
+});
+
+urn_log.warn('This is a warning.');
+urn_log.debug('This is a debug.');
+urn_log.error('This is a error.');
 
 // urn_log.warn(`Hello`);
 // urn_log.warn(`Hello`);

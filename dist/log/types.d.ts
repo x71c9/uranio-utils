@@ -12,7 +12,7 @@ export declare enum LogLevel {
     ERROR = 1,
     WARNING = 2,
     DEBUG = 3,
-    FUNCTION_DEBUG = 4
+    TRACE = 4
 }
 /**
  * LogContext enum type
@@ -70,7 +70,7 @@ export declare type LogConfig = {
     max_str_length: number;
     context: LogContext;
     prefix: string;
-    prefix_type: boolean;
+    prefix_loglevel: boolean;
     debug_info: boolean;
     color: boolean;
     injectors: LogInjectable[];

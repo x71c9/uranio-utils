@@ -8,7 +8,7 @@
  * LogLevel enum type
  * ...
  */
-export enum LogLevel {NONE, ERROR, WARNING, DEBUG, FUNCTION_DEBUG}
+export enum LogLevel {NONE, ERROR, WARNING, DEBUG, TRACE}
 
 /**
  * LogContext enum type
@@ -72,7 +72,7 @@ export interface LogInjectable{
 //   max_str_length:number
 //   context:LogContext
 //   prefix:string
-//   prefix_type:boolean
+//   prefix_loglevel:boolean
 //   debug_info:boolean
 //   injectors:LogInjectable[]
 // }
@@ -93,7 +93,7 @@ export type LogConfig = {
 	
 	prefix: string
 	
-	prefix_type: boolean
+	prefix_loglevel: boolean
 	
 	debug_info: boolean
 	

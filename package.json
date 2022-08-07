@@ -8,7 +8,7 @@
 	"scripts": {
 		"start": "node -r source-map-support/register dist/index.js",
 		"build": "tsc -b",
-		"dev": "yarn tsc-watch --onSuccess \"node -r source-map-support/register ./dist/dev.js\"",
+		"dev": "yarn tsc-watch --onSuccess \"node -r source-map-support/register ./dist/dev.js --prefix_loglevel\"",
 		"dev:browser": "npx webpack serve --open"
 	},
 	"repository": {
@@ -22,6 +22,7 @@
 	"author": "Andrea Reni <108585118+x71c9@users.noreply.github.com>",
 	"homepage": "https://github.com/x71c9/uranio-lib#readme",
 	"devDependencies": {
+		"@types/minimist": "^1.2.2",
 		"ts-loader": "^9.2.6",
 		"tsc-watch": "^4.6.0",
 		"uranio-dev": "git+ssh://git@github.com:x71c9/uranio-dev.git",
@@ -30,6 +31,7 @@
 		"webpack-dev-server": "^4.6.0"
 	},
 	"dependencies": {
-		"dateformat": "^3.0.3"
+		"dateformat": "^3.0.3",
+		"minimist": "^1.2.6"
 	}
 }

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("./index");
 index_1.urn_log.init({
-    log_level: index_1.urn_log.LogLevel.FUNCTION_DEBUG,
+    log_level: index_1.urn_log.LogLevel.TRACE,
     context: index_1.urn_log.LogContext.BROWSER,
     prefix: ''
 });

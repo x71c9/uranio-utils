@@ -4,14 +4,18 @@
 // console.log(a);
 // const b = urn_util.url.decode_params('sort[_date]=1&sort[_id]=-1&else[]=3&else[]=4');
 // console.log(b);
-// import {urn_log} from './index';
-// // urn_log.init(urn_log.LogLevel.FUNCTION_DEBUG);
-// urn_log.init({
-//   log_level: urn_log.LogLevel.FUNCTION_DEBUG,
-//   debug_info: false,
-//   prefix_type: true,
-//   color: true
-// });
+Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("./index");
+// urn_log.init(urn_log.LogLevel.TRACE);
+index_1.urn_log.init({
+    log_level: index_1.urn_log.LogLevel.TRACE,
+    debug_info: true,
+    // prefix_loglevel: false,
+    color: true
+});
+index_1.urn_log.warn('This is a warning.');
+index_1.urn_log.debug('This is a debug.');
+index_1.urn_log.error('This is a error.');
 // urn_log.warn(`Hello`);
 // urn_log.warn(`Hello`);
 // urn_log.trace(`Hello`);
