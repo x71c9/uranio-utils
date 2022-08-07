@@ -104,6 +104,10 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.warn_inject === 'function')
 					injector.warn_inject(...params);
 				break;
+			case 'info':
+				if(typeof injector.info_inject === 'function')
+					injector.info_inject(...params);
+				break;
 			case 'debug':
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
@@ -123,7 +127,7 @@ function _run_injector(type:LogType, ...params:any[]){
  */
 export function trace(...params:any[])
 		:void{
-	if(log_defaults.log_level > 3){
+	if(log_defaults.log_level > 4){
 		_run_injector('trace', ...params);
 	}
 }
@@ -135,8 +139,20 @@ export function trace(...params:any[])
  */
 export function debug(...params:any[])
 		:void{
-	if(log_defaults.log_level > 2){
+	if(log_defaults.log_level > 3){
 		_run_injector('debug', ...params);
+	}
+}
+
+/**
+ * Info log
+ *
+ * @param ...params - variables to log
+ */
+export function info(...params:any[])
+		:void{
+	if(log_defaults.log_level > 2){
+		_run_injector('info', ...params);
 	}
 }
 

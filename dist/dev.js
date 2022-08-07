@@ -15,6 +15,7 @@ index_1.urn_log.init({
 });
 index_1.urn_log.warn('This is a warning.');
 index_1.urn_log.debug('This is a debug.');
+index_1.urn_log.info('This is a info.');
 index_1.urn_log.error('This is a error.');
 // urn_log.warn(`Hello`);
 // urn_log.warn(`Hello`);

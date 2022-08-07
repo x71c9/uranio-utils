@@ -25,6 +25,12 @@ export declare function trace(...params: any[]): void;
  */
 export declare function debug(...params: any[]): void;
 /**
+ * Info log
+ *
+ * @param ...params - variables to log
+ */
+export declare function info(...params: any[]): void;
+/**
  * Warning log
  *
  * @param ...params - variables to log

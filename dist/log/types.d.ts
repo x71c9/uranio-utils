@@ -11,8 +11,9 @@ export declare enum LogLevel {
     NONE = 0,
     ERROR = 1,
     WARNING = 2,
-    DEBUG = 3,
-    TRACE = 4
+    INFO = 3,
+    DEBUG = 4,
+    TRACE = 5
 }
 /**
  * LogContext enum type
@@ -26,7 +27,7 @@ export declare enum LogContext {
  * LogType type
  *
  */
-export declare type LogType = 'error' | 'warn' | 'debug' | 'trace';
+export declare type LogType = 'error' | 'warn' | 'info' | 'debug' | 'trace';
 /**
  * LogContext type
  *
@@ -39,21 +40,10 @@ export declare type LogType = 'error' | 'warn' | 'debug' | 'trace';
  *
  */
 export interface LogInjectable {
-    /**
-     * Method
-     */
     error_inject?(...p: any): void;
-    /**
-     * Method
-     */
     warn_inject?(...p: any): void;
-    /**
-     * Method
-     */
+    info_inject?(...p: any): void;
     debug_inject?(...p: any): void;
-    /**
-     * Method
-     */
     trace_inject?(...p: any): void;
 }
 /**

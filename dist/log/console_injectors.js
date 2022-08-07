@@ -29,6 +29,9 @@ var console_injectors;
         warn_inject: (...p) => {
             _cecho('warn', _terminal_styles.fgYellow, 6, 3, ...p);
         },
+        info_inject: (...p) => {
+            _cecho('info', _terminal_styles.fgCyan, 6, 1, ...p);
+        },
         debug_inject: (...p) => {
             _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
         },
@@ -42,6 +45,9 @@ var console_injectors;
         },
         warn_inject: (...p) => {
             _cecho('warn', warn_console_style, 0, 0, ...p);
+        },
+        info_inject: (...p) => {
+            _cecho('info', info_console_style, 0, 0, ...p);
         },
         debug_inject: (...p) => {
             _cecho('debug', debug_console_style, 0, 0, ...p);
@@ -86,7 +92,7 @@ function _cecho(type, style, start, depth, ...params) {
 /**
  * Log stack
  *
- * @param type - the type of log [error|warn|log|...]. See URNLogType.
+ * @param type - the type of log [error|warn|info|...]. See URNLogType.
  * @param stylelog - formatted string for styling.
  * @param start - at what line the stack should start.
  * @param depth - how many lines should be log from the stack.
@@ -323,6 +329,7 @@ const _console_styles = {
     fg_debug: 'color: #4880ae;',
     fg_log: 'color: #006ec8;',
     fg_warn: 'color: #cf8d00;',
+    fg_info: 'color: cyan;',
     fg_error: 'color: #e20000;',
     bg_black: 'background-color: black;',
     bg_red: 'background-color: red;',
@@ -337,6 +344,8 @@ const _console_styles = {
     bg_urn_blue: 'background-color: #ECF4FF;',
     fg_urn_purple: 'color: #4200FF;',
     bg_urn_purple: 'background-color: #F4ECFF;',
+    fg_urn_cyan: 'color: cyan;',
+    bg_urn_cyan: 'background-color: cyan;',
 };
 const trace_console_style = [
     // _console_styles.padding,
@@ -347,6 +356,11 @@ const debug_console_style = [
     // _console_styles.padding,
     _console_styles.fg_urn_purple,
     _console_styles.bg_urn_purple
+];
+const info_console_style = [
+    // _console_styles.padding,
+    _console_styles.fg_urn_cyan,
+    _console_styles.bg_urn_cyan
 ];
 const warn_console_style = [
     // _console_styles.padding,
