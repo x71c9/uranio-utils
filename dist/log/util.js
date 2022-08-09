@@ -103,7 +103,6 @@ function random_id() {
  * @param str_args - A string containing the arguments.
  */
 function trace_contructor(rand_id, constructor_name, str_args) {
-    console.log(log_defaults_1.default.full_trace);
     if (!log_defaults_1.default.full_trace) {
         return;
     }

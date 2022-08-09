@@ -112,7 +112,6 @@ function random_id():string{
  */
 function trace_contructor(rand_id:string, constructor_name:string, str_args:string)
 		:void{
-	console.log(log_defaults.full_trace);
 	if(!log_defaults.full_trace){
 		return;
 	}
