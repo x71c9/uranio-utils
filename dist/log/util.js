@@ -103,6 +103,10 @@ function random_id() {
  * @param str_args - A string containing the arguments.
  */
 function trace_contructor(rand_id, constructor_name, str_args) {
+    console.log(log_defaults_1.default.full_trace);
+    if (!log_defaults_1.default.full_trace) {
+        return;
+    }
     (0, log_1.trace)(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
 /**
@@ -125,6 +129,9 @@ function trace_contructor(rand_id, constructor_name, str_args) {
  * @param str_args - A string containing the arguments.
  */
 function trace_method_with_args(rand_id, target_name, method, str_args) {
+    if (!log_defaults_1.default.full_trace) {
+        return;
+    }
     (0, log_1.trace)(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
 /**
@@ -137,6 +144,9 @@ function trace_method_with_args(rand_id, target_name, method, str_args) {
  * @param is_promise - A boolean value, true if the method return a Promise.
  */
 function trace_method_response(rand_id, target_name, method, str_result, is_promise = false) {
+    if (!log_defaults_1.default.full_trace) {
+        return;
+    }
     const promise_str = (is_promise) ? ' [Promise]' : '';
     (0, log_1.trace)(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
 }

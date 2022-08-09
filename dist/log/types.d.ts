@@ -64,4 +64,5 @@ export declare type LogConfig = {
     debug_info: boolean;
     color: boolean;
     injectors: LogInjectable[];
+    full_trace: boolean;
 };

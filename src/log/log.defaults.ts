@@ -35,7 +35,9 @@ const log_defaults:LogConfig = {
 	
 	debug_info: true,
 	
-	color: true
+	color: true,
+	
+	full_trace: false
 	
 };
 

@@ -25,7 +25,8 @@ const log_defaults = {
     injectors: [],
     prefix_loglevel: false,
     debug_info: true,
-    color: true
+    color: true,
+    full_trace: false
 };
 exports.default = log_defaults;
 //# sourceMappingURL=log.defaults.js.map

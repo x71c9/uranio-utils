@@ -112,6 +112,10 @@ function random_id():string{
  */
 function trace_contructor(rand_id:string, constructor_name:string, str_args:string)
 		:void{
+	console.log(log_defaults.full_trace);
+	if(!log_defaults.full_trace){
+		return;
+	}
 	trace(`[${rand_id}] new ${constructor_name}(${str_args})`);
 }
 
@@ -137,6 +141,9 @@ function trace_contructor(rand_id:string, constructor_name:string, str_args:stri
  */
 function trace_method_with_args(rand_id:string, target_name:string, method:string, str_args:string)
 		:void{
+	if(!log_defaults.full_trace){
+		return;
+	}
 	trace(`[${rand_id}] ${target_name}.${method}(${str_args})`);
 }
 
@@ -151,6 +158,9 @@ function trace_method_with_args(rand_id:string, target_name:string, method:strin
  */
 function trace_method_response(rand_id:string, target_name:string, method:string, str_result:string, is_promise=false)
 		:void{
+	if(!log_defaults.full_trace){
+		return;
+	}
 	const promise_str = (is_promise) ? ' [Promise]' : '';
 	trace(`[${rand_id}] [R]${promise_str} ${target_name}.${method}:`, `${str_result}`);
 }

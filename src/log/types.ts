@@ -91,6 +91,8 @@ export type LogConfig = {
 	
 	injectors: LogInjectable[]
 	
+	full_trace: boolean
+	
 }
 
 
