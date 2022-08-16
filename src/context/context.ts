@@ -52,13 +52,7 @@ class Context<T extends ContextDefault> {
 				`Cannot find key [${key}] in Context.`
 			);
 		}
-		if(
-			!this._is_production
-			&& typeof this.context[`dev_${key}`] !== 'undefined'
-		){
-			return this.context[`dev_${key}`] as T[k];
-		}
-		return this.context[key];
+		return this._get(key);
 	}
 	
 	public get_all():T{
@@ -69,6 +63,25 @@ class Context<T extends ContextDefault> {
 		const env = this._get_env_vars();
 		// console.log(this.name, env);
 		this.set(env);
+	}
+	
+	/**
+	 * Do not check if the key paramter is a valid one.
+	 *
+	 * @param key: any key
+	 */
+	public get_any(key:any):any{
+		return this._get(key);
+	}
+
+	private _get<k extends string>(key:k):T[k]{
+		if(
+			!this._is_production
+			&& typeof this.context[`dev_${key}`] !== 'undefined'
+		){
+			return this.context[`dev_${key}`] as T[k];
+		}
+		return this.context[key];
 	}
 	
 	private _get_env_vars():T{

@@ -37,6 +37,9 @@ function safe_stringify_oneline(obj, white_space = ' ') {
                 set_string += set_elements + ` }`;
                 v = set_string;
             }
+            if (v instanceof Function) {
+                v = v.toString();
+            }
             v = (v instanceof Set) ? Array.from(v).toString() : v;
             return v === undefined || k === undefined ? 'undefined' : v;
         }, white_space);

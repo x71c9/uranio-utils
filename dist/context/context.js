@@ -63,11 +63,7 @@ class Context {
         if (!util.object.has_key(this.context, key)) {
             throw urn_exc.create(`INVALID_CONTEXT_KEY`, `Cannot find key [${key}] in Context.`);
         }
-        if (!this._is_production
-            && typeof this.context[`dev_${key}`] !== 'undefined') {
-            return this.context[`dev_${key}`];
-        }
-        return this.context[key];
+        return this._get(key);
     }
     get_all() {
         return this.context;
@@ -76,6 +72,21 @@ class Context {
         const env = this._get_env_vars();
         // console.log(this.name, env);
         this.set(env);
+    }
+    /**
+     * Do not check if the key paramter is a valid one.
+     *
+     * @param key: any key
+     */
+    get_any(key) {
+        return this._get(key);
+    }
+    _get(key) {
+        if (!this._is_production
+            && typeof this.context[`dev_${key}`] !== 'undefined') {
+            return this.context[`dev_${key}`];
+        }
+        return this.context[key];
     }
     _get_env_vars() {
         const env = {};

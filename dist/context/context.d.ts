@@ -18,6 +18,13 @@ declare class Context<T extends ContextDefault> {
     get<k extends string>(key: k): T[k];
     get_all(): T;
     set_env(): void;
+    /**
+     * Do not check if the key paramter is a valid one.
+     *
+     * @param key: any key
+     */
+    get_any(key: any): any;
+    private _get;
     private _get_env_vars;
 }
 export declare function create<T>(_default: T, _is_production: boolean, name?: string): Context<T>;
