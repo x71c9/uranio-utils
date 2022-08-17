@@ -1,5 +1,5 @@
 {
-	"name": "urn-lib",
+	"name": "uranio-lib",
 	"license": "UNLICENSED",
 	"version": "0.0.1",
 	"description": "Uranio library. Shared code used in Uranio repos.",
@@ -25,7 +25,7 @@
 		"@types/minimist": "^1.2.2",
 		"ts-loader": "^9.2.6",
 		"tsc-watch": "^4.6.0",
-		"uranio-dev": "git+ssh://git@github.com:x71c9/uranio-dev.git",
+		"uranio-dev": "^0.0.1",
 		"webpack": "^5.64.4",
 		"webpack-cli": "^4.9.1",
 		"webpack-dev-server": "^4.6.0"
