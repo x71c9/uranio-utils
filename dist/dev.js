@@ -10,7 +10,7 @@ const index_1 = require("./index");
 index_1.urn_log.init({
     log_level: index_1.urn_log.LogLevel.TRACE,
     debug_info: true,
-    // prefix_loglevel: false,
+    // prefix_log_type: false,
     color: true
 });
 index_1.urn_log.warn('This is a warning.');

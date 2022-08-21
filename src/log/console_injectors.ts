@@ -151,7 +151,7 @@ function _log_stack(type:LogType, stylelog:string, start=0, depth=-1, is_error=f
 		let string = '';
 		string += head_string;
 		string += (call_info != null) ? call_info[1] : psc.split('at ')[1];
-		if(log_defaults.prefix_loglevel === true){
+		if(log_defaults.prefix_log_type === true){
 			string = `[${type}${'_'.repeat(5 - type.length)}]${string}`;
 		}
 		if(log_defaults.context === LogContext.BROWSER){
@@ -249,7 +249,7 @@ function _log_param(p:any, stylelog:string, type:LogType)
 			if(log_defaults.prefix !== ''){
 				pp = `${log_defaults.prefix} ${pp}`;
 			}
-			if(log_defaults.prefix_loglevel === true){
+			if(log_defaults.prefix_log_type === true){
 				pp = `[${type}${'_'.repeat(5 - type.length)}]${pp}`;
 			}
 			if(type === 'error'){

@@ -62,7 +62,7 @@ export interface LogInjectable{
 //   max_str_length:number
 //   context:LogContext
 //   prefix:string
-//   prefix_loglevel:boolean
+//   prefix_log_type:boolean
 //   debug_info:boolean
 //   injectors:LogInjectable[]
 // }
@@ -83,7 +83,7 @@ export type LogConfig = {
 	
 	prefix: string
 	
-	prefix_loglevel: boolean
+	prefix_log_type: boolean
 	
 	debug_info: boolean
 	

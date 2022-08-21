@@ -43,8 +43,8 @@ export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 		if(typeof log_config.prefix === 'string' && log_config.prefix !== ''){
 			log_defaults.prefix = log_config.prefix;
 		}
-		if(log_config.prefix_loglevel === true){
-			log_defaults.prefix_loglevel = true;
+		if(log_config.prefix_log_type === true){
+			log_defaults.prefix_log_type = true;
 		}
 		if(log_config.debug_info === false){
 			log_defaults.debug_info = false;
@@ -67,16 +67,18 @@ export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 		log_defaults.injectors = [log_injector];
 	}
 	
+	// When flag --prefix_logtype is set set default prefix_log_type = true
+	// and log_level = TRACE
 	const args = minimist(process.argv.slice(2));
-	if(args.prefix_loglevel == true){
-		log_defaults.prefix_loglevel = true;
+	if(args.prefix_logtype == true){
+		log_defaults.prefix_log_type = true;
 		log_defaults.log_level = LogLevel.TRACE;
 	}
 	
 	// for(const cmd of process.argv.slice(2)){
 	// 	const splitted = cmd.split('=');
 	// 	if(splitted[0] === 'urn_prefix_loglevel'){
-	// 		log_defaults.prefix_loglevel = (!!splitted[1]);
+	// 		log_defaults.prefix_log_type = (!!splitted[1]);
 	// 	}
 	// }
 	

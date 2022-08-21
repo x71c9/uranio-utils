@@ -23,7 +23,7 @@ const log_defaults = {
     context: types_1.LogContext.TERMINAL,
     prefix: '',
     injectors: [],
-    prefix_loglevel: false,
+    prefix_log_type: false,
     debug_info: true,
     color: true,
     full_trace: false

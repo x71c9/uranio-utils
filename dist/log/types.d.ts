@@ -60,7 +60,7 @@ export declare type LogConfig = {
     max_str_length: number;
     context: LogContext;
     prefix: string;
-    prefix_loglevel: boolean;
+    prefix_log_type: boolean;
     debug_info: boolean;
     color: boolean;
     injectors: LogInjectable[];

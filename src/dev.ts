@@ -10,7 +10,7 @@ import {urn_log} from './index';
 urn_log.init({
   log_level: urn_log.LogLevel.TRACE,
   debug_info: true,
-  // prefix_loglevel: false,
+  // prefix_log_type: false,
   color: true
 });
 
