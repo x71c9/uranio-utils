@@ -110,6 +110,10 @@ function _run_injector(type:LogType, ...params:any[]){
 				if(typeof injector.info_inject === 'function')
 					injector.info_inject(...params);
 				break;
+			case 'success':
+				if(typeof injector.success_inject === 'function')
+					injector.success_inject(...params);
+				break;
 			case 'debug':
 				if(typeof injector.debug_inject === 'function')
 					injector.debug_inject(...params);
@@ -155,6 +159,18 @@ export function info(...params:any[])
 		:void{
 	if(log_defaults.log_level > 2){
 		_run_injector('info', ...params);
+	}
+}
+
+/**
+ * Success log
+ *
+ * @param ...params - variables to log
+ */
+export function success(...params:any[])
+		:void{
+	if(log_defaults.log_level > 2){
+		_run_injector('success', ...params);
 	}
 }
 

@@ -17,6 +17,7 @@ urn_log.init({
 urn_log.warn('This is a warning.');
 urn_log.debug('This is a debug.');
 urn_log.info('This is a info.');
+urn_log.success('This is a success.');
 urn_log.error('This is a error.');
 
 // urn_log.warn(`Hello`);

@@ -31,6 +31,12 @@ export declare function debug(...params: any[]): void;
  */
 export declare function info(...params: any[]): void;
 /**
+ * Success log
+ *
+ * @param ...params - variables to log
+ */
+export declare function success(...params: any[]): void;
+/**
  * Warning log
  *
  * @param ...params - variables to log

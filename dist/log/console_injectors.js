@@ -32,6 +32,9 @@ var console_injectors;
         info_inject: (...p) => {
             _cecho('info', _terminal_styles.fgCyan, 6, 1, ...p);
         },
+        success_inject: (...p) => {
+            _cecho('info', _terminal_styles.fgGreen, 6, 1, ...p);
+        },
         debug_inject: (...p) => {
             _cecho('debug', _terminal_styles.fgBlue, 6, 1, ...p);
         },
@@ -48,6 +51,9 @@ var console_injectors;
         },
         info_inject: (...p) => {
             _cecho('info', info_console_style, 0, 0, ...p);
+        },
+        success_inject: (...p) => {
+            _cecho('info', success_console_style, 0, 0, ...p);
         },
         debug_inject: (...p) => {
             _cecho('debug', debug_console_style, 0, 0, ...p);
@@ -330,6 +336,7 @@ const _console_styles = {
     fg_log: 'color: #006ec8;',
     fg_warn: 'color: #cf8d00;',
     fg_info: 'color: cyan;',
+    fg_success: 'color: green;',
     fg_error: 'color: #e20000;',
     bg_black: 'background-color: black;',
     bg_red: 'background-color: red;',
@@ -346,6 +353,8 @@ const _console_styles = {
     bg_urn_purple: 'background-color: #F4ECFF;',
     fg_urn_cyan: 'color: cyan;',
     bg_urn_cyan: 'background-color: cyan;',
+    fg_urn_green: 'color: green;',
+    bg_urn_green: 'background-color: green;',
 };
 const trace_console_style = [
     // _console_styles.padding,
@@ -361,6 +370,11 @@ const info_console_style = [
     // _console_styles.padding,
     _console_styles.fg_urn_cyan,
     _console_styles.bg_urn_cyan
+];
+const success_console_style = [
+    // _console_styles.padding,
+    _console_styles.fg_urn_green,
+    _console_styles.bg_urn_green
 ];
 const warn_console_style = [
     // _console_styles.padding,

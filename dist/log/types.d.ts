@@ -27,7 +27,7 @@ export declare enum LogContext {
  * LogType type
  *
  */
-export declare type LogType = 'error' | 'warn' | 'info' | 'debug' | 'trace';
+export declare type LogType = 'error' | 'warn' | 'info' | 'success' | 'debug' | 'trace';
 /**
  * LogContext type
  *
@@ -43,6 +43,7 @@ export interface LogInjectable {
     error_inject?(...p: any): void;
     warn_inject?(...p: any): void;
     info_inject?(...p: any): void;
+    success_inject?(...p: any): void;
     debug_inject?(...p: any): void;
     trace_inject?(...p: any): void;
 }

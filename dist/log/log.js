@@ -8,7 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.error = exports.warn = exports.info = exports.debug = exports.trace = exports.init = exports.defaults = void 0;
+exports.error = exports.warn = exports.success = exports.info = exports.debug = exports.trace = exports.init = exports.defaults = void 0;
 const minimist_1 = __importDefault(require("minimist"));
 const types_1 = require("./types");
 const log_defaults_1 = __importDefault(require("./log.defaults"));
@@ -95,6 +95,10 @@ function _run_injector(type, ...params) {
                 if (typeof injector.info_inject === 'function')
                     injector.info_inject(...params);
                 break;
+            case 'success':
+                if (typeof injector.success_inject === 'function')
+                    injector.success_inject(...params);
+                break;
             case 'debug':
                 if (typeof injector.debug_inject === 'function')
                     injector.debug_inject(...params);
@@ -139,6 +143,17 @@ function info(...params) {
     }
 }
 exports.info = info;
+/**
+ * Success log
+ *
+ * @param ...params - variables to log
+ */
+function success(...params) {
+    if (log_defaults_1.default.log_level > 2) {
+        _run_injector('success', ...params);
+    }
+}
+exports.success = success;
 /**
  * Warning log
  *
