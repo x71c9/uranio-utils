@@ -1,4 +1,4 @@
-### URANIO LIB
+### URANIO UTILS
 
-Uranio shared libraries
+Uranio shared utility libraries.
 

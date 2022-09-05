@@ -1,8 +1,8 @@
 {
-	"name": "uranio-lib",
+	"name": "uranio-utils",
 	"license": "UNLICENSED",
-	"version": "0.0.3",
-	"description": "Uranio library. Shared code used in Uranio repos.",
+	"version": "0.0.4",
+	"description": "Uranio utility libraries. Shared code used in all Uranio repos.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -13,14 +13,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+ssh://git@github.com:x71c9/uranio-lib.git"
+		"url": "git+ssh://git@github.com:x71c9/uranio-utils.git"
 	},
 	"keywords": [
 		"uranio",
 		"urn"
 	],
 	"author": "Andrea Reni <108585118+x71c9@users.noreply.github.com>",
-	"homepage": "https://github.com/x71c9/uranio-lib#readme",
+	"homepage": "https://github.com/x71c9/uranio-utils#readme",
 	"devDependencies": {
 		"@types/minimist": "^1.2.2",
 		"ts-loader": "^9.2.6",
