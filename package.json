@@ -1,7 +1,7 @@
 {
 	"name": "uranio-utils",
 	"license": "UNLICENSED",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Uranio utility libraries. Shared code used in all Uranio repos.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
