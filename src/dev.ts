@@ -11,7 +11,8 @@ urn_log.init({
   log_level: urn_log.LogLevel.TRACE,
   debug_info: true,
   // prefix_log_type: false,
-  color: true
+  color: true,
+	// full_trace: true
 });
 
 urn_log.warn('This is a warning.');
@@ -19,6 +20,17 @@ urn_log.debug('This is a debug.');
 urn_log.info('This is a info.');
 urn_log.success('This is a success.');
 urn_log.error('This is a error.');
+
+@urn_log.util.decorators.debug_constructor
+@urn_log.util.decorators.debug_methods
+class Pippo {
+	constructor(public field:string){}
+	public pippo(){
+		console.log(this.field);
+	}
+}
+const pippo = new Pippo('D');
+pippo.pippo();
 
 // urn_log.warn(`Hello`);
 // urn_log.warn(`Hello`);

@@ -27,5 +27,5 @@ declare class Context<T extends ContextDefault> {
     private _get;
     private _get_env_vars;
 }
-export declare function create<T>(_default: T, _is_production: boolean, name?: string): Context<T>;
+export declare function create<T extends ContextDefault>(_default: T, _is_production: boolean, name?: string): Context<T>;
 export {};

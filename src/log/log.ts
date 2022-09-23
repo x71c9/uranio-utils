@@ -52,7 +52,9 @@ export function init(log_config?: Partial<LogConfig> | LogLevel):void{
 		if(log_config.color === false){
 			log_defaults.color = false;
 		}
-		
+		if(log_config.full_trace === true){
+			log_defaults.full_trace = true;
+		}
 	}
 	if(
 		typeof log_config === 'object'

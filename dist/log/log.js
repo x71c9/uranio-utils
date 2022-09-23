@@ -43,6 +43,9 @@ function init(log_config) {
         if (log_config.color === false) {
             log_defaults_1.default.color = false;
         }
+        if (log_config.full_trace === true) {
+            log_defaults_1.default.full_trace = true;
+        }
     }
     if (typeof log_config === 'object'
         && log_config

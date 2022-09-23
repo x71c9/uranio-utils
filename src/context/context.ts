@@ -136,7 +136,8 @@ class Context<T extends ContextDefault> {
 	// }
 }
 
-export function create<T>(_default:T, _is_production:boolean, name?:string):Context<T>{
+export function create<T extends ContextDefault>(_default:T, _is_production:boolean, name?:string)
+		:Context<T>{
 	const ctx = new Context(_default, _is_production, name);
 	return ctx;
 }

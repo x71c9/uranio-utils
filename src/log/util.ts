@@ -75,6 +75,7 @@ export namespace decorators {
 				continue;
 			if(typeof (descriptor as any).no_debug === undefined)
 				replace_method_with_logs(target, descriptor, property_name);
+			replace_method_with_logs(target, descriptor, property_name);
 			Object.defineProperty(target.prototype, property_name, descriptor);
 		}
 		//static methods
