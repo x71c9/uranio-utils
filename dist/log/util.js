@@ -159,6 +159,9 @@ function trace_method_response(rand_id, target_name, method, str_result, is_prom
  * @param err - The error to log.
  */
 function trace_method_response_error(rand_id, target_name, method, err) {
+    if (!log_defaults_1.default.full_trace) {
+        return;
+    }
     (0, log_1.trace)(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
     (0, log_1.error)(err);
 }

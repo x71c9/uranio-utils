@@ -175,6 +175,9 @@ function trace_method_response(rand_id:string, target_name:string, method:string
  */
 function trace_method_response_error(rand_id:string, target_name:string, method:string, err:Error)
 		:void{
+	if(!log_defaults.full_trace){
+		return;
+	}
 	trace(`[${rand_id}] [R] ${target_name}.${method}: ERROR`);
 	error(err);
 }
